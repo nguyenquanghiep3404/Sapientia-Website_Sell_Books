@@ -21,6 +21,13 @@ switch ($action) {
     case "admin":
         $productAdmin->index();
         break;
+    case "list-book":
+        $productAdmin->showListBook();
+        break;
+    case "create-book":
+        $productAdmin->addBook();
+        break;
+
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":
         include './views/403page.php';

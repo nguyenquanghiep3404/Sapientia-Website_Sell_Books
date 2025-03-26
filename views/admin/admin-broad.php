@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <button>123</button>
+    <h3>Quản lý sách</h3>
+    <a href="./views/list-book.php">a</a>
 </body>
 </html>
