@@ -72,4 +72,5 @@ class AdminUsersController {
         header('Location: index.php?action=user');
         exit();
     }
+    public function aa(){}
 }
