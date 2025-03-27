@@ -73,6 +73,9 @@ class ProductAdminModel {
         }
     }
     // add bieens the
+    public function hhd(){
+        
+    }
     
     public function __destruct()
     {
