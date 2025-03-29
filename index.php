@@ -8,18 +8,35 @@ require_once "./commons/function.php";
 // Kết nối với model
 // model bên admin
 require_once "./models/admin/ProductAdminModel.php";
+require_once "./models/admin/UserAdminModel.php";
 // model bên client
 
 // Kết nối Controller
 // Controller bên admin
 require_once "./controllers/admin/ProductAdminController.php";
+require_once "./controllers/admin/UserAdminController.php";
 // Controller bên client
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
-$productAdmin = new ProductAdminController();
+$action = isset($_GET["action"]) ? $_GET["action"] : 'user';
+$userAdmin = new AdminUsersController();
 switch ($action) {
-    case "admin":
-        $productAdmin->index();
+    case "user":
+        $userAdmin->list();
+        break;
+    case "user_add":
+        $userAdmin->formAdd();
+        break;
+    case "user_add_post":
+        $userAdmin->postAdd();
+        break;
+    case "user_edit":
+        $userAdmin->formEdit();
+        break;
+    case "user_edit_post":
+        $userAdmin->postEdit();
+        break;
+    case "user_delete":
+        $userAdmin->delete();
         break;
     case "list-book":
         $productAdmin->showListBook();
