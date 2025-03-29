@@ -11,7 +11,7 @@
                               <div class="row">
                                    <div class="col-12">
                                         <div class="alert alert-primary text-truncate mb-3" role="alert">
-                                             ffffff
+                                             fffffffffff
                                         </div>
                                    </div>
 
