@@ -8,24 +8,42 @@ class ProductAdminModel {
     {
         $this->conn = connect_db();
     }
-    public function getAllBook(){
+    public function getAllBookWithVariants()
+    {
         try {
-            $sql = "SELECT 
-                        books.*, 
-                        categories.category_name,
-                        GROUP_CONCAT(DISTINCT book_variants.book_price) AS prices,
-                        GROUP_CONCAT(DISTINCT book_variants.book_sale_price) AS sale_prices,
-                        GROUP_CONCAT(DISTINCT book_variants.quantity) AS book_quantity
-                    FROM books
-                    INNER JOIN categories ON books.category_id = categories.category_id
-                    LEFT JOIN book_variants ON books.book_id = book_variants.book_id
-                    GROUP BY books.book_id ";
-    
+            // Viết lại câu SQL một cách rõ ràng, không comment inline
+            $sql = "SELECT
+                        b.book_id,
+                        b.book_title,
+                        b.book_image,
+                        b.status,
+                        b.updated_at,
+                        c.category_name,
+                        bv.book_variant_id AS variant_id,
+                        bv.format,
+                        bv.language,
+                        bv.book_price AS variant_price,
+                        bv.book_sale_price AS variant_sale_price,
+                        bv.quantity AS variant_quantity
+                    FROM
+                        books b
+                    INNER JOIN
+                        categories c ON b.category_id = c.category_id
+                    LEFT JOIN
+                        book_variants bv ON b.book_id = bv.book_id
+                    ORDER BY
+                        b.book_id, bv.book_variant_id";
+
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         } catch (Exception $e) {
-            echo "<h1>Lỗi trong hàm getAllBook: " . $e->getMessage() . "</h1>";
+            // Log lỗi chi tiết hơn
+            error_log("SQL Error in getAllBookWithVariants: " . $e->getMessage() . "\nSQL Query: " . $sql); // Ghi cả câu SQL gây lỗi vào log
+            echo "<h1>Đã xảy ra lỗi khi truy vấn dữ liệu sách. Vui lòng thử lại sau.</h1>";
+            // Hoặc có thể hiển thị $e->getMessage() nếu đang ở môi trường development để debug
+            // echo "DEBUG: " . $e->getMessage();
             return [];
         }
     }
@@ -222,12 +240,49 @@ class ProductAdminModel {
             return false;
         }
     }
-
-    
-    
-    public function editBook(){
-        
+    // Xóa nhiều biến thể dựa trên mảng ID
+    public function deleteBookVariants(array $variant_ids) {
+        if (empty($variant_ids)) {
+            return true; // Không có gì để xóa
+        }
+        try {
+            // Tạo placeholders (?, ?, ?) cho câu lệnh IN
+            $placeholders = implode(',', array_fill(0, count($variant_ids), '?'));
+            $sql = "DELETE FROM book_variants WHERE variant_id IN ($placeholders)";
+            $stmt = $this->conn->prepare($sql);
+            return $stmt->execute($variant_ids);
+        } catch (Exception $e) {
+            error_log("Lỗi xóa biến thể: " . $e->getMessage());
+            return false;
+        }
     }
+
+    // Xóa TẤT CẢ biến thể của một sách (dùng khi xóa sách)
+    public function deleteAllVariantsByBookId($book_id) {
+         try {
+             $sql = "DELETE FROM book_variants WHERE book_id = ?";
+             $stmt = $this->conn->prepare($sql);
+             return $stmt->execute([$book_id]);
+         } catch (Exception $e) {
+             error_log("Lỗi xóa tất cả biến thể của sách $book_id: " . $e->getMessage());
+              // Ném lại lỗi để transaction có thể rollback
+             throw $e; // Quan trọng cho transaction
+         }
+     }
+
+    // Xóa sách chính bằng ID (dùng khi xóa sách)
+     public function deleteBookById($book_id) {
+         try {
+             $sql = "DELETE FROM books WHERE book_id = ?";
+             $stmt = $this->conn->prepare($sql);
+             return $stmt->execute([$book_id]);
+         } catch (Exception $e) {
+             error_log("Lỗi xóa sách $book_id: " . $e->getMessage());
+             // Ném lại lỗi để transaction có thể rollback
+             throw $e; // Quan trọng cho transaction
+         }
+     }
+
     public function __destruct()
     {
         $this->conn = null;

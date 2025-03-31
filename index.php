@@ -18,6 +18,7 @@ require_once "./controllers/admin/UserAdminController.php";
 // Controller bên client
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'user';
+$productAdmin = new ProductAdminController() ;
 $userAdmin = new AdminUsersController();
 switch ($action) {
     case "user":
