@@ -25,8 +25,8 @@
                                 <a href="index.php?act=show&id_cate=<?= $category['category_id'] ?>" class="btn btn-info btn-sm">
                                     Xem chi tiết
                                 </a>
-                                <a href="<?= BASE_URL . 'index.php?act=edit&id_cate=' . $category['category_id'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="<?= BASE_URL . 'index.php?act=delete&id_cate=' . $category['category_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
+                                <a href="<?= BASE_URL . 'index.php?act=edit-category&id_cate=' . $category['category_id'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+                                <a href="<?= BASE_URL . 'index.php?act=delete-category&id_cate=' . $category['category_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
