@@ -8,7 +8,7 @@ require_once "./controllers/admin/AdminCategoriesController.php";
 require_once "./controllers/admin/AdminAuthorsController.php";
 require_once "./controllers/admin/AdminPublishersController.php";
 require_once "./controllers/admin/AdminDashboardController.php";
-
+require_once "./controllers/admin/ProductAdminController.php";
 // Kết nối với model
 // model bên admin
 require_once "./models/admin/ProductAdminModel.php";
@@ -19,15 +19,36 @@ require_once "./models/admin/UserAdminModel.php";
 // Controller bên admin
 
 require_once "./controllers/admin/UserAdminController.php";
+require_once "./controllers/admin/AuthController.php";
 // Controller bên client
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'user';
 $userAdmin = new AdminUsersController();
+
 $controller = new AdminDashboardController();
 $controllerCategory = new AdminCategoriesController();
 $controllerAuthors = new AdminAuthorsController();
 $controllerPublishers = new AdminPublishersController();
+
+$productAdmin = new ProductAdminController();
+$authController = new AuthController();
+
 switch ($action) {
+    case "login":
+        $authController->showLoginForm();
+        break;
+    case "login_post":
+        $authController->login();
+        break;
+    case "register":
+        $authController->showRegisterForm();
+        break;
+    case "register_post":
+        $authController->register();
+        break;
+    case "logout":
+        $authController->logout();
+        break;
     case "user":
         $userAdmin->list();
         break;
@@ -52,7 +73,6 @@ switch ($action) {
     case "create-book":
         $productAdmin->addBook();
         break;
-
     // Quản lý danh mục (Category)
     case "category":
         $controllerCategory->list();
@@ -82,9 +102,9 @@ switch ($action) {
     case "delete-author":
         $controllerAuthors->delete();
         break;
-        case "show-author":
-            $controllerAuthors->showDetail();
-            break;
+    case "show-author":
+        $controllerAuthors->showDetail();
+        break;
 
     // Quản lý nhà xuất bản (Publisher)
     case "publisher":
@@ -101,6 +121,8 @@ switch ($action) {
         break;
     case "show-publisher":
         $controllerPublishers->showDetail();
+    case "edit-book":
+        $productAdmin->editBook();
         break;
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":

@@ -22,7 +22,7 @@
                             <td><?= htmlspecialchars($category['category_name']) ?></td>
                             <td><?= htmlspecialchars($category['description']) ?></td>
                             <td>
-                                <a href="index.php?act=show&id_cate=<?= $category['category_id'] ?>" class="btn btn-info btn-sm">
+                                <a href="index.php?act=show-category&id_cate=<?= $category['category_id'] ?>" class="btn btn-info btn-sm">
                                     Xem chi tiết
                                 </a>
                                 <a href="<?= BASE_URL . 'index.php?act=edit-category&id_cate=' . $category['category_id'] ?>" class="btn btn-warning btn-sm">Sửa</a>

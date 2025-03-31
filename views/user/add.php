@@ -12,7 +12,7 @@
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="password" placeholder="Mật khẩu" required>
     <input type="text" name="address" placeholder="Địa chỉ">
-    <input type="text" name="phone" placeholder="Số điện thoại">
+    <input type="tel" name="phone" placeholder="Số điện thoại">
     <button type="submit">Thêm</button>
 </form>
 </body>
