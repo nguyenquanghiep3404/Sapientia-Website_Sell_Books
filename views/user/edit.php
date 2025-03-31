@@ -13,7 +13,7 @@
     <input type="email" name="email" value="<?= $user['email'] ?>" required>
     <input type="password" name="password" placeholder="Để trống nếu không muốn đổi">
     <input type="text" name="address" value="<?= $user['address'] ?>">
-    <input type="text" name="phone" value="<?= $user['phone'] ?>">
+    <input type="tel" name="phone" value="<?= $user['phone'] ?>">
     <button type="submit">Cập nhật</button>
 </form>
 </body>
