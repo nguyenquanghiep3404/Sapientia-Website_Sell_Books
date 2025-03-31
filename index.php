@@ -1,32 +1,61 @@
 <?php
-session_start();
-
-// Kết nối PDO
 require_once "./commons/env.php";
 require_once "./commons/function.php";
+require_once "./models/admin/CategoryAdminModel.php";
+require_once "./models/admin/AuthorAdminModel.php";
+require_once "./models/admin/PublisherAdminModel.php";
+require_once "./controllers/admin/AdminCategoriesController.php";
+require_once "./controllers/admin/AdminAuthorsController.php";
+require_once "./controllers/admin/AdminPublishersController.php";
+require_once "./controllers/admin/AdminDashboardController.php";
 
-// Kết nối với model
-// model bên admin
-require_once "./models/admin/ProductAdminModel.php";
-// model bên client
+$action = isset($_GET["act"]) ? $_GET["act"] : 'dashboard';  
+$type = isset($_GET["type"]) && in_array($_GET["type"], ['category', 'author', 'publisher']) ? $_GET["type"] : 'category';
 
-// Kết nối Controller
-// Controller bên admin
-require_once "./controllers/admin/ProductAdminController.php";
-// Controller bên client
+if ($action === "dashboard") {
+    $controller = new AdminDashboardController();
+    $controller->index();
+    exit();
+}
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
-$productAdmin = new ProductAdminController();
-switch ($action) {
-    case "admin":
-        $productAdmin->index();
+switch ($type) {
+    case "category":
+        $controller = new AdminCategoriesController();
         break;
-    // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
-    case "403":
-        include './views/403page.php';
+    case "author":
+        $controller = new AdminAuthorsController();
+        break;
+    case "publisher":
+        $controller = new AdminPublishersController();
         break;
     default:
-        http_response_code(404);
-        require_once "./views/404page.php";
+        header("Location: " . BASE_URL . "index.php?act=dashboard");
+        exit();
+}
+
+switch ($action) {
+    case "list":
+        $controller->list();
         break;
+    case "add":
+        $controller->formAdd();
+        break;
+    case "postAdd":
+        $controller->postAdd();
+        break;
+    case "edit":
+        $controller->formEdit();
+        break;
+    case "postEdit":
+        $controller->postEdit();
+        break;
+    case "delete":
+        $controller->delete();
+        break;
+    case "show":
+        $controller->showDetail();
+        break;
+    default:
+        header("Location: " . BASE_URL . "index.php?act=dashboard");
+        exit();
 }
