@@ -22,18 +22,18 @@ require_once "./controllers/admin/UserAdminController.php";
 require_once "./controllers/admin/AuthController.php";
 // Controller bên client
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'user';
+$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
 $userAdmin = new AdminUsersController();
-
 $controller = new AdminDashboardController();
 $controllerCategory = new AdminCategoriesController();
 $controllerAuthors = new AdminAuthorsController();
 $controllerPublishers = new AdminPublishersController();
-
 $productAdmin = new ProductAdminController();
 $authController = new AuthController();
 
 switch ($action) {
+    case "admin":
+        $productAdmin->index();
     case "login":
         $authController->showLoginForm();
         break;
@@ -123,6 +123,9 @@ switch ($action) {
         $controllerPublishers->showDetail();
     case "edit-book":
         $productAdmin->editBook();
+        break;
+    case "delete-book":
+        $productAdmin->deleteBook();
         break;
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":
