@@ -15,14 +15,31 @@ require_once "./models/admin/UserAdminModel.php";
 // Controller bên admin
 require_once "./controllers/admin/ProductAdminController.php";
 require_once "./controllers/admin/UserAdminController.php";
+require_once "./controllers/admin/AuthController.php";
 // Controller bên client
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
 $productAdmin = new ProductAdminController() ;
 $userAdmin = new AdminUsersController();
+$productAdmin = new ProductAdminController();
+$authController = new AuthController();
 switch ($action) {
     case "admin":
         $productAdmin->index();
+    case "login":
+        $authController->showLoginForm();
+        break;
+    case "login_post":
+        $authController->login();
+        break;
+    case "register":
+        $authController->showRegisterForm();
+        break;
+    case "register_post":
+        $authController->register();
+        break;
+    case "logout":
+        $authController->logout();
         break;
     case "user":
         $userAdmin->list();

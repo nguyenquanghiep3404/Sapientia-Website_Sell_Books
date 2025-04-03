@@ -19,20 +19,23 @@ class User {
     }
     public function add($user_name, $email, $password, $address, $phone, $role_id) {
         try {
-            $sql = 'INSERT INTO users (user_name, email, password, address, phone, role_id) VALUES (:user_name, :email, :password, :address, :phone, :role_id)';
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
+            $sql = 'INSERT INTO users (user_name, email, password, address, phone, role_id) 
+                    VALUES (:user_name, :email, :password, :address, :phone, :role_id)';
+            $stml = $this->conn->prepare($sql);
+            $stml->execute([
                 ':user_name' => $user_name,
                 ':email' => $email,
-                ':password' => $password,
+                ':password' => $password,  // Lưu mật khẩu bình thường, không mã hóa
                 ':address' => $address,
                 ':phone' => $phone,
                 ':role_id' => $role_id
             ]);
+            return true;
         } catch (Exception $e) {
             echo "Lỗi: " . $e->getMessage();
         }
     }
+    
     public function getDetail($user_id) {
         try {
             $sql = 'SELECT * FROM users WHERE user_id = :user_id';
@@ -83,4 +86,40 @@ class User {
             echo "Lỗi: " . $e->getMessage();
         }
     }
+    public function register($user_name, $email, $password, $address, $phone) {
+        try {
+            $sql = "INSERT INTO users (user_name, email, password, address, phone, role_id) 
+                    VALUES (:user_name, :email, :password, :address, :phone, 1)";
+            $stmt = $this->conn->prepare($sql);
+            return $stmt->execute([
+                ':user_name' => $user_name,
+                ':email' => $email,
+                ':password' => $password, // Lưu mật khẩu dạng plain text
+                ':address' => $address,
+                ':phone' => $phone
+            ]);
+        } catch (Exception $e) {
+            echo "Lỗi: " . $e->getMessage();
+        }
+    }
+
+    public function getUserByEmail($email) {
+        try {
+            $sql = "SELECT * FROM users WHERE email = :email";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':email' => $email]);
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo "Lỗi: " . $e->getMessage();
+        }
+    }
+
+    public function login($email, $password) {
+        $user = $this->getUserByEmail($email);
+        if ($user && $password === $user['password']) { // So sánh trực tiếp
+            return $user;
+        }
+        return false;
+    }
+    
 }
