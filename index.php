@@ -17,10 +17,13 @@ require_once "./controllers/admin/ProductAdminController.php";
 require_once "./controllers/admin/UserAdminController.php";
 // Controller bên client
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'user';
+$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
 $productAdmin = new ProductAdminController() ;
 $userAdmin = new AdminUsersController();
 switch ($action) {
+    case "admin":
+        $productAdmin->index();
+        break;
     case "user":
         $userAdmin->list();
         break;
