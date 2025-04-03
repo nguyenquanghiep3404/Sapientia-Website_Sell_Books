@@ -68,6 +68,9 @@ switch ($action) {
     case "edit-book":
         $productAdmin->editBook();
         break;
+    case "delete-book":
+        $productAdmin->deleteBook();
+        break;
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":
         include './views/403page.php';
