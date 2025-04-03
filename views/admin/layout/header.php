@@ -523,12 +523,12 @@
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
                                    </span>
-                                   <span class="nav-text"> Products </span>
+                                   <span class="nav-text"> Books </span>
                               </a>
                               <div class="collapse" id="sidebarProducts">
                                    <ul class="nav sub-navbar-nav">
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="product-list.html">List</a>
+                                             <a class="sub-nav-link" href="?action=list-book">List</a>
                                         </li>
                                         <li class="sub-nav-item">
                                              <a class="sub-nav-link" href="product-grid.html">Grid</a>

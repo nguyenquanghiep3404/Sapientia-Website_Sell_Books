@@ -18,12 +18,14 @@ require_once "./controllers/admin/UserAdminController.php";
 require_once "./controllers/admin/AuthController.php";
 // Controller bên client
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'user';
+$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
 $productAdmin = new ProductAdminController() ;
 $userAdmin = new AdminUsersController();
 $productAdmin = new ProductAdminController();
 $authController = new AuthController();
 switch ($action) {
+    case "admin":
+        $productAdmin->index();
     case "login":
         $authController->showLoginForm();
         break;
