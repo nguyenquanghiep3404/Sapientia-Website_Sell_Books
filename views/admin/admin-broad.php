@@ -1,3 +1,13 @@
+<?php
+// if (session_status() == PHP_SESSION_NONE) {
+//     session_start();
+// }
+// if (!isset($_SESSION['user']) || $_SESSION['user']['role_id'] != 0) {
+//     header("Location: ../index.php");
+//     exit();
+// }
+?>
+
 <?php include ('./views/admin/layout/header.php'); ?>
 
 <div class="page-content">

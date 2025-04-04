@@ -45,7 +45,12 @@ class AuthController {
             $user = $this->modelUser->login($email, $password);
             if ($user) {
                 $_SESSION['user'] = $user;
-                header("Location: index.php");
+                if ($user['role_id'] == 1){
+                    header("Location: ?action=client");
+                }else{
+                    header("Location: index.php");
+
+                }
                 exit();
             } else {
                 $_SESSION['error'] = "Email hoặc mật khẩu không đúng!";
