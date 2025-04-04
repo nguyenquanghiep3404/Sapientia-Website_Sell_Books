@@ -37,12 +37,15 @@
                               {"breakpoint":300, "settings": { "slidesToShow": 1 } }
                              ]
                         }'>
+                        <?php foreach($listBookWithVariants as $book):  ?>
                             <article class="col single_product">
+                            
+
                                 <figure>
                                     <div class="product_thumb">
                                         <a href="product-details.html">
-                                            <img class="primary_img" src="public/client/assets_client/img/product/product1.jpg"
-                                                alt="consectetur">
+                                            <img class="primary_img" src="<?= htmlspecialchars($book['book_image']) ?>"
+                                                alt="consectetur" width="150">
                                         </a>
                                         <!-- Để nguyên -->
                                         <div class="product_action">
@@ -66,11 +69,10 @@
                                                 <li><span>(4)</span></li>
                                             </ul>
                                         </div>
-                                        <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a>
-                                        </h4>
+                                        <h4 class="product_name"><a href="product-details.html"><?= htmlspecialchars($book['book_title']) ?></a></h4>                                        </h4>
                                         <div class="price_box">
-                                            <span class="current_price">$26.00</span>
-                                            <span class="old_price">$62.00</span>
+                                            <span class="current_price"><?= number_format($book['variant_sale_price'] )  ?></span>
+                                            <span class="old_price"><?= number_format($book['variant_price'] )  ?></span>
                                         </div>
                                         <div class="add_to_cart">
                                             <a class="btn btn-primary" href="#" >Mua ngay</a>
@@ -78,217 +80,11 @@
                         
                                     </div>
                                 </figure>
+                                
+
                             </article>
-                            <article class="col single_product">
-                                <figure>
-                                    <div class="product_thumb">
-                                        <a href="product-details.html">
-                                            <img class="primary_img" src="public/client/assets_client/img/product/product1.jpg"
-                                                alt="consectetur">
-                                        </a>
-                                        <!-- Để nguyên -->
-                                        <div class="product_action">
-                                            <ul>
-                                                <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
-                                                        data-tippy="Thêm vào giỏ hàng" href="#" data-tippy-inertia="true"
-                                                        data-tippy-delay="50" data-tippy-arrow="true"
-                                                        data-tippy-placement="left">
-                                                        <span class="material-symbols-outlined">add_shopping_cart</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_ratting">
-                                            <ul class="d-flex justify-content-center">
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><span>(4)</span></li>
-                                            </ul>
-                                        </div>
-                                        <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a>
-                                        </h4>
-                                        <div class="price_box">
-                                            <span class="current_price">$26.00</span>
-                                            <span class="old_price">$62.00</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a class="btn btn-primary" href="#" >Mua ngay</a>
-                                        </div>
-                        
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="col single_product">
-                                <figure>
-                                    <div class="product_thumb">
-                                        <a href="product-details.html">
-                                            <img class="primary_img" src="public/client/assets_client/img/product/product1.jpg"
-                                                alt="consectetur">
-                                        </a>
-                                        <!-- Để nguyên -->
-                                        <div class="product_action">
-                                            <ul>
-                                                <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
-                                                        data-tippy="Thêm vào giỏ hàng" href="#" data-tippy-inertia="true"
-                                                        data-tippy-delay="50" data-tippy-arrow="true"
-                                                        data-tippy-placement="left">
-                                                        <span class="material-symbols-outlined">add_shopping_cart</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_ratting">
-                                            <ul class="d-flex justify-content-center">
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><span>(4)</span></li>
-                                            </ul>
-                                        </div>
-                                        <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a>
-                                        </h4>
-                                        <div class="price_box">
-                                            <span class="current_price">$26.00</span>
-                                            <span class="old_price">$62.00</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a class="btn btn-primary" href="#" >Mua ngay</a>
-                                        </div>
-                        
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="col single_product">
-                                <figure>
-                                    <div class="product_thumb">
-                                        <a href="product-details.html">
-                                            <img class="primary_img" src="public/client/assets_client/img/product/product1.jpg"
-                                                alt="consectetur">
-                                        </a>
-                                        <!-- Để nguyên -->
-                                        <div class="product_action">
-                                            <ul>
-                                                <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
-                                                        data-tippy="Thêm vào giỏ hàng" href="#" data-tippy-inertia="true"
-                                                        data-tippy-delay="50" data-tippy-arrow="true"
-                                                        data-tippy-placement="left">
-                                                        <span class="material-symbols-outlined">add_shopping_cart</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_ratting">
-                                            <ul class="d-flex justify-content-center">
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><span>(4)</span></li>
-                                            </ul>
-                                        </div>
-                                        <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a>
-                                        </h4>
-                                        <div class="price_box">
-                                            <span class="current_price">$26.00</span>
-                                            <span class="old_price">$62.00</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a class="btn btn-primary" href="#" >Mua ngay</a>
-                                        </div>
-                        
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="col single_product">
-                                <figure>
-                                    <div class="product_thumb">
-                                        <a href="product-details.html">
-                                            <img class="primary_img" src="public/client/assets_client/img/product/product1.jpg"
-                                                alt="consectetur">
-                                        </a>
-                                        <!-- Để nguyên -->
-                                        <div class="product_action">
-                                            <ul>
-                                                <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
-                                                        data-tippy="Thêm vào giỏ hàng" href="#" data-tippy-inertia="true"
-                                                        data-tippy-delay="50" data-tippy-arrow="true"
-                                                        data-tippy-placement="left">
-                                                        <span class="material-symbols-outlined">add_shopping_cart</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_ratting">
-                                            <ul class="d-flex justify-content-center">
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><span>(4)</span></li>
-                                            </ul>
-                                        </div>
-                                        <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a>
-                                        </h4>
-                                        <div class="price_box">
-                                            <span class="current_price">$26.00</span>
-                                            <span class="old_price">$62.00</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a class="btn btn-primary" href="#" >Mua ngay</a>
-                                        </div>
-                        
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="col single_product">
-                                <figure>
-                                    <div class="product_thumb">
-                                        <a href="product-details.html">
-                                            <img class="primary_img" src="public/client/assets_client/img/product/product1.jpg"
-                                                alt="consectetur">
-                                        </a>
-                                        <!-- Để nguyên -->
-                                        <div class="product_action">
-                                            <ul>
-                                                <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
-                                                        data-tippy="Thêm vào giỏ hàng" href="#" data-tippy-inertia="true"
-                                                        data-tippy-delay="50" data-tippy-arrow="true"
-                                                        data-tippy-placement="left">
-                                                        <span class="material-symbols-outlined">add_shopping_cart</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_ratting">
-                                            <ul class="d-flex justify-content-center">
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                                <li><span>(4)</span></li>
-                                            </ul>
-                                        </div>
-                                        <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a>
-                                        </h4>
-                                        <div class="price_box">
-                                            <span class="current_price">$26.00</span>
-                                            <span class="old_price">$62.00</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a class="btn btn-primary" href="#" >Mua ngay</a>
-                                        </div>
-                        
-                                    </div>
-                                </figure>
-                            </article>
+                            <?php endforeach; ?>
+
                         </div>
                     </div>
                     <div class="tab-pane fade" id="clothings" role="tabpanel">
