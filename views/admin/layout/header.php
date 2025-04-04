@@ -523,7 +523,7 @@
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
                                    </span>
-                                   <span class="nav-text"> Products </span>
+                                   <span class="nav-text"> Books </span>
                               </a>
                               <div class="collapse" id="sidebarProducts">
                                    <ul class="nav sub-navbar-nav">
@@ -711,13 +711,13 @@
                                    <ul class="nav sub-navbar-nav">
                                         <ul class="nav sub-navbar-nav">
                                              <li class="sub-nav-item">
-                                                  <a class="sub-nav-link" href="role-list.html">List</a>
+                                                  <a class="sub-nav-link" href="?action=user">List</a>
                                              </li>
                                              <li class="sub-nav-item">
                                                   <a class="sub-nav-link" href="role-edit.html">Edit</a>
                                              </li>
                                              <li class="sub-nav-item">
-                                                  <a class="sub-nav-link" href="role-add.html">Create</a>
+                                                  <a class="sub-nav-link" href="?action=user_add">Create</a>
                                              </li>
                                         </ul>
                                    </ul>

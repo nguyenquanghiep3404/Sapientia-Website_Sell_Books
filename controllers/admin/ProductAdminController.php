@@ -12,6 +12,10 @@ class ProductAdminController
 
         require_once './views/admin/admin-broad.php';
     }
+    public function showAll()
+    {
+        require_once './views/client/client-board.php';
+    }
     public function showListBook()
     {
         // Gọi hàm mới để lấy dữ liệu sách kèm biến thể

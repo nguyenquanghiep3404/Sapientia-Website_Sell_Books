@@ -18,7 +18,7 @@ require_once "./controllers/admin/UserAdminController.php";
 require_once "./controllers/admin/AuthController.php";
 // Controller bên client
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'user';
+$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
 $productAdmin = new ProductAdminController() ;
 $userAdmin = new AdminUsersController();
 $productAdmin = new ProductAdminController();
@@ -38,6 +38,12 @@ switch ($action) {
         break;
     case "logout":
         $authController->logout();
+        break;
+    case "client":
+        $productAdmin->showAll();
+        break;
+    case "admin":
+        $productAdmin->index();
         break;
     case "user":
         $userAdmin->list();
