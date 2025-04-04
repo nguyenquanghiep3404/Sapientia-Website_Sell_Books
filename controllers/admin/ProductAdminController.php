@@ -12,16 +12,14 @@ class ProductAdminController
 
         require_once './views/admin/admin-broad.php';
     }
-    public function showAll()
-    {
-        require_once './views/client/client-board.php';
-    }
+
     public function showListBook()
     {
         // Gọi hàm mới để lấy dữ liệu sách kèm biến thể
         $listBookWithVariants = $this->productAdminModel->getAllBookWithVariants();
         // Truyền dữ liệu đã lấy vào view
         require_once './views/admin/book/list-book.php';
+        // Truyển dữ liệu sang trang chủ client
     }
 
     public function addBook()

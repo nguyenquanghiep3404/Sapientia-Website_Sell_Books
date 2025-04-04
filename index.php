@@ -13,6 +13,7 @@ require_once "./controllers/admin/ProductAdminController.php";
 // model bên admin
 require_once "./models/admin/ProductAdminModel.php";
 require_once "./models/admin/UserAdminModel.php";
+require_once "./models/client/ProductClientModel.php";
 // model bên client
 
 // Kết nối Controller
@@ -20,6 +21,8 @@ require_once "./models/admin/UserAdminModel.php";
 
 require_once "./controllers/admin/UserAdminController.php";
 require_once "./controllers/admin/AuthController.php";
+require_once "./controllers/client/ProductClientController.php";
+
 // Controller bên client
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
@@ -30,10 +33,12 @@ $controllerCategory = new AdminCategoriesController();
 $controllerAuthors = new AdminAuthorsController();
 $controllerPublishers = new AdminPublishersController();
 $authController = new AuthController();
+$productClient = new ProductClientController();
 
 switch ($action) {
     case "admin":
         $productAdmin->index();
+        break;
     case "login":
         $authController->showLoginForm();
         break;
@@ -50,7 +55,10 @@ switch ($action) {
         $authController->logout();
         break;
     case "client":
-        $productAdmin->showAll();
+        $productClient->showClientBook();
+        break;
+    case "detail":
+        $productClient->showDetailBook();
         break;
     case "admin":
         $productAdmin->index();
