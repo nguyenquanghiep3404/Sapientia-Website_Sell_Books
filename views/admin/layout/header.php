@@ -524,23 +524,21 @@
                                         <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
                                    </span>
                                    <span class="nav-text"> Books </span>
+                                   <span class="nav-text"> Sản Phẩm </span
                               </a>
                               <div class="collapse" id="sidebarProducts">
                                    <ul class="nav sub-navbar-nav">
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="product-list.html">List</a>
+                                             <a class="sub-nav-link" href="?action=list-book">Danh Sách</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="product-grid.html">Grid</a>
+                                             <a class="sub-nav-link" href="">Chi tiết sách</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="product-details.html">Details</a>
+                                             <a class="sub-nav-link" href="?action=edit-book">Sửa</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="product-edit.html">Edit</a>
-                                        </li>
-                                        <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="product-add.html">Create</a>
+                                             <a class="sub-nav-link" href="?action=create-book">Thêm mới </a>
                                         </li>
                                    </ul>
                               </div>
@@ -551,18 +549,18 @@
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
                                    </span>
-                                   <span class="nav-text"> Category </span>
+                                   <span class="nav-text"> Danh mục </span>
                               </a>
                               <div class="collapse" id="sidebarCategory">
                                    <ul class="nav sub-navbar-nav">
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="category-list.html">List</a>
+                                             <a class="sub-nav-link" href="?action=">Danh sách</a>
                                         </li>                         
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="category-edit.html">Edit</a>
+                                             <a class="sub-nav-link" href="category-edit.html">Sửa</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="category-add.html">Create</a>
+                                             <a class="sub-nav-link" href="category-add.html">Thêm mới</a>
                                         </li>
                                    </ul>
                               </div>

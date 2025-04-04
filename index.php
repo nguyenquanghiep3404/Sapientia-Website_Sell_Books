@@ -1,10 +1,14 @@
 <?php
-session_start();
-
-// Kết nối PDO
 require_once "./commons/env.php";
 require_once "./commons/function.php";
-
+require_once "./models/admin/CategoryAdminModel.php";
+require_once "./models/admin/AuthorAdminModel.php";
+require_once "./models/admin/PublisherAdminModel.php";
+require_once "./controllers/admin/AdminCategoriesController.php";
+require_once "./controllers/admin/AdminAuthorsController.php";
+require_once "./controllers/admin/AdminPublishersController.php";
+require_once "./controllers/admin/AdminDashboardController.php";
+require_once "./controllers/admin/ProductAdminController.php";
 // Kết nối với model
 // model bên admin
 require_once "./models/admin/ProductAdminModel.php";
@@ -13,7 +17,7 @@ require_once "./models/admin/UserAdminModel.php";
 
 // Kết nối Controller
 // Controller bên admin
-require_once "./controllers/admin/ProductAdminController.php";
+
 require_once "./controllers/admin/UserAdminController.php";
 require_once "./controllers/admin/AuthController.php";
 // Controller bên client
@@ -21,9 +25,15 @@ require_once "./controllers/admin/AuthController.php";
 $action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
 $productAdmin = new ProductAdminController() ;
 $userAdmin = new AdminUsersController();
-$productAdmin = new ProductAdminController();
+$controller = new AdminDashboardController();
+$controllerCategory = new AdminCategoriesController();
+$controllerAuthors = new AdminAuthorsController();
+$controllerPublishers = new AdminPublishersController();
 $authController = new AuthController();
+
 switch ($action) {
+    case "admin":
+        $productAdmin->index();
     case "login":
         $authController->showLoginForm();
         break;
@@ -69,15 +79,61 @@ switch ($action) {
     case "create-book":
         $productAdmin->addBook();
         break;
+    // Quản lý danh mục (Category)
+    case "category":
+        $controllerCategory->list();
+        break;
+    case "add-category":
+        $controllerCategory->formAdd();
+        break;
+    case "edit-category":
+        $controllerCategory->formEdit();
+        break;
+    case "delete-category":
+        $controllerCategory->delete();
+        break;
+    case "show-category":
+        $controllerCategory->showDetail();
+        break;
+    // Quản lý tác giả (Author)
+    case "author":
+        $controllerAuthors->list();
+        break;
+    case "add-author":
+        $controllerAuthors->formAdd();
+        break;
+    case "edit-author":
+        $controllerAuthors->formEdit();
+        break;
+    case "delete-author":
+        $controllerAuthors->delete();
+        break;
+    case "show-author":
+        $controllerAuthors->showDetail();
+        break;
+
+    // Quản lý nhà xuất bản (Publisher)
+    case "publisher":
+        $controllerPublishers->list();
+        break;
+    case "add-publisher":
+        $controllerPublishers->formAdd();
+        break;
+    case "edit-publisher":
+        $controllerPublishers->formEdit();
+        break;
+    case "delete-publisher":
+        $controllerPublishers->delete();
+        break;
+    case "show-publisher":
+        $controllerPublishers->showDetail();
     case "edit-book":
         $productAdmin->editBook();
+        break;
+    case "delete-book":
+        $productAdmin->deleteBook();
         break;
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":
         include './views/403page.php';
-        break;
-    default:
-        http_response_code(404);
-        require_once "./views/404page.php";
-        break;
 }
