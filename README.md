@@ -1,5 +1,4 @@
-Dự án 1 - Nhóm 5: 
-Thành viên: Nguyễn Quang Hiệp - (nguyenquanghiep3404), Đỗ Thanh Bình (dothanhbinh05).
+
 # Thông tin về cách hoạt động của luồng MVC 
 
 ### 1. File index.php
