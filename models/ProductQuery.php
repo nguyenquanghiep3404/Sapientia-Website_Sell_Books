@@ -96,8 +96,6 @@ class ProductQuery
         p.product_id, 
         p.name AS product_name, 
         p.image, 
-        p.price, 
-        p.sale_price, 
         p.description, 
         p.category_id, 
         p.created_at, 
@@ -139,7 +137,6 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     c.name AS category_name, 
-                    pv.language, 
                     pv.format, 
                     pv.quantity
                 FROM products AS p
@@ -157,13 +154,13 @@ class ProductQuery
         }
     }
     // thêm các màu số lượng vào bảng biến thể
-    public function addProductVariants($product_id, $price, $sale_price, $format, $language, $quantity)
+    public function addProductVariants($product_id, $price, $sale_price, $format, $quantity)
     {
         //khai bao try catch
 
-        $sql = "INSERT INTO product_variant( product_id,price,sale_price,	format,	language,	quantity) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO product_variant( product_id,price,sale_price,format,	quantity) VALUES (?,?,?,?,?)";
         // 3. Return kết quả
-        pdo_execute($sql, $product_id, $price, $sale_price, $format, $language, $quantity);
+        pdo_execute($sql, $product_id, $price, $sale_price, $format, $quantity);
         echo "Thêm thành công variant!";
     }
     // Truy xuất tất cả sản phẩm từ bảng product
@@ -183,7 +180,6 @@ class ProductQuery
         $sql = "
             SELECT 
                 p.*, 
-                pv.language, 
                 pv.format, 
                 pv.quantity 
             FROM products AS p
@@ -199,18 +195,18 @@ class ProductQuery
             return null; // Không tìm thấy sản phẩm
         }
     }
-    public function updateProductVariant($variant_id, $price, $sale_price, $format, $language, $quantity)
+    public function updateProductVariant($variant_id, $price, $sale_price, $format, $quantity)
 {
     $sql = "UPDATE product_variant 
             SET format = ?, 
-                language = ?, 
+                
                 price = ?, 
                 sale_price = ?, 
                 quantity = ? 
             WHERE product_variant_id = ?";
     
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute([$format, $language, $price, $sale_price, $quantity, $variant_id]);
+    $stmt->execute([$format, $price, $sale_price, $quantity, $variant_id]);
 }
 
     // Truy xuất tất cả sản phẩm từ bảng product biến thể
@@ -264,7 +260,7 @@ class ProductQuery
             SELECT 
                 p.*, 
                 vp.format, 
-                vp.language,
+              
                 vp.quantity,
                 vp.price,
                 vp.sale_price,
@@ -299,7 +295,7 @@ class ProductQuery
             $product = convertToObjectProduct($row);
 
             $product->format = $row['format'];
-            $product->language = $row['language'];
+           
             $product->quantity = $row['quantity'];
 
             $product->price = $row['price'];
@@ -324,7 +320,7 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     vp.format, 
-                    vp.language,
+                 
                     vp.quantity
                 FROM 
                     products AS p
@@ -360,7 +356,7 @@ class ProductQuery
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
                 $product->format = $row['format']; // Thêm thông tin size
-                $product->language = $row['language']; // Thêm thông tin color
+               // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -379,7 +375,7 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     vp.format, 
-                    vp.language,
+                   
                     vp.quantity
                 FROM 
                     products AS p
@@ -415,7 +411,7 @@ class ProductQuery
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
                 $product->format = $row['format']; // Thêm thông tin size
-                $product->language = $row['language']; // Thêm thông tin color
+                // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -434,7 +430,7 @@ class ProductQuery
                     pv.format, 
                     pv.price,
                     pv.sale_price,
-                    pv.language, 
+                  
                     pv.quantity 
                 FROM product_variant pv
                 WHERE pv.product_id = :product_id";

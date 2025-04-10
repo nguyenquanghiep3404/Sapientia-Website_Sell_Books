@@ -123,11 +123,8 @@ function convertToObjectProduct ($row){
     $product->product_id = $row['product_id'];
     $product->name = $row['name'];
     $product->image = $row['image'];
-    // $product->price = $row['price'];
-    $product->language = $row['language'];
     $product->format = $row['format'];
     $product->quantity = $row['quantity'];
-    // $product->sale_price = $row['sale_price'];
     $product->category_id = $row['category_id'];
     $product->created_at = $row['created_at'];
     $product->updated_at = $row['updated_at'];
