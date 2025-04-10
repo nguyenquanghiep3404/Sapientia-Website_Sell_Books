@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ob_start();
 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -52,7 +52,7 @@ if (!isset($_SESSION['myCart']) || !is_array($_SESSION['myCart'])) {
 }
 
 
-$action = isset($_GET["action"]) ? $_GET["action"] :'client';
+$action = isset($_GET["action"]) ? $_GET["action"] : 'client';
 $productAdmin = new ProductAdminController();
 $categoryAdmin = new categoryControllers();
 $loginAdmin = new loginController();
@@ -78,7 +78,7 @@ switch ($action) {
         break;
     case "update-product-status":
         $productAdmin->updateProductStatus($product_id, $status);
-    // Danh muc
+        // Danh muc
     case "home-dm";
         $categoryAdmin->all_dm();
         break;
@@ -132,12 +132,12 @@ switch ($action) {
         $HomeClient->addToCart();
         break;
     case "update_cart_quantity":
-            $HomeClient->updateCartQuantity();
-            break;
+        $HomeClient->updateCartQuantity();
+        break;
     // Xóa sản phẩm khỏi giỏ hàng
     case "remove_cart_item":
-            $HomeClient->removeCartItem();
-            break;
+        $HomeClient->removeCartItem();
+        break;
     case "product-details":
         $HomeClient->productDetails();
         break;
@@ -206,8 +206,8 @@ switch ($action) {
     case 'mb':
         include '.\views\client\Mbbank.php';
         break;
-
-    }
-    
-    
-?>
+    // hủy đơn hàng 
+    case 'cancelOrder':
+        $historicClient->cancelOrder();
+        break;
+}
