@@ -180,7 +180,9 @@ class ProductQuery
         $sql = "
             SELECT 
                 p.*, 
-                pv.format, 
+                pv.format,
+                pv.price,
+                pv.sale_price, 
                 pv.quantity 
             FROM products AS p
             LEFT JOIN product_variant AS pv ON p.product_id = pv.product_id
@@ -195,6 +197,30 @@ class ProductQuery
             return null; // Không tìm thấy sản phẩm
         }
     }
+    public function findvariant($variant_id) {
+        // Sử dụng prepared statement để bảo mật và đúng cú pháp
+        $sql = "SELECT * FROM product_variant WHERE variant_id = ?";
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$variant_id]); // Truyền $variant_id vào
+            $data = $stmt->fetch(PDO::FETCH_ASSOC); // Lấy dữ liệu dạng mảng kết hợp
+    
+            if ($data) {
+                // Bạn nên có một hàm chuyển đổi riêng cho variant nếu cấu trúc khác product
+                // Hoặc đảm bảo convertToObjectProduct xử lý được cả hai
+                 // Tạm giả định convertToObjectProduct hoạt động đúng
+                $variant = convertToObjectVariant($data); // Đổi tên hàm nếu cần
+                return $variant;
+            } else {
+                return null; // Không tìm thấy biến thể
+            }
+        } catch (PDOException $e) {
+            // Xử lý lỗi nếu có (ví dụ: ghi log)
+            error_log("Database error in findvariant: " . $e->getMessage());
+            return null;
+        }
+    }
+    
     public function updateProductVariant($variant_id, $price, $sale_price, $format, $quantity)
 {
     $sql = "UPDATE product_variant 

@@ -14,6 +14,7 @@ class checkoutController{
 
     public function showOrderDetails()
     {   
+        
         if(isset($_SESSION['name'])){
         $showCheckout = $this->checkModel->getUserName($_SESSION['name']['name']);
         
@@ -33,6 +34,7 @@ class checkoutController{
             header('location:?action=login'); // Chuyển hướng đến trang đăng nhập
             exit();
         }
+        
         $name = $_POST['name'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
@@ -108,7 +110,7 @@ class checkoutController{
         $vnp_TmnCode = "SF6QFXPR"; // Thay bằng mã TMN của bạn
         $vnp_HashSecret = "MU4F4UXIGGBAQUICD514Z684865TBBVD"; // Thay bằng chuỗi bí mật
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost/Du-an-1_Nhom5/?action=Vnpay"; // URL xử lý sau khi thanh toán
+        $vnp_Returnurl = "http://localhost/Sapientia-Website_Sell_Books/?action=Vnpay"; // URL xử lý sau khi thanh toán
        
         $vnp_TxnRef = $order_id; // Mã đơn hàng
         $vnp_OrderInfo = "Thanh toán đơn hàng $order_id";

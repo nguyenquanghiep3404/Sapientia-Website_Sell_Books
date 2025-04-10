@@ -1,5 +1,5 @@
 <?php include ('./views/client/layout/header.php'); ?>
-
+<?php var_dump($variant) ?>
     <div class="breadcrumbs_area breadcrumbs_product">
         <div class="container">
             <div class="row">

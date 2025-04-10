@@ -134,4 +134,13 @@ function convertToObjectProduct ($row){
     return $product;
 }
 
+function convertToObjectVariant($data) {
+    $variant = new stdClass(); // Hoặc new YourVariantClass();
+    foreach ($data as $key => $value) {
+        $variant->$key = $value;
+    }
+    return $variant;
+}
+
+
 ?>

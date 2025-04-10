@@ -81,11 +81,10 @@ class HomeClientControllers {
         // Xử lý khi người dùng thêm sản phẩm vào giỏ hàng
         if (isset($_POST['add_to_cart']) && $_POST['product_id'] > 0 ) {
             $product_id = $_POST['product_id'];
-            
             $quantity = isset($_POST['quantity']) && $_POST['quantity'] > 0 ? (int)$_POST['quantity'] : 1;
 
-            $size = $_POST['size'] ?? null;
-            $color = $_POST['color'] ?? null;
+            $format = $_POST['format'] ?? null;
+           
             // Tìm thông tin sản phẩm từ database
             $product = $this->productQuery->find($product_id);
             if (!$product) {
@@ -118,7 +117,7 @@ class HomeClientControllers {
             // Kiểm tra sản phẩm có tồn tại trong giỏ hàng không
             $product_exists = false;
             foreach ($_SESSION['myCart'] as $key => $value) {
-                if ($value['product_id'] == $product_id && $value['color'] == $color && $value['size'] == $size) {
+                if ($value['product_id'] == $product_id && $value['format'] == $format) {
                     $product_exists = true;
     
                     // Không thay đổi số lượng nếu người dùng chỉ tải lại trang
@@ -139,8 +138,7 @@ class HomeClientControllers {
                     "name" => $product->name,
                     "price" => $product->price,
                     "total" => $product->price * $quantity,
-                   "color" => $_POST['color'],
-                    "size" => $_POST['size'],
+                    "format" => $_POST['format'],
                 "quantity" => $_POST['quantity']
                 ];
                 

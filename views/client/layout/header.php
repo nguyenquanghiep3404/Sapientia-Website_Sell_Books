@@ -149,7 +149,7 @@
                             <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
                         </div>
                         <div class="header_logo">
-                            <a class="sticky_none" href="?action=client"><img src="public/client/assets/img/logo/logo.png" alt=""></a>
+                            <a class="sticky_none" href="?action=client"><img src="public/client/assets/img/logo/logo.png" width="150px" ></a>
                         </div>
                         <!--main menu start-->
                         <div class="main_menu d-none d-lg-block">
