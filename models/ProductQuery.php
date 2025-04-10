@@ -49,24 +49,38 @@ class ProductQuery
     }
     // getall sản phẩm (lấy tất cả thông tin từ bảng san pham) trong admin
     public function getAllProduct()
-    {
-        //khai báo try catch
-        try {
-            // 1. Khai báo câu sql
-            $sql = "SELECT products.*, categories.name AS category_name
-            FROM products INNER JOIN categories ON products.category_id = categories.category_id ";
-            // 2. Thực hiện truy vấn
-            $stmt = $this->conn->prepare($sql);
+{
+    try {
+        $sql = "
+            SELECT 
+                p.*, 
+                c.name AS category_name,
+                (
+                    SELECT MIN(
+                        CASE 
+                            WHEN pv.sale_price > 0 THEN pv.sale_price
+                            ELSE pv.price
+                        END
+                    )
+                    FROM product_variant AS pv
+                    WHERE pv.product_id = p.product_id
+                ) AS min_price
+            FROM 
+                products AS p
+            INNER JOIN 
+                categories AS c 
+                ON p.category_id = c.category_id
+        ";
 
-            $stmt->execute();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
 
-            return $stmt->fetchAll();
-        } catch (Exception $error) {
-            echo "<h1>";
-            echo "Lỗi hàm all trong model: " . $error->getMessage();
-            echo "</h1>";
-        }
-    } // END FUNCTION ALL()
+        return $stmt->fetchAll();
+    } catch (Exception $error) {
+        echo "<h1>Lỗi hàm all trong model: " . $error->getMessage() . "</h1>";
+    }
+}
+ // END FUNCTION ALL()
     // Lấy ra tất cả các danh mục từ database
     public function getAllCategories()
     {
@@ -104,13 +118,13 @@ class ProductQuery
     }
 
     // thêm sản phẩm vào bảng product
-    public function addProduct($name, $image, $price, $category_id, $sale_price, $description, $gallery)
+    public function addProduct($name, $image, $category_id, $description, $gallery)
     {
         //khai bao try catch
         try {
-            $sql = "INSERT INTO products (name, image, price, category_id, sale_price, description,gallery, created_at) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
-            return pdo_last_insert_id($sql, $name, $image, $price, $category_id, $sale_price, $description, $gallery);
+            $sql = "INSERT INTO products (name, image, category_id, description,gallery, created_at) 
+                VALUES (?, ?, ?, ?, ?, NOW())";
+            return pdo_last_insert_id($sql, $name, $image, $category_id, $description, $gallery);
         } catch (Exception $error) {
             echo "<h1>";
             echo "Lỗi hàm insert trong model: " . $error->getMessage();
@@ -125,8 +139,8 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     c.name AS category_name, 
-                    pv.color, 
-                    pv.size, 
+                    pv.language, 
+                    pv.format, 
                     pv.quantity
                 FROM products AS p
                 INNER JOIN categories AS c ON p.category_id = c.category_id
@@ -143,17 +157,14 @@ class ProductQuery
         }
     }
     // thêm các màu số lượng vào bảng biến thể
-    public function addProductVariants($product_id, $size, $color, $quantity)
+    public function addProductVariants($product_id, $price, $sale_price, $format, $language, $quantity)
     {
         //khai bao try catch
 
-        $sql = "INSERT INTO product_variant( product_id,	size,	color,	quantity) VALUES (?,?,?,?)";
-
-
+        $sql = "INSERT INTO product_variant( product_id,price,sale_price,	format,	language,	quantity) VALUES (?,?,?,?,?,?)";
         // 3. Return kết quả
-        pdo_execute($sql, $product_id, $size, $color, $quantity);
+        pdo_execute($sql, $product_id, $price, $sale_price, $format, $language, $quantity);
         echo "Thêm thành công variant!";
-
     }
     // Truy xuất tất cả sản phẩm từ bảng product
     function render_allproduct()
@@ -172,8 +183,8 @@ class ProductQuery
         $sql = "
             SELECT 
                 p.*, 
-                pv.color, 
-                pv.size, 
+                pv.language, 
+                pv.format, 
                 pv.quantity 
             FROM products AS p
             LEFT JOIN product_variant AS pv ON p.product_id = pv.product_id
@@ -188,14 +199,20 @@ class ProductQuery
             return null; // Không tìm thấy sản phẩm
         }
     }
-    public function updateProductVariant($variant_id, $size, $color, $quantity)
-    {
-        $sql = "UPDATE product_variant SET size = ?, color = ?, quantity = ? WHERE product_variant_id = ?";
-        $stmt = $this->conn->prepare($sql);
+    public function updateProductVariant($variant_id, $price, $sale_price, $format, $language, $quantity)
+{
+    $sql = "UPDATE product_variant 
+            SET format = ?, 
+                language = ?, 
+                price = ?, 
+                sale_price = ?, 
+                quantity = ? 
+            WHERE product_variant_id = ?";
+    
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$format, $language, $price, $sale_price, $quantity, $variant_id]);
+}
 
-        // Truyền mảng tham số khớp với các placeholder
-        $stmt->execute([$size, $color, $quantity, $variant_id]);
-    }
     // Truy xuất tất cả sản phẩm từ bảng product biến thể
     function get_allvariant()
     {
@@ -213,20 +230,20 @@ class ProductQuery
     //         echo "Chỉnh Sửa thất bại! ".$e->getMessage();
     //     }       
     // }
-    function update_product($name, $image, $price, $category_id, $sale_price, $description, $gallery, $product_id)
+    function update_product($name, $image, $category_id, $description, $gallery, $product_id)
     {
         $sql = "UPDATE products 
-                SET name = ?, image = ?, price = ?, category_id = ?, sale_price = ?, description = ?, gallery = ?, updated_at = NOW() 
+                SET name = ?, image = ?, category_id = ?,  description = ?, gallery = ?, updated_at = NOW() 
                 WHERE product_id = ?";
-        return pdo_execute($sql, $name, $image, $price, $category_id, $sale_price, $description, $gallery, $product_id);
+        return pdo_execute($sql, $name, $image, $category_id, $description, $gallery, $product_id);
     }
 
     // Không cập nhật ảnh (Dùng để cập nhật sản phẩm không bao gồm hình ảnh (trong trường hợp hình ảnh không được tải lên mới).)
-    function update_product_noneimg($name, $price, $category_id, $sale_price, $description, $product_id)
+    function update_product_noneimg($name, $category_id, $description, $product_id)
     {
         try {
-            $sql = "UPDATE products SET name=?, price=?, category_id=?, sale_price=?, description=?, updated_at=NOW() WHERE product_id=?";
-            pdo_execute($sql, $name, $price, $category_id, $sale_price, $description, $product_id);
+            $sql = "UPDATE products SET name=?,  category_id=?, description=?, updated_at=NOW() WHERE product_id=?";
+            pdo_execute($sql, $name, $category_id, $description, $product_id);
             echo "Chỉnh sửa thành công";
         } catch (PDOException $e) {
             echo "Chỉnh Sửa thất bại! " . $e->getMessage();
@@ -241,54 +258,64 @@ class ProductQuery
     // ORDER BY p.created_at: Sắp xếp sản phẩm theo thời gian tạo.
     // LIMIT 4: Giới hạn kết quả trả về chỉ 4 dòng.
     public function getTop4ProductLastes()
-    {
-        try {
-            $sql = "
-    SELECT 
-        p.*, 
-        vp.size, 
-        vp.color,
-        vp.quantity,
-        (
-            SELECT MIN(
-                CASE 
-                    WHEN product_variant.sale_price > 0 THEN product_variant.sale_price
-                    ELSE product_variant.price
-                END
-            )
-            FROM product_variant 
-            WHERE product_variant.product_id = p.product_id
-        ) AS min_price
-    FROM 
-        products AS p
-    INNER JOIN 
-        product_variant AS vp 
-        ON vp.product_variant_id = (
-            SELECT MIN(product_variant_id)
-            FROM product_variant
-            WHERE product_variant.product_id = p.product_id
-        )
-    ORDER BY 
-        p.created_at DESC
-    LIMIT 8
-";
-            $data = $this->conn->query($sql)->fetchAll();
-            $ds = [];
-            // Chuyển dữ liệu sang object product
-            foreach ($data as $row) {
-                $product = convertToObjectProduct($row); // Sửa hàm này để xử lý thêm size và color
-                $product->size = $row['size']; // Thêm thông tin size
-                $product->color = $row['color']; // Thêm thông tin color
-                $product->quantity = $row['quantity'];
-                $ds[] = $product;
-            }
-            return $ds;
-        } catch (Exception $error) {
-            echo "<h1>";
-            echo "Lỗi hàm getTop4ProductLastes trong model: " . $error->getMessage();
-            echo "</h1>";
+{
+    try {
+        $sql = "
+            SELECT 
+                p.*, 
+                vp.format, 
+                vp.language,
+                vp.quantity,
+                vp.price,
+                vp.sale_price,
+                (
+                    SELECT MIN(
+                        CASE 
+                            WHEN pv.sale_price > 0 THEN pv.sale_price
+                            ELSE pv.price
+                        END
+                    )
+                    FROM product_variant AS pv
+                    WHERE pv.product_id = p.product_id
+                ) AS min_price
+            FROM 
+                products AS p
+            INNER JOIN 
+                product_variant AS vp 
+                ON vp.product_variant_id = (
+                    SELECT MIN(product_variant_id)
+                    FROM product_variant
+                    WHERE product_variant.product_id = p.product_id
+                )
+            ORDER BY 
+                p.created_at DESC
+            LIMIT 8
+        ";
+
+        $data = $this->conn->query($sql)->fetchAll();
+        $ds = [];
+
+        foreach ($data as $row) {
+            $product = convertToObjectProduct($row);
+
+            $product->format = $row['format'];
+            $product->language = $row['language'];
+            $product->quantity = $row['quantity'];
+
+            $product->price = $row['price'];
+            $product->sale_price = $row['sale_price'];
+            $product->min_price = $row['min_price'];
+
+            $ds[] = $product;
         }
+
+        return $ds;
+
+    } catch (Exception $error) {
+        echo "<h1>Lỗi hàm getTop4ProductLastes trong model: " . $error->getMessage() . "</h1>";
     }
+}
+
     // lấy tất cả danh mục áo phao
     public function get_products_by_category_aophao($category_id)
     {
@@ -296,8 +323,8 @@ class ProductQuery
             $sql = "
                 SELECT 
                     p.*, 
-                    vp.size, 
-                    vp.color,
+                    vp.format, 
+                    vp.language,
                     vp.quantity
                 FROM 
                     products AS p
@@ -332,8 +359,8 @@ class ProductQuery
             // Chuyển dữ liệu sang object product
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
-                $product->size = $row['size']; // Thêm thông tin size
-                $product->color = $row['color']; // Thêm thông tin color
+                $product->format = $row['format']; // Thêm thông tin size
+                $product->language = $row['language']; // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -351,8 +378,8 @@ class ProductQuery
             $sql = "
                 SELECT 
                     p.*, 
-                    vp.size, 
-                    vp.color,
+                    vp.format, 
+                    vp.language,
                     vp.quantity
                 FROM 
                     products AS p
@@ -387,8 +414,8 @@ class ProductQuery
             // Chuyển dữ liệu sang object product
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
-                $product->size = $row['size']; // Thêm thông tin size
-                $product->color = $row['color']; // Thêm thông tin color
+                $product->format = $row['format']; // Thêm thông tin size
+                $product->language = $row['language']; // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -404,8 +431,10 @@ class ProductQuery
         $sql = "SELECT 
                     pv.product_variant_id, 
                     pv.product_id, 
-                    pv.size, 
-                    pv.color, 
+                    pv.format, 
+                    pv.price,
+                    pv.sale_price,
+                    pv.language, 
                     pv.quantity 
                 FROM product_variant pv
                 WHERE pv.product_id = :product_id";

@@ -31,11 +31,6 @@ class HomeClientControllers {
         $product = $this->productQuery->getDetailSan($product_id);
         $variant = $this->productQuery->getProductByVariant($product_id);
         $allComment = $this->commentModel->allComment($product_id);
-        // if (isset($_GET['product_id'])) {
-        //     $product_id = $_GET['product_id'];
-        //     $product = $this->productQuery->get_product_by_id($product_id);
-        //     $variant = $this->productQuery->get_product_by_variant($product_id);
-        // }
         include "./views/client/product-details.php";
         
     }
