@@ -1,133 +1,213 @@
-<?php
+<?php 
+session_start();
+ob_start();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+// Kết nối PDO
 require_once "./commons/env.php";
 require_once "./commons/function.php";
-require_once "./models/admin/CategoryAdminModel.php";
-require_once "./models/admin/AuthorAdminModel.php";
-require_once "./models/admin/PublisherAdminModel.php";
-require_once "./controllers/admin/AdminCategoriesController.php";
-require_once "./controllers/admin/AdminAuthorsController.php";
-require_once "./controllers/admin/AdminPublishersController.php";
-require_once "./controllers/admin/AdminDashboardController.php";
-require_once "./controllers/admin/ProductAdminController.php";
 // Kết nối với model
-// model bên admin
-require_once "./models/admin/ProductAdminModel.php";
-require_once "./models/admin/UserAdminModel.php";
-// model bên client
+require_once './models/Product.php';
+require_once './models/categoryModel.php';
+require_once './models/registerModels.php';
+require_once './models/loginModel.php';
+require_once './models/historicModel.php';
+require_once './models/ProductQuery.php';
+require_once './models/checkoutModel.php';
+require_once './models/profileModel.php';
+require_once './models/OrderModel.php';
+require_once './models/commentModel.php';
+// require_once './models/cartsModels.php';
 
 // Kết nối Controller
 // Controller bên admin
+require_once './controllers/admin/ProductAdminController.php';
+require_once './controllers/admin/categoryControllers.php';
+require_once './controllers/admin/registerControllers.php';
+require_once './controllers/admin/loginController.php';
+require_once './controllers/admin/OrderControllers.php';
 
-require_once "./controllers/admin/UserAdminController.php";
-require_once "./controllers/admin/AuthController.php";
 // Controller bên client
+require_once './controllers/client/checkout.php';
+require_once './controllers/client/profileController.php';
+require_once './controllers/client/ProductClientControllers.php';
+require_once './controllers/client/commentController.php';
+// require_once './controllers/client/historic.php';
 
-$action = isset($_GET["action"]) ? $_GET["action"] : 'admin';
-$userAdmin = new AdminUsersController();
-$controller = new AdminDashboardController();
-$controllerCategory = new AdminCategoriesController();
-$controllerAuthors = new AdminAuthorsController();
-$controllerPublishers = new AdminPublishersController();
+// require_once './controllers/client/CartsControllers.php';
+// Lấy giá trị "id" từ đường dẫn url
+// $product_id = "";
+// if (isset($_GET["id"])) {
+
+//     $product_id = $_GET["id"];}
+
+//     $product_id = $_GET["id"];
+// }    
+
+
+require_once './controllers/client/historic.php';
+
+
+if (!isset($_SESSION['myCart']) || !is_array($_SESSION['myCart'])) {
+    $_SESSION['myCart'] = []; // Khởi tạo giỏ hàng nếu chưa tồn tại
+}
+
+
+$action = isset($_GET["action"]) ? $_GET["action"] :'client';
 $productAdmin = new ProductAdminController();
-$authController = new AuthController();
-
+$categoryAdmin = new categoryControllers();
+$loginAdmin = new loginController();
+$registerAdmin = new registerController();
+$checkoutAdmin = new checkoutController();
+$HomeClient = new HomeClientControllers();
+$historicClient = new historicController();
+$profileAdmin = new profileController();
+$orderAdmin = new OrderControllers();
+$commentAdmin = new commentController();
 switch ($action) {
     case "admin":
-        $productAdmin->index();
-    case "login":
-        $authController->showLoginForm();
+        $productAdmin->showAdmin();
         break;
-    case "login_post":
-        $authController->login();
+    case "product":
+        $productAdmin->showList();
         break;
-    case "register":
-        $authController->showRegisterForm();
+    case "product-create":
+        $productAdmin->create();
         break;
-    case "register_post":
-        $authController->register();
+    case "product-form-edit":
+        $productAdmin->Edit();
         break;
-    case "logout":
-        $authController->logout();
+    case "update-product-status":
+        $productAdmin->updateProductStatus($product_id, $status);
+    // Danh muc
+    case "home-dm";
+        $categoryAdmin->all_dm();
         break;
-    case "user":
-        $userAdmin->list();
+    case "hide-dm";
+        $categoryAdmin->hide_dm();
         break;
-    case "user_add":
-        $userAdmin->formAdd();
+    case "show-dm";
+        $categoryAdmin->show_dm();
         break;
-    case "user_add_post":
-        $userAdmin->postAdd();
+    case "create-dm";
+        $categoryAdmin->create_dm();
         break;
-    case "user_edit":
-        $userAdmin->formEdit();
+    case "createPost-dm";
+        $categoryAdmin->createPost_dm();
         break;
-    case "user_edit_post":
-        $userAdmin->postEdit();
+    case "update-dm";
+        $categoryAdmin->update_dm();
         break;
-    case "user_delete":
-        $userAdmin->delete();
+    case "updatePost-dm";
+        $categoryAdmin->updatePost_dm();
         break;
-    case "list-book":
-        $productAdmin->showListBook();
+    // Login
+    case "login";
+        $loginAdmin->login();
         break;
-    case "create-book":
-        $productAdmin->addBook();
-        break;
-    // Quản lý danh mục (Category)
-    case "category":
-        $controllerCategory->list();
-        break;
-    case "add-category":
-        $controllerCategory->formAdd();
-        break;
-    case "edit-category":
-        $controllerCategory->formEdit();
-        break;
-    case "delete-category":
-        $controllerCategory->delete();
-        break;
-    case "show-category":
-        $controllerCategory->showDetail();
-        break;
-    // Quản lý tác giả (Author)
-    case "author":
-        $controllerAuthors->list();
-        break;
-    case "add-author":
-        $controllerAuthors->formAdd();
-        break;
-    case "edit-author":
-        $controllerAuthors->formEdit();
-        break;
-    case "delete-author":
-        $controllerAuthors->delete();
-        break;
-    case "show-author":
-        $controllerAuthors->showDetail();
+    case "loginPost";
+        $loginAdmin->loginPost();
         break;
 
-    // Quản lý nhà xuất bản (Publisher)
-    case "publisher":
-        $controllerPublishers->list();
+    case "logout";
+        $loginAdmin->logout();
         break;
-    case "add-publisher":
-        $controllerPublishers->formAdd();
+    // Register
+    case "register";
+        $registerAdmin->createRegister();
         break;
-    case "edit-publisher":
-        $controllerPublishers->formEdit();
+    case "registerPost";
+        $registerAdmin->createRegisterPost();
         break;
-    case "delete-publisher":
-        $controllerPublishers->delete();
+    case "all_register":
+        $registerAdmin->all_register();
         break;
-    case "show-publisher":
-        $controllerPublishers->showDetail();
-    case "edit-book":
-        $productAdmin->editBook();
+    case "delete":
+        $registerAdmin->delete();
         break;
-    case "delete-book":
-        $productAdmin->deleteBook();
+    // client
+    case "client":
+        $HomeClient->home();
+        break;
+    case "addToCart":
+        $HomeClient->addToCart();
+        break;
+    case "update_cart_quantity":
+            $HomeClient->updateCartQuantity();
+            break;
+    // Xóa sản phẩm khỏi giỏ hàng
+    case "remove_cart_item":
+            $HomeClient->removeCartItem();
+            break;
+    case "product-details":
+        $HomeClient->productDetails();
+        break;
+    case "miniProduct":
+        $HomeClient->productDetails();
+        break;
+    case "CategoryProductClient":
+        // $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : null;
+        // if ($category_id === null) {
+        //     die("Danh mục không hợp lệ. Vui lòng chọn một danh mục!");
+        // }
+        $HomeClient->categoryProductClient();
+        break;
+    case 'show_checkout';
+        $checkoutAdmin->showOrderDetails();
+        break;
+    case 'createOrederDetails';
+        $checkoutAdmin->CreateOrderDetails();
+        break;
+    // Thông tin cá nhân
+    case 'profile';
+        $profileAdmin->profile();
+        break;
+    // Quản lý đơn hàng
+    case 'listOrders';
+        $orderAdmin->listOrder();
+        break;
+    case 'updateOrder';
+        $orderAdmin->updateOrder();
+        break;
+    case 'updateOrderPost';
+        $orderAdmin->updateOrder_POST();
+    case 'timkiemsanpham':
+        $HomeClient->search();
+        break;
+    case 'historic':
+        $historicClient->orderHistory();
+        break;
+    case 'viewOrderDetails':
+        $historicClient->viewOrderDetails();
+        break;
+    case 'showOrder':
+        $orderAdmin->showOrder();
+        break;
+    // Bình luận
+    case 'createComment':
+        $commentAdmin->comment();
+        break;
+    case 'showComment':
+        $commentAdmin->showComment();
+        break;
+    case 'delete_comment':
+        $commentAdmin->delete();
+        break;
+    case 'Vnpay':
+        $checkoutAdmin->returnVNpay();
         break;
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":
         include './views/403page.php';
-}
+        break;
+    default:
+        http_response_code(404);
+        require_once "./views/404page.php";
+        break;
+    case 'mb':
+        include '.\views\client\Mbbank.php';
+        break;
+
+    }
+    
+    
+?>

@@ -1,20 +1,9 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-     <!-- Vendor Javascript (Require in all Page) -->
-     <script src="public/admin/assets_admin/js/vendor.js"></script>
-
-     <!-- App Javascript (Require in all Page) -->
-     <script src="public/admin/assets_admin/js/app.js"></script>
-
-     <!-- Vector Map Js -->
-     <script src="public/admin/assets_admin/vendor/jsvectormap/js/jsvectormap.min.js"></script>
-     <script src="public/admin/assets_admin/vendor/jsvectormap/maps/world-merc.js"></script>
-     <script src="public/admin/assets_admin/vendor/jsvectormap/maps/world.js"></script>
-
-     <!-- Dashboard Js -->
-     <script src="public/admin/assets_admin/js/pages/dashboard.js"></script>
-
+<script src="/public/admin/dist/js/admin.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
-
-<!-- Mirrored from techzaa.in/larkon/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Mar 2025 08:26:10 GMT -->
 </html>
