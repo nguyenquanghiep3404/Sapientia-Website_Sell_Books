@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "./commons/env.php";
 require_once "./commons/function.php";
 require_once "./models/admin/CategoryAdminModel.php";
@@ -20,7 +21,14 @@ require_once "./models/admin/UserAdminModel.php";
 
 require_once "./controllers/admin/UserAdminController.php";
 require_once "./controllers/admin/AuthController.php";
+
+
+
 // Controller bên client
+require_once "./controllers/client/CartController.php";
+
+
+
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'user';
 $userAdmin = new AdminUsersController();
@@ -32,6 +40,10 @@ $controllerPublishers = new AdminPublishersController();
 
 $productAdmin = new ProductAdminController();
 $authController = new AuthController();
+
+
+// client :
+$cartController = new CartController();
 
 switch ($action) {
     case "login":
@@ -73,6 +85,9 @@ switch ($action) {
     case "create-book":
         $productAdmin->addBook();
         break;
+    case "edit-book":
+        $productAdmin->editBook();
+        break;
     // Quản lý danh mục (Category)
     case "category":
         $controllerCategory->list();
@@ -80,8 +95,14 @@ switch ($action) {
     case "add-category":
         $controllerCategory->formAdd();
         break;
+    case "post-category":
+        $controllerCategory->postAdd();
+        break;
     case "edit-category":
         $controllerCategory->formEdit();
+        break;
+    case "postedit-category":
+        $controllerCategory->postEdit();
         break;
     case "delete-category":
         $controllerCategory->delete();
@@ -89,6 +110,7 @@ switch ($action) {
     case "show-category":
         $controllerCategory->showDetail();
         break;
+
     // Quản lý tác giả (Author)
     case "author":
         $controllerAuthors->list();
@@ -96,8 +118,14 @@ switch ($action) {
     case "add-author":
         $controllerAuthors->formAdd();
         break;
+    case "post-author":
+        $controllerAuthors->postAdd();
+        break;
     case "edit-author":
         $controllerAuthors->formEdit();
+        break;
+    case "postedit-author":
+        $controllerAuthors->postEdit();
         break;
     case "delete-author":
         $controllerAuthors->delete();
@@ -113,17 +141,27 @@ switch ($action) {
     case "add-publisher":
         $controllerPublishers->formAdd();
         break;
+    case "post-publisher":
+        $controllerPublishers->postAdd();
+        break;
     case "edit-publisher":
         $controllerPublishers->formEdit();
+        break;
+    case "postedit-publisher":
+        $controllerPublishers->postEdit();
         break;
     case "delete-publisher":
         $controllerPublishers->delete();
         break;
     case "show-publisher":
         $controllerPublishers->showDetail();
-    case "edit-book":
-        $productAdmin->editBook();
         break;
+
+    // client
+    case "cart":
+        $cartController->index();
+        break;
+
     // Thông báo lỗi 403: Không có quyền truy cập - 404: truy cập sai đường dẫn
     case "403":
         include './views/403page.php';

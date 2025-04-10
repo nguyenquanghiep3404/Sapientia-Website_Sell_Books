@@ -45,7 +45,7 @@ class AdminCategoriesController
 
             if (empty($errors)) {
                 if ($this->modelCategory->add($category_name, $description)) {
-                    header("Location: " . BASE_URL . '?act=list');
+                    header("Location: " . BASE_URL . '?action=category');
                     exit();
                 } else {
                     $errors['db'] = 'Có lỗi khi thêm danh mục.';
@@ -60,7 +60,7 @@ class AdminCategoriesController
     public function formEdit()
     {
         if (!isset($_GET['id_cate']) || !is_numeric($_GET['id_cate'])) {
-            header("Location: " . BASE_URL . '?act=list');
+            header("Location: " . BASE_URL . '?action=category');
             exit();
         }
 
@@ -70,7 +70,7 @@ class AdminCategoriesController
         if ($categories) {
             require_once './views/admin/category/edit.php';
         } else {
-            header("Location: " . BASE_URL . '?act=list');
+            header("Location: " . BASE_URL . '?action=category');
             exit();
         }
     }
@@ -99,7 +99,7 @@ class AdminCategoriesController
 
             if (empty($errors)) {
                 if ($this->modelCategory->update($category_id, $category_name, $description)) {
-                    header("Location: " . BASE_URL . '?act=list');
+                    header("Location: " . BASE_URL . '?action=category');
                     exit();
                 } else {
                     $errors['db'] = 'Có lỗi khi cập nhật danh mục.';
@@ -116,16 +116,16 @@ class AdminCategoriesController
     public function delete()
     {
         if (!isset($_GET['id_cate']) || !is_numeric($_GET['id_cate'])) {
-            header("Location: " . BASE_URL . '?act=list');
+            header("Location: " . BASE_URL . '?action=category');
             exit();
         }
         $category_id = $_GET['id_cate'];
         $categories  = $this->modelCategory->getDetail($category_id);
         if ($categories && $this->modelCategory->destroy($category_id)) {
-            header("Location: " . BASE_URL . '?act=list');
+            header("Location: " . BASE_URL . '?action=category');
             exit();
         } else {
-            header("Location: " . BASE_URL . "?act=list&error=delete_failed");
+            header("Location: " . BASE_URL . "?action=categoryt&error=delete_failed");
             exit();
         }
     }
@@ -133,7 +133,7 @@ class AdminCategoriesController
     public function showDetail()
     {
         if (!isset($_GET['id_cate']) || !is_numeric($_GET['id_cate'])) {
-            header("Location: " . BASE_URL . '?act=list');
+            header("Location: " . BASE_URL . '?action=category');
             exit();
         }
 
@@ -143,7 +143,7 @@ class AdminCategoriesController
         if ($category) {
             require_once './views/admin/category/show.php';
         } else {
-            header("Location: " . BASE_URL . '?act=list');
+            header("Location: " . BASE_URL . '?action=category');
             exit();
         }
     }

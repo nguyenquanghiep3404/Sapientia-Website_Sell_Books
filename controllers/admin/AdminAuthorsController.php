@@ -45,7 +45,7 @@ class AdminAuthorsController
 
             if (empty($errors)) {
                 if ($this->modelAuthor->add($author_name, $bio)) {
-                    header("Location: " . BASE_URL . 'index.php?act=list&type=author');
+                    header("Location: " . BASE_URL . 'index.php?action=author');
 
                     exit();
                 } else {
@@ -61,7 +61,7 @@ class AdminAuthorsController
     public function formEdit()
     {
         if (!isset($_GET['id_author']) || !is_numeric($_GET['id_author'])) {
-            header("Location: " . BASE_URL . '?act=authors_list');
+            header("Location: " . BASE_URL . '/index.php?action=author');
             exit();
         }
 
@@ -71,7 +71,7 @@ class AdminAuthorsController
         if ($author) {
             require_once './views/admin/authors/edit.php';
         } else {
-            header("Location: " . BASE_URL . '?act=authors_list');
+            header("Location: " . BASE_URL . '/index.php?action=author');
             exit();
         }
     }
@@ -99,7 +99,7 @@ class AdminAuthorsController
 
             if (empty($errors)) {
                 if ($this->modelAuthor->update($author_id, $author_name, $bio)) {
-                    header("Location: " . BASE_URL . '/index.php?act=list&type=author');
+                    header("Location: " . BASE_URL . '/index.php?action=author');
 
                     exit();
                 } else {
@@ -116,17 +116,17 @@ class AdminAuthorsController
     public function delete()
     {
         if (!isset($_GET['id_author']) || !is_numeric($_GET['id_author'])) {
-            header("Location: " . BASE_URL . '?act=authors_list');
+            header("Location: " . BASE_URL . '/index.php?action=author');
             exit();
         }
         $author_id = $_GET['id_author'];
         $author    = $this->modelAuthor->getDetail($author_id);
         if ($author && $this->modelAuthor->destroy($author_id)) {
-            header("Location: " . BASE_URL . '/index.php?act=list&type=author');
+            header("Location: " . BASE_URL . '/index.php?action=author');
 
             exit();
         } else {
-            header("Location: " . BASE_URL . "?act=authors_list&error=delete_failed");
+            header("Location: " . BASE_URL . "/index.php?action=author&error=delete_failed");
             exit();
         }
     }
@@ -135,7 +135,7 @@ class AdminAuthorsController
     public function showDetail()
     {
         if (!isset($_GET['id_author']) || !is_numeric($_GET['id_author'])) {
-            header("Location: " . BASE_URL . '?act=authors_list');
+            header("Location: " . BASE_URL . '/index.php?action=author');
             exit();
         }
 
@@ -145,7 +145,7 @@ class AdminAuthorsController
         if ($author) {
             require_once './views/admin/authors/show.php';
         } else {
-            header("Location: " . BASE_URL . '/index.php?act=list&type=author');
+            header("Location: " . BASE_URL . '/index.php?action=author');
 
             exit();
         }

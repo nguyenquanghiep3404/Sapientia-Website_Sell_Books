@@ -517,7 +517,7 @@
                                    <span class="nav-text"> Dashboard </span>
                               </a>
                          </li>
-
+                         <!-- Product -->
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts">
                                    <span class="nav-icon">
@@ -545,7 +545,7 @@
                                    </ul>
                               </div>
                          </li>
-
+                         <!-- Category -->
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarCategory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCategory">
                                    <span class="nav-icon">
@@ -556,13 +556,57 @@
                               <div class="collapse" id="sidebarCategory">
                                    <ul class="nav sub-navbar-nav">
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="category-list.html">List</a>
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=category' ?>">List</a>
                                         </li>                         
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="category-edit.html">Edit</a>
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=edit-category' ?>">Edit</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="category-add.html">Create</a>
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=add-category' ?>">Create</a>
+                                        </li>
+                                   </ul>
+                              </div>
+                         </li>
+                         <!-- Authors -->
+                         <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#sidebarAuthors" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuthors">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:pen-bold-duotone"></iconify-icon> 
+                                   </span>
+                                   <span class="nav-text"> Authors </span>
+                              </a>
+                              <div class="collapse" id="sidebarAuthors">
+                                   <ul class="nav sub-navbar-nav">
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=author' ?>">List</a>
+                                        </li>                         
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=edit-author' ?>">Edit</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=add-author' ?>">Create</a>
+                                        </li>
+                                   </ul>
+                              </div>
+                         </li>
+                         <!-- Publishers -->
+                         <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#sidebarPublishers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPublishers">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="ph:building-bold"></iconify-icon>
+                                   </span>
+                                   <span class="nav-text"> Publishers </span>
+                              </a>
+                              <div class="collapse" id="sidebarPublishers">
+                                   <ul class="nav sub-navbar-nav">
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=publisher' ?>">List</a>
+                                        </li>                         
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=edit-publisher' ?>">Edit</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="<?= BASE_URL . 'index.php?action=add-publisher' ?>">Create</a>
                                         </li>
                                    </ul>
                               </div>
@@ -587,7 +631,7 @@
                                    </ul>
                               </div>
                          </li>
-
+                         
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
                                    <span class="nav-icon">

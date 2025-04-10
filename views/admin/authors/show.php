@@ -1,31 +1,110 @@
-<?php require_once './views/admin/layouts/header.php'; ?>
-<?php require_once './views/admin/layouts/sidebar.php'; ?>
+<?php include ('./views/admin/layout/header.php'); ?>
+<div class="page-content">
 
+<!-- Start Container Fluid -->
+<div class="container-xxl">
 
-<div class="container mt-4">
-    <h2>Chi tiết Tác giả</h2>
-    
-    <table class="table table-bordered">
-        <tr>
-            <th>ID</th>
-            <td><?= $author['author_id'] ?></td>
-        </tr>
-        <tr>
-            <th>Tên Tác giả</th>
-            <td><?= htmlspecialchars($author['author_name']) ?></td>
-        </tr>
-        <tr>
-            <th>Tiểu sử</th>
-            <td><?= nl2br(htmlspecialchars($author['bio'])) ?></td>
-        </tr>
-        <tr>
-            <th>Ngày tạo</th>
-            <td><?= $author['created_at'] ?></td>
-        </tr>
-    </table>
+     <div class="row">
+          <div class="col-xl-3 col-lg-4">
+               <div class="card">
+                    <div class="card-body">
+                         <div class="bg-light text-center rounded bg-light">
+                              <img src="assets/images/product/p-1.png" alt="" class="avatar-xxl">
+                         </div>
+                         <div class="mt-3">
+                              <h4 class="text-center">Chi Tiết Tác Giả</h4>
+                              <div class="d-flex justify-content-center mt-2">
+                                   <span class="badge bg-success">Đang hoạt động</span>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="card-footer border-top">
+                         <div class="row g-2">
+                              <div class="col-lg-12">
+                                   <a href="<?= BASE_URL ?>index.php?action=author" class="btn btn-secondary w-100">
+                                        <iconify-icon icon="solar:undo-left-bold" class="me-1"></iconify-icon>Quay lại</a>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
 
-    <a href="<?= BASE_URL ?>index.php?act=list&type=author" class="btn btn-secondary">Hủy</a>
+          <div class="col-xl-9 col-lg-8">
+               <?php if (!isset($author) || empty($author)) : ?>
+                    <div class="alert alert-danger">Không tìm thấy tác giả!</div>
+               <?php else : ?>
+                    <div class="card">
+                         <div class="card-header">
+                              <h4 class="card-title">Thông Tin Chi Tiết</h4>
+                         </div>
+                         <div class="card-body">
+                              <div class="row">
+                                   <div class="col-lg-6">
+                                        <div class="mb-4">
+                                             <h5 class="mb-3">ID Tác Giả</h5>
+                                             <div class="p-3 bg-light-subtle rounded">
+                                                  <p class="mb-0 fs-16"><?= htmlspecialchars($author['author_id'] ?? 'Không có dữ liệu') ?></p>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-lg-6">
+                                        <div class="mb-4">
+                                             <h5 class="mb-3">Tên Tác Giả</h5>
+                                             <div class="p-3 bg-light-subtle rounded">
+                                                  <p class="mb-0 fs-16"><?= htmlspecialchars($author['author_name'] ?? 'Không có dữ liệu') ?></p>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-lg-12">
+                                        <div class="mb-4">
+                                             <h5 class="mb-3">Tiểu Sử</h5>
+                                             <div class="p-3 bg-light-subtle rounded">
+                                                  <p class="mb-0 fs-16"><?= nl2br(htmlspecialchars($author['bio'] ?? 'Không có tiểu sử')) ?></p>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-lg-6">
+                                        <div class="mb-4">
+                                             <h5 class="mb-3">Ngày Tạo</h5>
+                                             <div class="p-3 bg-light-subtle rounded">
+                                                  <p class="mb-0 fs-16"><?= htmlspecialchars($author['created_at'] ?? 'Chưa cập nhật') ?></p>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-lg-6">
+                                        <div class="mb-4">
+                                             <h5 class="mb-3">Ngày Cập Nhật</h5>
+                                             <div class="p-3 bg-light-subtle rounded">
+                                                  <p class="mb-0 fs-16"><?= htmlspecialchars($author['updated_at'] ?? 'Chưa cập nhật') ?></p>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               <?php endif; ?>
+          </div>
+     </div>
 
 </div>
+<!-- End Container Fluid -->
 
-<?php require_once './views/admin/layouts/footer.php'; ?>
+<!-- ========== Footer Start ========== -->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                <script>document.write(new Date().getFullYear())</script> &copy; Larkon. Crafted by <iconify-icon icon="iconamoon:heart-duotone" class="fs-18 align-middle text-danger"></iconify-icon> <a
+                    href="https://1.envato.market/techzaa" class="fw-bold footer-text" target="_blank">Techzaa</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ========== Footer End ========== -->
+
+</div>
+<?php include ('./views/admin/layout/footer.php'); ?>

@@ -38,7 +38,7 @@ class AdminPublishersController
 
             if (empty($errors)) {
                 if ($this->modelPublisher->add($publisher_name)) {
-                    header("Location: " . BASE_URL . '?act=list&type=publisher');
+                    header("Location: " . BASE_URL . '?action=publisher');
                     exit();
                 } else {
                     $errors['db'] = 'Có lỗi khi thêm nhà xuất bản.';
@@ -53,7 +53,7 @@ class AdminPublishersController
     public function formEdit()
     {
         if (!isset($_GET['id_publisher']) || !is_numeric($_GET['id_publisher'])) {
-            header("Location: " . BASE_URL . '?act=list&type=publisher');
+            header("Location: " . BASE_URL . '?action=publisher');
             exit();
         }
 
@@ -63,7 +63,7 @@ class AdminPublishersController
         if ($publisher) {
             require_once './views/admin/publishers/edit.php';
         } else {
-            header("Location: " . BASE_URL . '?act=list&type=publisher');
+            header("Location: " . BASE_URL . '?action=publisher');
             exit();
         }
     }
@@ -85,7 +85,7 @@ class AdminPublishersController
 
             if (empty($errors)) {
                 if ($this->modelPublisher->update($publisher_id, $publisher_name)) {
-                    header("Location: " . BASE_URL . '?act=list&type=publisher');
+                    header("Location: " . BASE_URL . '?action=publisher');
                     exit();
                 } else {
                     $errors['db'] = 'Có lỗi khi cập nhật nhà xuất bản.';
@@ -101,16 +101,16 @@ class AdminPublishersController
     public function delete()
     {
         if (!isset($_GET['id_publisher']) || !is_numeric($_GET['id_publisher'])) {
-            header("Location: " . BASE_URL . '?act=list&type=publisher');
+            header("Location: " . BASE_URL . '?action=publisher');
             exit();
         }
         $publisher_id = $_GET['id_publisher'];
         $publisher    = $this->modelPublisher->getDetail($publisher_id);
         if ($publisher && $this->modelPublisher->destroy($publisher_id)) {
-            header("Location: " . BASE_URL . '?act=list&type=publisher');
+            header("Location: " . BASE_URL . '?action=publisher');
             exit();
         } else {
-            header("Location: " . BASE_URL . "?act=list&type=publisher&error=delete_failed");
+            header("Location: " . BASE_URL . "?action=publisher&error=delete_failed");
             exit();
         }
     }
@@ -119,7 +119,7 @@ class AdminPublishersController
     public function showDetail()
     {
         if (!isset($_GET['id_publisher']) || !is_numeric($_GET['id_publisher'])) {
-            header("Location: " . BASE_URL . '?act=list&type=publisher');
+            header("Location: " . BASE_URL . '?action=publisher');
             exit();
         }
 
@@ -129,7 +129,7 @@ class AdminPublishersController
         if ($publisher) {
             require_once './views/admin/publishers/show.php';
         } else {
-            header("Location: " . BASE_URL . '?act=list&type=publisher');
+            header("Location: " . BASE_URL . '?action=publisher');
             exit();
         }
     }
