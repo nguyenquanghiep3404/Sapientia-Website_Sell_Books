@@ -119,7 +119,7 @@
         </div>
     </div>
     <!--breadcrumbs area end-->
-    <!-- <?php echo var_dump($_SESSION['myCart']) ?> -->
+    <?php echo var_dump($_SESSION['myCart']) ?>
      <!--shopping cart area start -->
     <div class="shopping_cart_area">
         <div class="container">
@@ -157,7 +157,7 @@
                                                     <h4><?= $pro['name'] ?></h4>
                                                     <ul>
                                                         <li><i class="ion-ios-arrow-right"></i> Màu sắc : <span><?= $pro['color'] ?></span></li>
-                                                        <li><i class="ion-ios-arrow-right"></i> Kích thước : <span><?= $pro['size'] ?></span></li>
+                                                        <li><i class="ion-ios-arrow-right"></i> Phân loại : <span><?= $pro['format'] ?></span></li>
                                                     </ul>
                                                 </div>
                                             </td>

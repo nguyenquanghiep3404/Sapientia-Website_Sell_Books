@@ -4,13 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Codex. Mendoza - Website bán áo nam </title>
-    <meta name="description" content="Uthr Fashion eCommerce Bootstrap 5 Template is an innovative and modern e-commerce online store website template." />
+    <title> Sapientia | Website bán áo sách </title>
+    <meta name="description"
+        content="Uthr Fashion eCommerce Bootstrap 5 Template is an innovative and modern e-commerce online store website template." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <link rel="canonical" href="Replace_with_your_PAGE_URL" />
     <!-- Add site Favicon -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add_shopping_cart" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add_shopping_cart" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- CSS
     ========================= -->
@@ -42,7 +44,113 @@
 
         }
     </script>
+<style>
+    /* --- Custom Styles Based on Logo --- */
 
+/* 1. Định nghĩa biến màu chủ đạo (Nên đặt ở đầu file hoặc trong :root) */
+:root {
+  --primary-red: #D93644; /* Màu đỏ từ logo */
+  --logo-white: #FFFFFF;
+  --logo-black: #212529; /* Hoặc #000000 nếu muốn đen tuyền */
+  --logo-hover-red: #b82e39; /* Màu đỏ đậm hơn một chút cho hover */
+}
+
+/* 2. Responsive Logo Styling */
+.header_logo img {
+  max-width: 160px; /* Kích thước tối đa ban đầu cho logo, bạn có thể điều chỉnh */
+  height: auto;     /* Giữ đúng tỷ lệ khung hình */
+  display: block;   /* Loại bỏ khoảng trắng thừa bên dưới ảnh */
+  transition: max-width 0.3s ease; /* Hiệu ứng chuyển động mượt khi thay đổi kích thước */
+}
+
+/* Điều chỉnh kích thước logo cho màn hình nhỏ hơn (ví dụ: mobile) */
+@media (max-width: 991px) { /* Điểm dừng của Bootstrap cho lg */
+  .header_logo img {
+    max-width: 85px; /* Giảm kích thước trên màn hình nhỏ hơn */
+  }
+}
+@media (max-width: 767px) { /* Điểm dừng của Bootstrap cho md */
+  .header_logo img {
+    max-width: 70px; /* Giảm thêm nếu cần */
+  }
+}
+
+
+/* 3. Áp dụng màu chủ đạo cho các thành phần */
+
+/* Nút chính (Primary Button) */
+.btn-primary {
+  background-color: var(--primary-red);
+  border-color: var(--primary-red);
+  color: var(--logo-white); /* Đảm bảo chữ trên nút có màu trắng */
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--logo-hover-red); /* Màu đậm hơn khi hover/focus */
+  border-color: var(--logo-hover-red);
+  color: var(--logo-white);
+}
+
+/* Link menu đang active hoặc khi hover */
+.main_menu nav ul li a.active,
+.main_menu nav ul li a:hover {
+  color: var(--primary-red);
+}
+
+/* Màu nền header top (Nếu bạn muốn đổi màu nền đen hiện tại) */
+/* Bỏ comment dòng dưới nếu muốn đổi màu header top thành màu đỏ */
+
+.header_top {
+  background-color: var(--primary-red);
+}
+.header_top .text-white,
+.header_top a {
+  color: var(--logo-white) !important; /* Ghi đè để đảm bảo chữ vẫn trắng */
+}
+.header_top a:hover {
+    opacity: 0.8; /* Giảm độ mờ khi hover link trên nền đỏ */
+}
+
+
+/* Màu chữ tiêu đề trong Slider (Nếu muốn đổi từ trắng sang màu khác) */
+/* .slider_text h1 { color: var(--primary-red) !important; } */
+
+/* Màu icon (Ví dụ: icon giỏ hàng, tài khoản) */
+.header_account ul li a i.icons,
+.shopping_cart a i.icons {
+   color: var(--primary-red); /* Áp dụng màu đỏ cho icon nếu muốn */
+}
+.header_account ul li a:hover i.icons,
+.shopping_cart a:hover i.icons {
+  color: var(--logo-hover-red); /* Đổi màu khi hover */
+}
+
+/* Số lượng item trong giỏ hàng/yêu thích */
+.item_count {
+    background-color: var(--primary-red);
+    color: var(--logo-white);
+    /* Tinh chỉnh thêm padding, border-radius nếu cần */
+}
+
+
+/* Thêm các quy tắc CSS khác để áp dụng màu đỏ (var(--primary-red))
+   cho các thành phần khác bạn muốn làm nổi bật (ví dụ: tiêu đề section,
+   đường kẻ, màu link,...) dựa trên cấu trúc class của template bạn đang dùng.
+   Bạn cần kiểm tra code HTML và CSS hiện tại để xác định đúng các class cần ghi đè.
+*/
+
+/* Ví dụ: Màu chữ cho phần shipping info */
+.shipping_text h3 {
+  /* color: var(--primary-red); */ /* Bỏ comment nếu muốn đổi màu tiêu đề shipping */
+}
+
+/* Ví dụ: Màu icon trong phần shipping */
+.shipping_icon i {
+   /* color: var(--primary-red); */ /* Bỏ comment nếu muốn đổi màu icon shipping */
+}
+</style>
 </head>
 
 <body>
@@ -116,7 +224,7 @@
         </div>
     </div>
     <!--offcanvas menu area end-->
-    
+
     <!--header area start-->
     <header class="header_section header_transparent">
         <div class="header_top">
@@ -133,7 +241,9 @@
                                 </ul>
                             </div>
                             <div class="free_shipping_text">
-                                <p class="text-white">Miễn phí vận chuyển trên toàn quốc cho đơn hàng trên 1 triệu đồng <a href="#">Tìm hiểu thêm</a></p>
+                                <p class="text-white">Miễn phí vận chuyển trên toàn quốc cho đơn hàng trên 1 triệu đồng
+                                    <a href="#">Tìm hiểu thêm</a>
+                                </p>
                             </div>
                             <div class="header_top_sidebar d-flex align-items-center">
                                 <div class="header_social d-flex">
@@ -164,9 +274,10 @@
                             </div>
                             <div class="header_logo">
 
-                                
 
-                                <a class="sticky_none" href="###"><img src="public/client/assets/img/logo/logo.png" width="86px" ></a>
+
+                                <a class="sticky_none" href="?action=client"><img src="public/client/assets/img/logo/logo.png"
+                                      ></a>
 
                             </div>
                             <!--main menu start-->
@@ -176,30 +287,33 @@
                                         <li><a class="active" href="?action=client">Trang chủ</a> </li>
                                         <li><a href="shop.html">Giới thiệu</a></li>
                                         <li>
-                                        <a href="?action=CategoryProductClient">Sản phẩm</a>
-                                        <ul class="sub_menu">
-                                            <li>
-                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">Áo Nam</a>
-                                            <ul class="category-menu">
-                                                    <ul class="widget_dropdown_categories collapse show" id="men">
-                                                        <?php foreach ($listCategories as $category): ?>
-                                                            <li><a href="<?= '?action=CategoryProductClient&id='.$category['category_id'] ?>"><?php echo $category['name']; ?></a></li>
-                                                        <?php endforeach; ?>
-                                                    </ul>
+                                            <a href="?action=CategoryProductClient">Sản phẩm</a>
+                                            <ul class="sub_menu">
+                                                <li>
+                                                    <a class="category-title" href="?action=CategoryProductClient"
+                                                        style="font-size: 20px; text-decoration: underline;">Áo Nam</a>
+                                                    <ul class="category-menu">
+                                                        <ul class="widget_dropdown_categories collapse show" id="men">
+                                                            <?php foreach ($listCategories as $category): ?>
+                                                                <li><a
+                                                                        href="<?= '?action=CategoryProductClient&id=' . $category['category_id'] ?>"><?php echo $category['name']; ?></a>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        </ul>
                                                 </li>
                                             </ul>
-                                            </li>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li><a href="#">Cửa hàng</a></li>
+                                    <li><a href="#">Liên Hệ</a></li>
+                                    <li><a href="blog.html">Tin tức</a>
+                                        <ul class="sub_menu">
+                                            <li><a href="blog.html">Blog Pages</a></li>
+                                            <li><a href="blog-details.html">Blog Details</a></li>
                                         </ul>
-                                        </li>
-                                        <li><a href="#">Cửa hàng</a></li>
-                                        <li><a href="#">Liên Hệ</a></li>
-                                        <li><a href="blog.html">Tin tức</a>
-                                            <ul class="sub_menu">
-                                                <li><a href="blog.html">Blog Pages</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">tuyển dụng</a></li>
+                                    </li>
+                                    <li><a href="#">tuyển dụng</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -207,42 +321,43 @@
                                 <ul class="d-flex">
                                     <li class="header_search"><a href="#"><i class="icon-magnifier icons"></i></a></li>
                                     <li class="account_link"><a href="#"><i class="icon-user icons"></i></a>
-                                    <ul class="dropdown_account_link">
-                                        <?php if (isset($_SESSION['name'])) { ?>
-                                            <li><a href="?action=profile">Xin Chào <?=  ($_SESSION['name']['name']) ?>!</a></li>
-                                            <li><a href="?action=profile">Quản Lý Tài Khoản</a></li>
-                                            <?php
-                                            if ($_SESSION['role_id'] == 0) { // Quản trị viên
-                                            ?>
-                                                <li><a href="?action=admin">Truy Cập Trang Admin</a></li>
-                                            <?php
-                                            } elseif ($_SESSION['role_id'] == 1) { // Người dùng thông thường
-                                            ?>
-                                                
-                                            <?php
-                                            }
-                                            ?>
-                                            
-                                            <li><a href="?action=logout">Đăng Xuất</a></li>
-                                        <?php } else { ?>
-                                            <li><a href="?action=login">Đăng Nhập</a></li>
-                                            <li><a href="?action=register">Đăng Kí</a></li>
-                                        <?php } ?>
-                                    </ul>
+                                        <ul class="dropdown_account_link">
+                                            <?php if (isset($_SESSION['name'])) { ?>
+                                                <li><a href="?action=profile">Xin Chào
+                                                        <?= ($_SESSION['name']['name']) ?>!</a></li>
+                                                <li><a href="?action=profile">Quản Lý Tài Khoản</a></li>
+                                                <?php
+                                                if ($_SESSION['role_id'] == 0) { // Quản trị viên
+                                                    ?>
+                                                    <li><a href="?action=admin">Truy Cập Trang Admin</a></li>
+                                                    <?php
+                                                } elseif ($_SESSION['role_id'] == 1) { // Người dùng thông thường
+                                                    ?>
+
+                                                    <?php
+                                                }
+                                                ?>
+
+                                                <li><a href="?action=logout">Đăng Xuất</a></li>
+                                            <?php } else { ?>
+                                                <li><a href="?action=login">Đăng Nhập</a></li>
+                                                <li><a href="?action=register">Đăng Kí</a></li>
+                                            <?php } ?>
+                                        </ul>
                                     </li>
                                     <li><a href="#"><i class="icon-heart icons"></i></a> <span
                                             class="item_count">2</span></li>
                                     <li class="shopping_cart"><a href="#"><i class="icon-basket-loaded icons"></i></a>
 
-                                    <span class="item_count">
-                                    <?php 
-                                        if(isset($_SESSION["myCart"]) ){
-                                            echo count($_SESSION["myCart"]);
-                                        }else{
-                                            echo 0;
+                                        <span class="item_count">
+                                            <?php
+                                            if (isset($_SESSION["myCart"])) {
+                                                echo count($_SESSION["myCart"]);
+                                            } else {
+                                                echo 0;
                                             }
-                                        ?> 
-                                    </span>
+                                            ?>
+                                        </span>
                                     </li>
 
 
@@ -279,12 +394,14 @@
             "speed": 300,
             "infinite": true
         }'>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slider1.jpg">
+            <div class="single_slider d-flex align-items-center"
+                data-bgimg="public/client/assets/img/slider/slider1.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="slider_text">
-                                <span style="color: #bab8b6; font-weight: normal; size: 35px;" class="text-white">Sản phẩm mới</span>
+                                <span style="color: #bab8b6; font-weight: normal; size: 35px;" class="text-white">Sản
+                                    phẩm mới</span>
                                 <h1 class="text-white fw-bold">FALL WINTER COLLECTION</h1>
                                 <p class="text-white">Nhập mã “WINTER100" - Giảm thêm 100K cho đơn từ 950K </p>
                                 <a class="btn btn-primary" href="shop.html">KHÁM PHÁ NGAY</a>
@@ -293,7 +410,8 @@
                     </div>
                 </div>
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slider2.jpg">
+            <div class="single_slider d-flex align-items-center"
+                data-bgimg="public/client/assets/img/slider/slider2.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
@@ -307,7 +425,8 @@
                     </div>
                 </div>
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slider3.jpg">
+            <div class="single_slider d-flex align-items-center"
+                data-bgimg="public/client/assets/img/slider/slider3.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">

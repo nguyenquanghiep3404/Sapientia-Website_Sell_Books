@@ -96,8 +96,6 @@ class ProductQuery
         p.product_id, 
         p.name AS product_name, 
         p.image, 
-        p.price, 
-        p.sale_price, 
         p.description, 
         p.category_id, 
         p.created_at, 
@@ -139,7 +137,6 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     c.name AS category_name, 
-                    pv.language, 
                     pv.format, 
                     pv.quantity
                 FROM products AS p
@@ -157,13 +154,13 @@ class ProductQuery
         }
     }
     // thêm các màu số lượng vào bảng biến thể
-    public function addProductVariants($product_id, $price, $sale_price, $format, $language, $quantity)
+    public function addProductVariants($product_id, $price, $sale_price, $format, $quantity)
     {
         //khai bao try catch
 
-        $sql = "INSERT INTO product_variant( product_id,price,sale_price,	format,	language,	quantity) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO product_variant( product_id,price,sale_price,format,	quantity) VALUES (?,?,?,?,?)";
         // 3. Return kết quả
-        pdo_execute($sql, $product_id, $price, $sale_price, $format, $language, $quantity);
+        pdo_execute($sql, $product_id, $price, $sale_price, $format, $quantity);
         echo "Thêm thành công variant!";
     }
     // Truy xuất tất cả sản phẩm từ bảng product
@@ -183,8 +180,9 @@ class ProductQuery
         $sql = "
             SELECT 
                 p.*, 
-                pv.language, 
-                pv.format, 
+                pv.format,
+                pv.price,
+                pv.sale_price, 
                 pv.quantity 
             FROM products AS p
             LEFT JOIN product_variant AS pv ON p.product_id = pv.product_id
@@ -199,18 +197,42 @@ class ProductQuery
             return null; // Không tìm thấy sản phẩm
         }
     }
-    public function updateProductVariant($variant_id, $price, $sale_price, $format, $language, $quantity)
+    public function findvariant($variant_id) {
+        // Sử dụng prepared statement để bảo mật và đúng cú pháp
+        $sql = "SELECT * FROM product_variant WHERE variant_id = ?";
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$variant_id]); // Truyền $variant_id vào
+            $data = $stmt->fetch(PDO::FETCH_ASSOC); // Lấy dữ liệu dạng mảng kết hợp
+    
+            if ($data) {
+                // Bạn nên có một hàm chuyển đổi riêng cho variant nếu cấu trúc khác product
+                // Hoặc đảm bảo convertToObjectProduct xử lý được cả hai
+                 // Tạm giả định convertToObjectProduct hoạt động đúng
+                $variant = convertToObjectVariant($data); // Đổi tên hàm nếu cần
+                return $variant;
+            } else {
+                return null; // Không tìm thấy biến thể
+            }
+        } catch (PDOException $e) {
+            // Xử lý lỗi nếu có (ví dụ: ghi log)
+            error_log("Database error in findvariant: " . $e->getMessage());
+            return null;
+        }
+    }
+    
+    public function updateProductVariant($variant_id, $price, $sale_price, $format, $quantity)
 {
     $sql = "UPDATE product_variant 
             SET format = ?, 
-                language = ?, 
+                
                 price = ?, 
                 sale_price = ?, 
                 quantity = ? 
             WHERE product_variant_id = ?";
     
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute([$format, $language, $price, $sale_price, $quantity, $variant_id]);
+    $stmt->execute([$format, $price, $sale_price, $quantity, $variant_id]);
 }
 
     // Truy xuất tất cả sản phẩm từ bảng product biến thể
@@ -264,7 +286,7 @@ class ProductQuery
             SELECT 
                 p.*, 
                 vp.format, 
-                vp.language,
+              
                 vp.quantity,
                 vp.price,
                 vp.sale_price,
@@ -299,7 +321,7 @@ class ProductQuery
             $product = convertToObjectProduct($row);
 
             $product->format = $row['format'];
-            $product->language = $row['language'];
+           
             $product->quantity = $row['quantity'];
 
             $product->price = $row['price'];
@@ -324,7 +346,7 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     vp.format, 
-                    vp.language,
+                 
                     vp.quantity
                 FROM 
                     products AS p
@@ -360,7 +382,7 @@ class ProductQuery
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
                 $product->format = $row['format']; // Thêm thông tin size
-                $product->language = $row['language']; // Thêm thông tin color
+               // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -379,7 +401,7 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     vp.format, 
-                    vp.language,
+                   
                     vp.quantity
                 FROM 
                     products AS p
@@ -415,7 +437,7 @@ class ProductQuery
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
                 $product->format = $row['format']; // Thêm thông tin size
-                $product->language = $row['language']; // Thêm thông tin color
+                // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -434,7 +456,7 @@ class ProductQuery
                     pv.format, 
                     pv.price,
                     pv.sale_price,
-                    pv.language, 
+                  
                     pv.quantity 
                 FROM product_variant pv
                 WHERE pv.product_id = :product_id";

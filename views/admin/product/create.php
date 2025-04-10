@@ -244,36 +244,19 @@
                 </div>
                 <div id="variant_list">
                     <div class="variant_item mb-3">
-                        <label>Định dạng</label>
-                        <select class="form-select" name="variant_format[]">
-                            <option value="">Chọn định dạng</option>
-                            <option value="Bìa cứng">Bìa cứng</option>
-                            <option value="Bìa mềm">Bìa mềm</option>
-                            <option value="Ebook">Ebook</option>
+                        <label>Phân loại</label>
+                            <input type="text" name="variant_format[]" class="form-control variant_format"
+                            placeholder="Phân loại">
                         </select>
                         <span class="err text-danger" id="variantFormatErr0"></span>
-
-                        <label>Ngôn ngữ</label>
-                        <select class="form-select" name="variant_language[]">
-                            <option value="">Chọn ngôn ngữ</option>
-                            <option value="Tiếng Việt">Tiếng Việt</option>
-                            <option value="Tiếng Anh">Tiếng Anh</option>
-                            <option value="Tiếng Pháp">Tiếng Pháp</option>
-                            <option value="Tiếng Ý">Tiếng Ý</option>
-                            <option value="Tiếng Trung">Tiếng Trung</option>
-                            </select>
-                        <span class="err text-danger" id="variantLanguageErr0"></span>
-
                         <label>Số Lượng</label>
                         <input type="number" name="variant_quantity[]" class="form-control variant_quantity"
                             placeholder="Số lượng" min="0">
                         <span class="err text-danger" id="variantQuantityErr0"></span>
-
                         <label>Giá</label>
                         <input type="number" min="0" name="product_price[]" class="form-control product_price"
                             placeholder="Giá">
                         <span class="err text-danger" id="productPriceErr0"></span>
-
                         <label>Giá khuyến mãi</label>
                         <input type="number" min="0" name="product_sale_price[]"
                             class="form-control product_sale_price" placeholder="Giá khuyến mãi">
@@ -422,26 +405,11 @@
             const newVariantDiv = document.createElement('div');
             newVariantDiv.classList.add('variant_item', 'mb-3');
             newVariantDiv.innerHTML = `
-                <label>Định dạng</label>
-                <select class="form-select" name="variant_format[]">
-                    <option value="">Chọn định dạng</option>
-                    <option value="Bìa cứng">Bìa cứng</option>
-                    <option value="Bìa mềm">Bìa mềm</option>
-                    <option value="Ebook">Ebook</option>
-                </select>
+                <label>Phân loại</label>
+                <input type="text" name="variant_format[]" class="form-control variant_format"
+                            placeholder="Phân loại">
                 <span class="err text-danger" id="variantFormatErr${variantList.children.length}"></span>
-
                 <label>Ngôn ngữ</label>
-                <select class="form-select" name="variant_language[]">
-                    <option value="">Chọn ngôn ngữ</option>
-                    <option value="Tiếng Việt">Tiếng Việt</option>
-                    <option value="Tiếng Anh">Tiếng Anh</option>
-                    <option value="Tiếng Pháp">Tiếng Pháp</option>
-                    <option value="Tiếng Ý">Tiếng Ý</option>
-                    <option value="Tiếng Trung">Tiếng Trung</option>
-                    </select>
-                <span class="err text-danger" id="variantLanguageErr${variantList.children.length}"></span>
-
                 <label>Số Lượng</label>
                 <input type="number" name="variant_quantity[]" class="form-control variant_quantity"
                     placeholder="Số lượng" min="0">

@@ -4,19 +4,20 @@
 <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 <style>
     /* Basic styling for better appearance */
-    
+
 
     #sidebar .brand img {
         width: 100px;
         margin-bottom: 20px;
     }
 
-   
 
-   
+
+
 
     #content nav {
-        background: #e0f2f7; /* Light cyan background for navbar */
+        background: #e0f2f7;
+        /* Light cyan background for navbar */
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
@@ -25,7 +26,8 @@
     }
 
     #content nav .notification .num {
-        background: #f44336; /* Red for notification number */
+        background: #f44336;
+        /* Red for notification number */
         color: white;
     }
 
@@ -41,7 +43,8 @@
 
     main {
         padding: 20px;
-        background: #f9f9f9; /* Light gray background for main content */
+        background: #f9f9f9;
+        /* Light gray background for main content */
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
@@ -148,6 +151,7 @@
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -251,7 +255,7 @@
             <h3 class="text-center mb-4"> Chỉnh Sửa Sản Phẩm: <?= $one[0]['name'] ?></h3>
 
             <form action="?action=product-form-edit&id=<?= $one[0]['product_id'] ?>" method="post"
-                  enctype="multipart/form-data" style="max-width: 900px; margin: 0 auto;" class="mt-3 mb-5">
+                enctype="multipart/form-data" style="max-width: 900px; margin: 0 auto;" class="mt-3 mb-5">
 
                 <div class="form-group mb-3">
                     <label for="category_id">Tên Danh Mục</label>
@@ -269,13 +273,15 @@
 
                 <div class="form-group mb-3">
                     <label for="name">Tên Sản Phẩm</label>
-                    <input type="text" name="name" id="name" class="form-control" value="<?= htmlspecialchars($one[0]['name']) ?>">
+                    <input type="text" name="name" id="name" class="form-control"
+                        value="<?= htmlspecialchars($one[0]['name']) ?>">
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="image">Hình Ảnh Hiện Tại</label>
                     <?php if (!empty($one[0]['image'])): ?>
-                        <img src="<?= htmlspecialchars($one[0]['image']) ?>" alt="Ảnh sản phẩm" class="img-thumbnail d-block mb-2" width="150">
+                        <img src="<?= htmlspecialchars($one[0]['image']) ?>" alt="Ảnh sản phẩm"
+                            class="img-thumbnail d-block mb-2" width="150">
                     <?php else: ?>
                         <p>Không có hình ảnh hiện tại.</p>
                     <?php endif; ?>
@@ -304,7 +310,7 @@
                 <div class="form-group mb-3">
                     <label for="product_description">Mô tả sản phẩm</label>
                     <textarea id="product_description" name="product_description" class="form-control"
-                              rows="5"><?= htmlspecialchars($one[0]['description']) ?></textarea>
+                        rows="5"><?= htmlspecialchars($one[0]['description']) ?></textarea>
                 </div>
 
                 <div class="form-group mb-3">
@@ -314,39 +320,26 @@
                             <?php foreach ($variant as $variants): ?>
                                 <div class="variant_item mb-3">
                                     <label>Định dạng</label>
-                                    <select class="form-select" name="variant_format[]">
-                                        <option value="Bìa cứng" <?= ($variants['format'] == 'Bìa cứng') ? 'selected' : '' ?>>Bìa cứng</option>
-                                        <option value="Bìa mềm" <?= ($variants['format'] == 'Bìa mềm') ? 'selected' : '' ?>>Bìa mềm</option>
-                                        <option value="Ebook" <?= ($variants['format'] == 'Ebook') ? 'selected' : '' ?>>Ebook</option>
-                                    </select>
-
-                                    <label>Ngôn ngữ</label>
-                                    <select class="form-select" name="variant_language[]">
-                                        <option value="Tiếng Việt" <?= ($variants['language'] == 'Tiếng Việt') ? 'selected' : '' ?>>Tiếng Việt</option>
-                                        <option value="Tiếng Anh" <?= ($variants['language'] == 'Tiếng Anh') ? 'selected' : '' ?>>Tiếng Anh</option>
-                                        <option value="Tiếng Pháp" <?= ($variants['language'] == 'Tiếng Pháp') ? 'selected' : '' ?>>Tiếng Pháp</option>
-                                        <option value="Tiếng Ý" <?= ($variants['language'] == 'Tiếng Ý') ? 'selected' : '' ?>>Tiếng Ý</option>
-                                        <option value="Tiếng Trung" <?= ($variants['language'] == 'Tiếng Trung') ? 'selected' : '' ?>>Tiếng Trung</option>
-                                    </select>
-
+                                    <input type="text" name="variant_format[]" class="form-control"
+                                        value="<?= htmlspecialchars($variants['format']) ?>"> 
                                     <label>Số Lượng</label>
                                     <input type="number" name="variant_quantity[]" class="form-control"
-                                           value="<?= htmlspecialchars($variants['quantity']) ?>">
+                                        value="<?= htmlspecialchars($variants['quantity']) ?>">
 
                                     <label>Giá</label>
                                     <input type="number" min="0" name="product_price[]" class="form-control"
-                                           value="<?= htmlspecialchars($variants['price']) ?>" placeholder="Giá">
+                                        value="<?= htmlspecialchars($variants['price']) ?>" placeholder="Giá">
 
                                     <label>Giá khuyến mãi</label>
                                     <input type="number" min="0" name="product_sale_price[]" class="form-control"
-                                           value="<?= htmlspecialchars($variants['sale_price']) ?>" placeholder="Giá khuyến mãi">
+                                        value="<?= htmlspecialchars($variants['sale_price']) ?>" placeholder="Giá khuyến mãi">
 
                                     <input type="hidden" name="variant_id[]"
-                                           value="<?= htmlspecialchars($variants['product_variant_id']) ?>">
+                                        value="<?= htmlspecialchars($variants['product_variant_id']) ?>">
 
                                     <a href="?action=product-form-edit&id=<?= $id ?>&delete_variant=<?= $variants['product_variant_id'] ?>"
-                                       class="btn btn-danger btn-sm mt-2"
-                                       onclick="return confirm('Bạn có chắc chắn muốn xóa biến thể này?')">
+                                        class="btn btn-danger btn-sm mt-2"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa biến thể này?')">
                                         <i class="fas fa-trash-alt"></i> Xóa
                                     </a>
                                 </div>
@@ -360,14 +353,17 @@
                 <div class="form-group mb-3">
                     <h4>Thêm Biến Thể Mới</h4>
                     <div id="new-variants-container">
-                        </div>
-                    <button type="button" id="add_variant" class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Thêm Biến Thể</button>
+                    </div>
+                    <button type="button" id="add_variant" class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Thêm
+                        Biến Thể</button>
                     <small class="form-text text-muted">Bấm nút để thêm một bộ tùy chọn biến thể mới.</small>
                 </div>
 
                 <div class="form-group mb-3">
-                    <button type="submit" name="capnhat" class="btn btn-dark px-4"><i class="fas fa-save"></i> Cập Nhật Sản Phẩm</button>
-                    <a href="?action=product" class="btn btn-secondary ml-2"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                    <button type="submit" name="capnhat" class="btn btn-dark px-4"><i class="fas fa-save"></i> Cập Nhật
+                        Sản Phẩm</button>
+                    <a href="?action=product" class="btn btn-secondary ml-2"><i class="fas fa-arrow-left"></i> Quay
+                        Lại</a>
                 </div>
             </form>
         </div>
@@ -384,22 +380,9 @@
             newVariantItem.classList.add('variant_item', 'mb-3');
 
             newVariantItem.innerHTML = `
-                <label>Định dạng</label>
-                <select class="form-select" name="new_variant_format[]">
-                    <option value="Bìa cứng">Bìa cứng</option>
-                    <option value="Bìa mềm">Bìa mềm</option>
-                    <option value="Ebook">Ebook</option>
-                </select>
-
-                <label>Ngôn ngữ</label>
-                <select class="form-select" name="new_variant_language[]">
-                    <option value="Tiếng Việt">Tiếng Việt</option>
-                    <option value="Tiếng Anh">Tiếng Anh</option>
-                    <option value="Tiếng Pháp">Tiếng Pháp</option>
-                    <option value="Tiếng Ý">Tiếng Ý</option>
-                    <option value="Tiếng Trung">Tiếng Trung</option>
-                </select>
-
+                <label>Phân loại</label>
+                    <input type="text" name="new_variant_format[]" class="form-control variant_format"
+                            placeholder="Phân loại">
                 <label>Số Lượng</label>
                 <input type="number" name="new_variant_quantity[]" class="form-control" placeholder="Số lượng" value="0" min="0">
 
