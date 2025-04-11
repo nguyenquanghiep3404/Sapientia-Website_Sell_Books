@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 08, 2024 at 09:43 PM
+-- Generation Time: Apr 11, 2025 at 12:42 AM
 -- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- PHP Version: 8.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,8 +45,8 @@ CREATE TABLE `carts` (
 
 CREATE TABLE `categories` (
   `category_id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
@@ -58,12 +58,12 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `comment` (
   `comment_id` int NOT NULL,
-  `comment` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
   `create_at` datetime NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
@@ -93,28 +93,18 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `order_details` (
   `order_detail_id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `phone` varchar(10) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `phone` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `user_id` int NOT NULL,
   `coupon_id` int DEFAULT NULL,
   `shipping_id` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` int NOT NULL DEFAULT '0' COMMENT '0. Chờ xác nhận 1. Đã xác nhận 2. Đang vận chuyển 3. Hoàn thành'
+  `status` int NOT NULL DEFAULT '0' COMMENT '0. Chờ xác nhận 1.Đã hủy 2. Đã xác nhận 3. Đang vận chuyển 4. Hoàn thành'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
-
---
--- Dumping data for table `order_details`
---
-
-INSERT INTO `order_details` (`order_detail_id`, `name`, `email`, `phone`, `address`, `note`, `user_id`, `coupon_id`, `shipping_id`, `created_at`, `updated_at`, `status`) VALUES
-(252, 'hiep', 'hiep@gmail.com', '0971647692', 'ninh binh', '', 9, NULL, NULL, '2024-12-08 20:44:46', NULL, 0),
-(253, 'hiep', 'hiep@gmail.com', '0971647692', 'ninh binh', '', 9, NULL, NULL, '2024-12-08 20:45:48', NULL, 0),
-(254, 'hiep', 'hiep@gmail.com', '0971647692', 'ninh binh', '', 9, NULL, NULL, '2024-12-08 20:45:55', NULL, 0),
-(255, 'hiep', 'hiep@gmail.com', '0971647692', 'ninh binh', '', 9, NULL, NULL, '2024-12-08 20:46:19', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -124,11 +114,9 @@ INSERT INTO `order_details` (`order_detail_id`, `name`, `email`, `phone`, `addre
 
 CREATE TABLE `products` (
   `product_id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `price` float NOT NULL,
-  `sale_price` float DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `category_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -145,9 +133,10 @@ CREATE TABLE `products` (
 CREATE TABLE `product_variant` (
   `product_variant_id` int NOT NULL,
   `product_id` int NOT NULL,
-  `size` varchar(50) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `color` varchar(50) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `quantity` int NOT NULL
+  `quantity` int NOT NULL,
+  `price` float NOT NULL,
+  `sale_price` float DEFAULT NULL,
+  `format` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
@@ -158,12 +147,12 @@ CREATE TABLE `product_variant` (
 
 CREATE TABLE `users` (
   `user_id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `phone` varchar(10) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `phone` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `role_id` int DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -174,7 +163,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `avatar`, `address`, `email`, `phone`, `password`, `role_id`, `created_at`, `updated_at`) VALUES
-(9, 'hiep', NULL, 'ninh binh', 'hiep@gmail.com', '0971647692', '12345', 0, NULL, NULL);
+(9, 'hiep', NULL, 'ninh binh', 'hiep@gmail.com', '0971647692', '12345', 0, NULL, NULL),
+(10, 'Đỗ Bình', NULL, 'Quốc 21', 'dothanhbinh18112005@email.com', '0916804248', '12345678', 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -254,83 +244,43 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `comment_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
+  MODIFY `order_detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `product_variant`
 --
 ALTER TABLE `product_variant`
-  MODIFY `product_variant_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `product_variant_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `carts`
---
-ALTER TABLE `carts`
-  ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `carts_ibfk_3` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`product_variant_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`product_variant_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`order_detail_id`) REFERENCES `order_details` (`order_detail_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `order_details`
---
-ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`coupon_id`) REFERENCES `coupons` (`coupon_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `product_variant`
---
-ALTER TABLE `product_variant`
-  ADD CONSTRAINT `product_variant_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
