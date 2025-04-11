@@ -37,9 +37,41 @@ class registerController{
         $password = $_POST['password'];
         $phone = $_POST['phone'];
         $address = $_POST['address'];
+        // $role_id = 1;
         $this->registerModel->inset($name,$email,$password,$phone,$address);
         header('location:?action=login');
     }
+    public function update_role()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_POST['user_id'];
+            $roleId = $_POST['role_id'];
+
+            // Không cho tự hạ cấp chính mình nếu là admin duy nhất (bạn có thể thêm logic nâng cao ở đây)
+            $this->registerModel->updateRole($userId, $roleId);
+        }
+        header('Location: ?action=all_register');
+    }
+    public function edit_user() {
+        $id = $_GET['id'];
+        $user = $this->registerModel->getUserById($id);
+        require_once './views/admin/login/editUser.php';
+    }
+    
+    public function edit_user_post() {
+        $id = $_POST['user_id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $address = $_POST['address'];
+        $role_id = $_POST['role_id'];
+    
+        $this->registerModel->updateUser($id, $name, $email, $phone, $address, $role_id);
+        header('Location:?action=all_register');
+    }
+    
+
+    
     
 } 
  ?>

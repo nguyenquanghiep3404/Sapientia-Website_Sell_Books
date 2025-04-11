@@ -168,6 +168,64 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="reviews" role="tabpanel" >
                                 <div class="reviews_wrapper">
+                                    <h2></h2>
+                                    <!-- Phần hiển thị đánh giá -->
+                                            <div class="reviews_comment_box d-flex align-items-start mb-4 p-3 bg-light rounded shadow-sm">
+                                                <!-- Ảnh người dùng -->
+                                                <!-- Nội dung đánh giá -->
+                                                <div class="comment_text">
+                                                <?php foreach ($allComment as $item) { ?>
+                                                    <div class="reviews_meta">
+                                                        <!-- Xếp hạng sao -->
+                                                        <div class="star_rating mb-2">
+                                                            <ul class="d-flex list-unstyled mb-0">
+                                                                <?php 
+                                                                    $rating = (int)$item['rating']; // Ép kiểu sang integer
+                                                                    for ($i = 1; $i <= 5; $i++) {
+                                                                        if ($i <= $rating) {
+                                                                            echo '<li><i class="fas fa-star text-warning"></i></li>'; // Sao đặc - vàng
+                                                                        } else {
+                                                                            echo '<li><i class="far fa-star text-secondary"></i></li>'; // Sao rỗng - xám
+                                                                        }
+                                                                    }
+                                                                ?>
+                                                            </ul>
+                                                        </div>
+
+                                                        <!-- Hiển thị các đánh giá -->
+                                                            <p class="mb-1">
+                                                                <strong><?= $item['name'] ?></strong>
+                                                                <span class="text-muted small"> - Ngày: <?= $item['create_at'] ?></span>
+                                                            </p>
+                                                            <p><?= $item['comment'] ?></p>
+                                                       
+                                                    </div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                            <!-- Form gửi đánh giá -->
+                                            <div class="product_review_form mt-4">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title mb-3">Gửi đánh giá của bạn</h5>
+                                                        <form action="?action=createComment&product_id=<?= $product['product_id'] ?>" method="POST">
+                                                        <div class="form-group">
+                                                            <!-- <label>Đánh giá của bạn:</label> -->
+                                                            <select name="rating" class="form-control" required>
+                                                                <option value="5">5 sao</option>
+                                                                <option value="4">4 sao</option>
+                                                                <option value="3">3 sao</option>
+                                                                <option value="2">2 sao</option>
+                                                                <option value="1">1 sao</option>
+                                                            </select>
+                                                        </div>
+                                                            <div class="mb-3">
+                                                                <label for="review_comment" class="form-label">Đánh giá của bạn</label>
+                                                                <textarea name="comment" id="review_comment" class="form-control" rows="4" required></textarea>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                                                        </form>
+
                                     <h2>Bình luận về sản phẩm</h2>
                                     <?php if (!empty($allComment) && is_array($allComment)): // Kiểm tra có bình luận và là mảng không ?>
                                         <?php foreach ($allComment as $item) : ?>
@@ -196,6 +254,7 @@
                                                     <div class="mb-3">
                                                         <label for="review_comment" class="form-label">Bình luận</label>
                                                         <textarea name="comment" id="review_comment" class="form-control" rows="4" required></textarea>
+
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Gửi bình luận</button>
                                                 </form>
