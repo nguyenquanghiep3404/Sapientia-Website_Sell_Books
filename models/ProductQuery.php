@@ -334,7 +334,6 @@ class ProductQuery
 
             $product->price = $row['price'];
             $product->sale_price = $row['sale_price'];
-            $product->min_price = $row['min_price'];
 
             $ds[] = $product;
         }

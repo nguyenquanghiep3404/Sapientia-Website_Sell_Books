@@ -121,7 +121,7 @@
     <div class="container">
         <div class="product_header d-flex justify-content-between mb-50">
             <div class="section_title wow fadeInUp" data-wow-delay="0.1s">
-                <h2>SÁCH</h2>
+                <h2>Sách kinh tế</h2>
             </div>
             <div class="all_product wow fadeInUp" data-wow-delay="0.2s">
                 <a href="?action=CategoryProductClient&id=14">Xem thêm</a>
@@ -215,7 +215,7 @@
         <div class="container">           
                 <div class="banner_container d-flex">
                     <figure class="single_banner position-relative">
-                        <img src="public/client/assets/img/bg/Sale_1366x532_061124_1.webp" alt="Sale Banner">
+                        <img src="public/client/assets/img/bg/slide-2.jpg" alt="Sale Banner">
                     </figure>
                 </div>
         </div>
@@ -228,7 +228,7 @@
         <div class="container">
             <div class="product_header d-flex justify-content-between mb-50">
                 <div class="section_title wow fadeInUp" data-wow-delay="0.1s">
-                    <h2>Sản phẩm áo len</h2>
+                    <h2>Sách thiếu nhi</h2>
                 </div>
                 <div class="all_product wow fadeInUp" data-wow-delay="0.2s">
                     <a href="?action=CategoryProductClient&id=17">Xem thêm</a>

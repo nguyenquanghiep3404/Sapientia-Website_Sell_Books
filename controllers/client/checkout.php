@@ -102,11 +102,48 @@ class checkoutController{
                 header("location:?action=Vnpay");
 
             }   
+            
+            }
+            // thanh toan chuyen khoan qr
+            else if ($check_method === 'qr') {
+                // Lưu đơn hàng trước như bình thường
+                $this->checkModel->insetOrderDetails($name, $email, $phone, $address, $note, $id, $created_at); 
+                $order_details_id = $this->checkModel->getOrder_details_user_id($id)['order_detail_id']; 
+            
+                if (isset($_SESSION['myCart']) && is_array($_SESSION['myCart'])) {
+                    $order_total = 0;
+                    foreach ($_SESSION['myCart'] as $item) {
+                        $product_id = $item['product_id'];
+                        $quantity = $item['quantity'];
+                        $price = $item['price'];
+                        $variant_id = $item['variant_id'];
+                        $total = $price * $quantity;
+                        $order_total += $total;
+            
+                        $this->checkModel->insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total, $variant_id);
+                    }
+                    unset($_SESSION['myCart']);
+                    // Sau khi xử lý đơn hàng, chuyển hướng sang trang chứa QR
+                    header("Location: ?action=qr&id= Thanh toan DH " .$order_details_id." Sapientia &amount=$order_total");
+                    exit();
+                }
             } else {
             echo "Giỏ hàng rỗng hoặc dữ liệu không đúng!";
         }
     }
-    
+    public function redirectQr($amount, $order_details_id, $id){
+        require_once './views/client/Mbbank.php';
+    }
+    public function showQR() {
+        if (isset($_GET['id']) && isset($_GET['amount'])) {
+            $id = $_GET['id'];
+            $amount = $_GET['amount'];
+            require_once './views/client/Mbbank.php';
+             // view chứa mã QR
+        } else {
+            echo "Thiếu thông tin đơn hàng!";
+        }
+    }
     // Hàm redirect đến VNPAY
     public function redirectToVnpay($amount, $order_id, $user_id) {
         $vnp_TmnCode = "3B615Q01"; // Thay bằng mã TMN của bạn
