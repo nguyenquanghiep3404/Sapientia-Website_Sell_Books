@@ -37,6 +37,715 @@
         "url": "Replace_with_your_site_URL"
         }
     </script>
+    <style>
+    /* --- Custom Styles with Red Theme --- */
+
+/* 1. Color Variables */
+:root {
+  --primary-red: #D93644; /* Main red color */
+  --primary-red-dark: #B82E39; /* Darker red for hover states */
+  --primary-red-light: #F8D7DA; /* Light red for backgrounds */
+  --accent-gold: #D4AF37; /* Gold accent color */
+  --text-white: #FFFFFF;
+  --text-dark: #212529;
+  --text-gray: #6c757d;
+  --bg-light: #F8F9FA;
+  --bg-dark: #343A40;
+}
+
+/* 2. Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* 3. Animations and Effects */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-in-out;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 4. Header Styling */
+.header_top {
+  background-color: var(--primary-red);
+  padding: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.header_top .text-white,
+.header_top a {
+  color: var(--text-white) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.header_top a:hover {
+  color: var(--accent-gold) !important;
+  text-decoration: none;
+}
+
+.header_social ul li a {
+  transition: all 0.3s ease;
+}
+
+.header_social ul li a:hover {
+  transform: translateY(-3px);
+  color: var(--accent-gold) !important;
+}
+
+.free_shipping_text {
+  position: relative;
+  overflow: hidden;
+}
+
+.free_shipping_text p {
+  position: relative;
+  z-index: 2;
+}
+
+.free_shipping_text::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.5s ease;
+  z-index: 1;
+}
+
+.free_shipping_text:hover::after {
+  left: 100%;
+}
+
+/* 5. Logo Styling */
+.header_logo img {
+  max-width: 160px;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 991px) {
+  .header_logo img {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header_logo img {
+    max-width: 100px;
+  }
+}
+
+/* 6. Navigation Menu */
+.main_menu nav ul li a {
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.main_menu nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-red);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.main_menu nav ul li a:hover::after,
+.main_menu nav ul li a.active::after {
+  width: 80%;
+}
+
+.main_menu nav ul li a.active,
+.main_menu nav ul li a:hover {
+  color: var(--primary-red);
+}
+
+/* 7. Search and Account Icons */
+.header_account ul li a i.icons,
+.shopping_cart a i.icons {
+  color: var(--primary-red);
+  transition: all 0.3s ease;
+}
+
+.header_account ul li a:hover i.icons,
+.shopping_cart a:hover i.icons {
+  color: var(--primary-red-dark);
+  transform: scale(1.1);
+}
+
+.item_count {
+  background-color: var(--primary-red);
+  color: var(--text-white);
+  border-radius: 50%;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.header_account ul li a:hover .item_count,
+.shopping_cart a:hover .item_count {
+  background-color: var(--primary-red-dark);
+  transform: scale(1.1);
+}
+
+/* 8. Search Box */
+.page_search_box {
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 10px 10px;
+}
+
+.page_search_box form {
+  border-bottom: 2px solid var(--primary-red) !important;
+}
+
+.page_search_box form button {
+  color: var(--primary-red);
+}
+
+.search_close i {
+  color: var(--primary-red);
+  transition: all 0.3s ease;
+}
+
+.search_close i:hover {
+  transform: rotate(90deg);
+}
+
+/* 9. Slider/Carousel */
+.slider_section {
+  margin-bottom: 60px;
+}
+
+.single_slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.single_slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+}
+
+.slider_text {
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.slider_text h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.8s ease-in-out;
+}
+
+.slider_text p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  animation: slideUp 1s ease-in-out;
+}
+
+.slider_text .btn-primary {
+  background-color: var(--primary-red);
+  border-color: var(--primary-red);
+  padding: 10px 25px;
+  font-weight: 500;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  animation: slideUp 1.2s ease-in-out;
+  box-shadow: 0 4px 15px rgba(217, 54, 68, 0.3);
+}
+
+.slider_text .btn-primary:hover {
+  background-color: var(--text-white);
+  border-color: var(--text-white);
+  color: var(--primary-red);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(217, 54, 68, 0.4);
+}
+
+/* 10. Shipping Section */
+.shipping_section {
+  margin-bottom: 80px;
+}
+
+.shipping_inner {
+  background-color: var(--bg-light);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.single_shipping {
+  transition: all 0.3s ease;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.single_shipping:hover {
+  background-color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.shipping_icon i {
+  color: var(--primary-red);
+  font-size: 2.5rem;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+}
+
+.single_shipping:hover .shipping_icon i {
+  transform: scale(1.1);
+}
+
+.shipping_text h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+}
+
+.shipping_text p {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  margin: 0;
+}
+
+/* 11. Product Sections */
+.product_section {
+  margin-bottom: 80px;
+}
+
+.section_title h2 {
+  position: relative;
+  font-weight: 700;
+  margin-bottom: 0;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.section_title h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background-color: var(--primary-red);
+}
+
+.all_product a {
+  color: var(--primary-red);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.all_product a::after {
+  content: "→";
+  margin-left: 5px;
+  transition: all 0.3s ease;
+}
+
+.all_product a:hover {
+  color: var(--primary-red-dark);
+}
+
+.all_product a:hover::after {
+  margin-left: 10px;
+}
+
+/* 12. Product Cards */
+.single_product {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.single_product:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.product_thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.product_thumb img {
+  transition: all 0.5s ease;
+}
+
+.single_product:hover .product_thumb img {
+  transform: scale(1.05);
+}
+
+.product_content {
+  padding: 20px 15px;
+}
+
+.product_name a {
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: block;
+  margin-bottom: 10px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.product_name a:hover {
+  color: var(--primary-red);
+}
+
+.price_box {
+  margin-bottom: 15px;
+}
+
+.current_price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-red);
+  margin-right: 10px;
+}
+
+.old_price {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  text-decoration: line-through;
+}
+
+.add_to_cart .btn-primary {
+  background-color: var(--primary-red);
+  border-color: var(--primary-red);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.add_to_cart .btn-primary:hover {
+  background-color: var(--primary-red-dark);
+  border-color: var(--primary-red-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(217, 54, 68, 0.3);
+}
+
+/* 13. Banner Sections */
+.banner_section {
+  margin-bottom: 80px;
+}
+
+.single_banner {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.single_banner:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.single_banner img {
+  transition: all 0.5s ease;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.single_banner:hover img {
+  transform: scale(1.02);
+}
+
+/* 14. Footer */
+footer {
+  background-color: var(--bg-light);
+  padding-top: 60px;
+}
+
+.footer_logo img {
+  max-width: 160px;
+  margin-bottom: 20px;
+}
+
+.footer_contact_list {
+  margin-bottom: 15px;
+}
+
+.footer_contact_list span {
+  font-weight: 600;
+  color: var(--primary-red);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.footer_contact_list p,
+.footer_contact_list a {
+  color: var(--text-gray);
+  transition: all 0.3s ease;
+}
+
+.footer_contact_list a:hover {
+  color: var(--primary-red);
+}
+
+.footer_menu ul li {
+  margin-left: 20px;
+}
+
+.footer_menu ul li a {
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.footer_menu ul li a:hover {
+  color: var(--primary-red);
+}
+
+.footer_social ul li {
+  margin-left: 15px;
+}
+
+.footer_social ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer_social ul li a:hover {
+  background-color: var(--primary-red);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(217, 54, 68, 0.3);
+}
+
+.copyright_right p {
+  margin-top: 20px;
+  color: var(--text-gray);
+}
+
+.copyright_right p span {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+/* 15. Responsive Adjustments */
+@media (max-width: 991px) {
+  .slider_text h1 {
+    font-size: 2.5rem;
+  }
+  
+  .slider_text p {
+    font-size: 1rem;
+  }
+  
+  .shipping_inner {
+    flex-wrap: wrap;
+  }
+  
+  .single_shipping {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .slider_text h1 {
+    font-size: 2rem;
+  }
+  
+  .single_shipping {
+    width: 100%;
+  }
+  
+  .footer_widget_list.text-right {
+    text-align: left !important;
+  }
+  
+  .footer_menu ul,
+  .footer_social ul {
+    justify-content: flex-start !important;
+  }
+  
+  .footer_menu ul li,
+  .footer_social ul li {
+    margin-left: 0;
+    margin-right: 20px;
+  }
+}
+
+/* 16. Custom Animations for Product Sliders */
+.slick-slide {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.5s ease;
+}
+
+.slick-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 17. Custom Hover Effects */
+.btn-hover-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-hover-effect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.5s ease;
+  z-index: 1;
+}
+
+.btn-hover-effect:hover::before {
+  left: 100%;
+}
+
+/* 18. Product Badge */
+.product_badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: var(--primary-red);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 5;
+  box-shadow: 0 3px 10px rgba(217, 54, 68, 0.3);
+}
+
+/* 19. Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-red);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red-dark);
+}
+
+/* 20. Loading Animation */
+.loading-animation {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-animation div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--primary-red);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-animation div:nth-child(1) {
+  left: 8px;
+  animation: loading1 0.6s infinite;
+}
+
+.loading-animation div:nth-child(2) {
+  left: 8px;
+  animation: loading2 0.6s infinite;
+}
+
+.loading-animation div:nth-child(3) {
+  left: 32px;
+  animation: loading2 0.6s infinite;
+}
+
+.loading-animation div:nth-child(4) {
+  left: 56px;
+  animation: loading3 0.6s infinite;
+}
+
+@keyframes loading1 {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+@keyframes loading2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(24px, 0); }
+}
+
+@keyframes loading3 {
+  0% { transform: scale(1); }
+  100% { transform: scale(0); }
+}
+</style>
 </head>
 
 <body>
