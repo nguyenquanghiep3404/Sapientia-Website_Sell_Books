@@ -528,7 +528,7 @@
     <a href="?action=addToCart&emptyCart=1" class="btn btn-outline-danger">
         <i class="fas fa-trash-alt me-2"></i>XOÁ TOÀN BỘ
     </a>
-    <a href="?action=products" class="btn btn-outline-danger">
+    <a href="?action=client" class="btn btn-outline-danger">
         <i class="fas fa-arrow-left me-2"></i>TIẾP TỤC MUA SẮM
     </a>
 </div>

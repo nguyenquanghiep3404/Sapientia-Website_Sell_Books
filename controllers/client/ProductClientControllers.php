@@ -162,9 +162,6 @@ class HomeClientControllers {
              header('Location: ?action=addToCart');
              exit();
         }
-
-        // --- Phần hiển thị trang giỏ hàng ---
-        // Đảm bảo view 'cart.php' được include sau khi session đã được cập nhật
         include './views/client/cart.php';
     }
     public function updateCartQuantity()

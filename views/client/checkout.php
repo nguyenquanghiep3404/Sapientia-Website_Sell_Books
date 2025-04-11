@@ -270,7 +270,8 @@
         }
     }
 </style>
-
+<?php var_dump($_SESSION['myCart']);
+ var_dump($_SESSION['name'])?>
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area breadcrumbs_other">
     <div class="container">
