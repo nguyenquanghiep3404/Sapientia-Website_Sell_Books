@@ -91,11 +91,7 @@ $filteredProducts = $category_id
                                                 <span class="old_price"><?= number_format($product['sale_price'], 0, ',', '.') ?>đ</span>
                                             </div>
                                             <div class="add_to_cart">
-                                                <form action="?action=addToCart" method="POST">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['product_id'] ?>">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button class="btn btn-primary" href="#" name="add_to_cart"  data-tippy="Mua ngay"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top" >Mua ngay</button>
-                                                </form>
+                                            <a class="btn btn-primary" href="<?='?action=product-details&product_id='.$product['product_id']?>" >Mua ngay</a>
                                             </div>
                                         </div>
                                         <div class="product_list_content">
@@ -110,11 +106,9 @@ $filteredProducts = $category_id
                                             </div>
 
                                             <div class="add_to_cart">
-                                                <form action="?action=addToCart" method="POST">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['product_id'] ?>">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button class="btn btn-primary" href="#" name="add_to_cart"  data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top" >Mua ngay</button>
-                                                </form>
+            
+                                                <a class="btn btn-primary" href="<?='?action=product-details&product_id='.$product['product_id']?>" >Mua ngay</a>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>

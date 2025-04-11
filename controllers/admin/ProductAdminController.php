@@ -14,6 +14,7 @@ class ProductAdminController
     {
         // 1. Khởi tạo giá trị cho thuộc tính productQuery
         $this->productQuery = new ProductQuery();
+        $this->historicModel = new historicModel();
         // Mở trình duyệt lên để kiểm tra kết quả
 
     }
@@ -34,6 +35,8 @@ class ProductAdminController
         $totalCart = $this->productQuery->getTotalCart();
         $totalComment = $this->productQuery->getTotalComment();
         $totalCategories = $this->productQuery->getTotalCategories();
+        $recentOrders = $this->historicModel->getRecentOrders(10);
+        $chartData = $this->historicModel->getRevenueChartData(7);
 
 
         require_once './views/admin/dashboard.php';

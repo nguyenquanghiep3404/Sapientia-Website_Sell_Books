@@ -133,7 +133,7 @@
             }, 3000);
         }
     </script>
-  <title>Trang Đăng Nhập Codex. Mendoza</title>
+  <title>Trang Đăng Kí Sapientia</title>
 </head>
 
 <body>
@@ -159,7 +159,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-xl-5">
-                <h2 class="mb-6 fs-8 fw-bolder">Chào mừng bạn đã tới Codex. Mendoza</h2>
+                <h2 class="mb-6 fs-8 fw-bolder">Chào mừng bạn đã tới Sapientia</h2>
                 <div class="position-relative text-center my-7">
 
                 </div>
@@ -197,7 +197,7 @@
                   <div class="d-md-flex align-items-center justify-content-between mb-7 pb-1">
                    
                   </div>
-                  <button type="submit"  name="btn-login" class="btn btn-primary w-100 mb-7 rounded-pill">Đăng Nhập</button>
+                  <button type="submit"  name="btn-login" class="btn btn-primary w-100 mb-7 rounded-pill">Đăng Ký</button>
                   <div class="d-flex align-items-center">
                     <p class="fs-3 mb-0 fw-medium">Bạn chưa có tài khoản?</p>
                     <a class="text-primary fw-bold ms-2 fs-3" href="?action=register">Tạo Tài khoản</a>

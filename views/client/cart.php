@@ -1,75 +1,390 @@
 <?php include ('./views/client/layout/header.php'); ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 <style>
-    /* Base styling for the container */
-.condition {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Style for each step form */
-.step-cart, .step-checkout, .step-complete {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.step-cart svg, .step-checkout svg, .step-complete svg {
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-}
-
-/* Text styling for steps */
-.step-complete p, .step-checkout p, .step-cart p {
-    font-size: 14px;
-    color: rgb(153, 153, 153);
-    font-weight: bold;
-    margin: 0;
-}
-
-.step-complete:hover p, .step-checkout:hover p, .step-cart.active p {
-    color: #C92027;
-}
-
-.step-complete:hover svg, .step-checkout:hover svg, .step-cart.active svg {
-    transform: scale(1.1);
-    fill: #C92027;
-}
-
-/* Dotline separator */
-.dotline {
-    flex-grow: 1;
-    height: 1px;
-    background-color: #ddd;
-    margin: 0 15px;
-}
-
-/* Active step */
-.step-cart.active p {
-    color: #C92027;
-}
-
-.step-cart.active svg {
-    fill: #C92027;
-}
-
-/* Responsive styling */
-@media (max-width: 768px) {
-    .condition {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .dotline {
-        display: none;
+   .condition {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(201, 32, 39, 0.1);
+        margin: 20px 0;
     }
 
     .step-cart, .step-checkout, .step-complete {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        background: #fff;
+    }
+
+    .step-cart.active {
+        background: #C92027;
+        box-shadow: 0 4px 15px rgba(201, 32, 39, 0.3);
+    }
+
+    .step-cart.active p,
+    .step-cart.active svg path {
+        color: #fff !important;
+        fill: #fff !important;
+    }
+
+    .step-checkout:hover,
+    .step-complete:hover {
+        transform: translateY(-2px);
+    }
+
+    .step-complete p, .step-checkout p, .step-cart p {
+        font-size: 16px;
+        color: #666;
+        font-weight: 600;
+        margin: 0;
+        transition: all 0.3s ease;
+    }
+
+    .dotline {
+        flex-grow: 1;
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, #eee 50%, transparent 100%);
+        margin: 0 10px;
+    }
+
+    /* Table styles */
+    .cart_page_tabel table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart_page_tabel th {
+        background: #C92027;
+        color: #fff;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .cart_page_tabel td {
+        padding: 20px;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .cart_product_thumb img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .quantity-input {
+        width: 80px;
+        padding: 8px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .quantity-input:focus {
+        border-color: #C92027;
+        outline: none;
+    }
+
+    .cart_product_remove a {
+        color: #999;
+        transition: all 0.3s ease;
+    }
+
+    .cart_product_remove a:hover {
+        color: #C92027;
+        transform: scale(1.1);
+    }
+
+    /* Total section */
+    .grand_totall_area {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .proceed_checkout_btn .btn {
+        background: #C92027;
+        color: #fff;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .proceed_checkout_btn .btn:hover {
+        background: #A81B21;
+        transform: translateY(-2px);
+    }
+
+    .shopping_continue_btn .btn {
+        border: 2px solid #C92027;
+        color: #C92027;
+        padding: 10px 25px;
+        border-radius: 30px;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+    /* Sửa lỗi hiển thị nút */
+.shopping_continue_btn {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-danger {
+    position: relative;
+    transition: all 0.3s ease;
+    transform: translateZ(0); /* Kích hoạt hardware acceleration */
+}
+
+/* Đảm bảo nút luôn hiển thị đầy đủ */
+@media (max-width: 768px) {
+    .shopping_continue_btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .btn-danger,
+    .btn-outline-danger {
+        flex: 1 0 auto;
+        min-width: 200px;
+    }
+}
+
+/* Fix overlapping issues */
+.grand_total_wrapper {
+    position: relative;
+    z-index: 99;
+}
+
+.cart_page_button {
+    position: relative;
+    overflow: visible; /* Cho phép nút hiển thị ra ngoài container */
+}
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .cart_page_tabel table thead {
+            display: none;
+        }
+
+        .cart_page_tabel tr {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .cart_page_tabel td {
+            flex: 1 1 100%;
+            text-align: center;
+            border: none;
+            padding: 10px;
+        }
+
+        .cart_product_thumb {
+            margin: 0 auto;
+        }
+    }
+.cart_page_button {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffecec 100%);
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-top: 30px;
+}
+
+.btn-danger {
+    background: #C92027;
+    border: 2px solid #C92027;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: #A81B21;
+    border-color: #A81B21;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(201, 32, 39, 0.3);
+}
+
+.btn-outline-danger {
+    border: 2px solid #C92027;
+    color: #C92027;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    background: #C92027;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.grand_total_wrapper {
+    min-width: 350px;
+}
+
+.grand_totall_area {
+    border: 2px solid #ffd4d6;
+    background: #fff !important;
+}
+
+.total_header h4 {
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+}
+
+.total_amount span:last-child {
+    color: #C92027;
+    font-size: 1.8rem;
+    text-shadow: 0 2px 4px rgba(201, 32, 39, 0.1);
+}
+.cart_page_button {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffecec 100%);
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-top: 30px;
+}
+
+.btn-danger {
+    background: #C92027;
+    border: 2px solid #C92027;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: #A81B21;
+    border-color: #A81B21;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(201, 32, 39, 0.3);
+}
+
+.btn-outline-danger {
+    border: 2px solid #C92027;
+    color: #C92027;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    background: #C92027;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.grand_total_wrapper {
+    min-width: 350px;
+}
+
+.grand_totall_area {
+    border: 2px solid #ffd4d6;
+    background: #fff !important;
+}
+
+.total_header h4 {
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+}
+
+.total_amount span:last-child {
+    color: #C92027;
+    font-size: 1.8rem;
+    text-shadow: 0 2px 4px rgba(201, 32, 39, 0.1);
+}
+
+.btn-danger-hover {
+    background: #C92027;
+    color: #fff;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.btn-danger-hover:hover {
+    background: #A81B21;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 32, 39, 0.3);
+}
+
+.btn-danger-hover::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.btn-danger-hover:hover::after {
+    left: 150%;
+}
+
+@media (max-width: 768px) {
+    .cart_page_button {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .shopping_continue_btn {
+        order: 2;
+        text-align: center;
+    }
+    
+    .grand_total_wrapper {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cart_page_button {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .shopping_continue_btn {
+        order: 2;
+        text-align: center;
+    }
+    
+    .grand_total_wrapper {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .btn {
+        width: 100%;
         margin-bottom: 10px;
     }
 }
@@ -119,7 +434,7 @@
         </div>
     </div>
     <!--breadcrumbs area end-->
-    <?php echo var_dump($_SESSION['myCart']) ?>
+    <!-- <?php echo var_dump($_SESSION['myCart']) ?> -->
      <!--shopping cart area start -->
     <div class="shopping_cart_area">
         <div class="container">
@@ -136,7 +451,7 @@
                                         <th>Giá</th>
                                         <th>Số Lượng</th>
                                         <th>Tổng</th>
-                                        <th>Xóa</th>
+                                        <th class="text-center">Xóa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -156,7 +471,6 @@
                                                 <div class="cart_product_text">
                                                     <h4><?= $pro['name'] ?></h4>
                                                     <ul>
-                                                        <li><i class="ion-ios-arrow-right"></i> Màu sắc : <span><?= $pro['color'] ?></span></li>
                                                         <li><i class="ion-ios-arrow-right"></i> Phân loại : <span><?= $pro['format'] ?></span></li>
                                                     </ul>
                                                 </div>
@@ -185,10 +499,12 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="cart_product_remove text-right">
-                                                    <a href="" class="remove-item" data-index="<?= $index ?>"><i class="ion-android-close"></i></a>
-                                                </div>
-                                            </td>
+                            <div class="cart_product_remove">
+                                <a href="#" class="remove-item btn btn-icon" style="margin-left: 23px;" data-index="<?= $index ?>">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
                                         </tr>
                                     <?php endforeach; } 
                                     else{
@@ -207,28 +523,27 @@
                             </table>
 
                             </div>
-                            <div class="cart_page_button border-top d-flex justify-content-between grand_totall_area" style="height:200px;background-color:#aecfed ">
-                                
-                                <div class="shopping_continue_btn">
-                                    <a href="?action=addToCart&emptyCart=1" class="btn btn-primary">XOÁ TOÀN BỘ GIỎ HÀNG</a>
-                                    <button  type="submit" class="btn btn-primary">TIẾP TỤC MUA SẮM</button>
-                                </div>
-                                <!--Tổng tiền  -->
-                                <div class="col-lg-4 col-md-6 col-sm-8">
-                                <div class="grand_totall_area" style="background-color:#aecfed">
-                                <div class="mb-2  border-bottom " >
-                                    
-                                    <!-- <div class="cart_grandtotal d-flex justify-content-between ">
-                                        <p style="font-size: 28px;" class="cart-total" >Tổng</p>
-                                        <span style="font-size: 28px;" ><?= number_format($cartTotal, 0, ',', '.') ?>đ
-                                            </span>
-                                    </div> -->
-                                </div>
-                                <div class="proceed_checkout_btn" >
-                                    <a class="btn btn-primary" href="?action=show_checkout">Tiến Hành Thanh Toán</a>
-                                </div>
-                                </div>
-                            </div>
+                            <div class="cart_page_button d-flex justify-content-between align-items-center py-4">
+                            <div class="shopping_continue_btn" style="position: relative; z-index: 999;">
+    <a href="?action=addToCart&emptyCart=1" class="btn btn-outline-danger">
+        <i class="fas fa-trash-alt me-2"></i>XOÁ TOÀN BỘ
+    </a>
+    <a href="?action=products" class="btn btn-outline-danger">
+        <i class="fas fa-arrow-left me-2"></i>TIẾP TỤC MUA SẮM
+    </a>
+</div>
+
+    <div class="grand_total_wrapper">
+        
+    <div class="proceed_checkout_btn">
+    <a class="btn btn-danger-hover w-100 py-3 fs-5 d-flex justify-content-center align-items-center gap-3" href="?action=show_checkout">
+        <span>THANH TOÁN NGAY</span>
+        <i class="fas fa-arrow-right fs-5"></i>
+    </a>
+</div>
+        
+    </div>
+</div>
                             </div>
                          </div>
                      </div>
