@@ -107,7 +107,9 @@
             <td>Password</td>
             <td>Phone</td>
             <td>Address</td>
-            <td>Operation</td>
+            <td>Role</td>
+            <td>Action</td>
+
         </tr>
     </thead>
     <tbody>
@@ -120,6 +122,18 @@
             <td><?= $registers['phone'] ?></td>
             <td><?= $registers['address'] ?></td>
             <td>
+                <form action="?action=update_role" method="post" style="display:inline-block;">
+                    <input type="hidden" name="user_id" value="<?= $registers['user_id'] ?>">
+                    <select name="role_id" onchange="this.form.submit()">
+                        <option value="0" <?= $registers['role_id'] == 0 ? 'selected' : '' ?>>Admin</option>
+                        <option value="1" <?= $registers['role_id'] == 1 ? 'selected' : '' ?>>Client</option>
+                    </select>
+                </form>
+               
+            </td>
+
+            <td>
+                <a href="?action=editUser&id=<?= $registers['user_id'] ?>"><button class="btn btn-warning">Sửa</button></a>
                <a href="?action=delete&id=<?= $registers['user_id'] ?>" onclick="return confirm('Ban có muốn xoá không?')"><button class="button btn btn-danger">Xoá</button></a>
             </td>
         </tr>

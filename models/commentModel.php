@@ -31,9 +31,9 @@ class commentModel{
     //     $data = $this->conn->query($sql);
     //     return $data->fetch();
     // }
-    public function insert_comment($comment,$user_id,$product_id,$create_at,$name,$email)
+    public function insert_comment($comment,$user_id,$product_id,$create_at,$name,$email,$rating)
     {
-        $sql = "INSERT INTO `comment` (`comment`, `user_id`, `product_id` , `create_at`, `name`, `email`) VALUES ('$comment', '$user_id', '$product_id', '$create_at', '$name', '$email')";
+        $sql = "INSERT INTO `comment` (`comment`, `user_id`, `product_id` , `create_at`, `name`, `email`, `rating`) VALUES ('$comment', '$user_id', '$product_id', '$create_at', '$name', '$email', '$rating')";
         $this->conn->exec($sql);
     }
 

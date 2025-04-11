@@ -37,7 +37,8 @@ class commentController{
         $create_at = date('Y-m-d H:i:s');
         $name = $_SESSION['name']['name'];
         $email = $_SESSION['name']['email'];
-        $this->commentModel->insert_comment($comment,$user_id,$product_id,$create_at,$name,$email);
+        $rating = $_POST['rating'];
+        $this->commentModel->insert_comment($comment,$user_id,$product_id,$create_at,$name,$email,$rating);
         header("location:?action=product-details&product_id=$product_id");
     }
 }

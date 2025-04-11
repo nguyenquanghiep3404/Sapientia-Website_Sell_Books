@@ -121,6 +121,15 @@ switch ($action) {
     case "all_register":
         $registerAdmin->all_register();
         break;
+    case "update_role":
+        $registerAdmin->update_role();
+        break;
+    case "editUser":
+        $registerAdmin->edit_user();
+        break;
+    case "edit_user_post":
+        $registerAdmin->edit_user_post();
+        break;
     case "delete":
         $registerAdmin->delete();
         break;

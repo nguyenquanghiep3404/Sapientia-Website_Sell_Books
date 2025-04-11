@@ -3,8 +3,111 @@
         display: none;
     }
 
-    input {
-        display: none;
+    input[type="file"] {
+        display: block; /* Make file inputs visible */
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-dark {
+        background-color: #343a40;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-dark:hover {
+        background-color: #1d2124;
+    }
+
+    .variant_item {
+        border: 1px solid #eee;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        align-items: center;
+    }
+
+    .variant_item label {
+        margin-bottom: 0;
+    }
+
+    .remove_variant {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .remove_variant:hover {
+        background-color: #c82333;
+    }
+
+    #add_variant {
+        margin-top: 10px;
+    }
+
+    .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .err {
+        font-size: 0.9em;
     }
 </style>
 
@@ -99,14 +202,9 @@
                         <?php } ?>
                     </ul>
                 </li>
-
-
-
             </ul>
         </div>
     </nav>
-    <!-- NAVBAR -->
-
     <main class="my-5">
         <div class="container">
             <h3 class="text-center">Thêm Sản Phẩm</h3>
@@ -127,16 +225,15 @@
                     <label for="name">Tên Sách</label>
                     <input type="text" name="product_name" id="name" class="form-control">
                     <span class="err text-danger" id="nameErr"></span>
-
                 </div>
                 <div class="form-group mb-3">
                     <label for="img">Ảnh Bìa</label>
-                    <input type="file" name="product_image" id="img" class="form-control d-block">
+                    <input type="file" name="product_image" id="img" class="form-control">
                     <span class="err text-danger" id="imgErr"></span>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="gallery">Bộ sưu tập</label>
-                    <input type="file" name="product_gallery[]" id="gallery" class="form-control d-block" multiple>
+                    <label for="gallery">Bộ sưu tập (Chọn ít nhất 1 ảnh)</label>
+                    <input type="file" name="product_gallery[]" id="gallery" class="form-control" multiple>
                     <span class="err text-danger" id="galleryErr"></span>
                 </div>
 
@@ -145,37 +242,43 @@
                     <input type="text" name="product_description" id="product_description" class="form-control">
                     <span class="err text-danger" id="infoErr"></span>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="price">Giá</label>
-                    <input type="text" name="product_price" id="price" class="form-control">
-                    <span class="err text-danger" id="priceErr"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="sale">Sale</label>
-                    <input type="text" name="product_sale_price" id="sale" class="form-control">
-                </div>
                 <div id="variant_list">
                     <div class="variant_item mb-3">
                         <label>Định dạng</label>
-                        <select class="form-select" name="variant_size[]">
+                        <select class="form-select" name="variant_format[]">
+                            <option value="">Chọn định dạng</option>
                             <option value="Bìa cứng">Bìa cứng</option>
                             <option value="Bìa mềm">Bìa mềm</option>
                             <option value="Ebook">Ebook</option>
                         </select>
-                        <!-- <input type="text" name="variant_size[]" class="form-control" placeholder="S, M, L"> -->
-                        <span class="err text-danger" id="variantSizeErr0"></span>
+                        <span class="err text-danger" id="variantFormatErr0"></span>
+
                         <label>Ngôn ngữ</label>
-                        <select class="form-select" name="variant_color[]">
+                        <select class="form-select" name="variant_language[]">
+                            <option value="">Chọn ngôn ngữ</option>
                             <option value="Tiếng Việt">Tiếng Việt</option>
                             <option value="Tiếng Anh">Tiếng Anh</option>
-                            <!-- Các ngôn ngữ khác -->
-                        </select>
-                        <!-- <input type="text" name="variant_color[]" class="form-control" placeholder="Đỏ, Xanh, Vàng"> -->
-                        <span class="err text-danger" id="variantColorErr0"></span>
+                            <option value="Tiếng Pháp">Tiếng Pháp</option>
+                            <option value="Tiếng Ý">Tiếng Ý</option>
+                            <option value="Tiếng Trung">Tiếng Trung</option>
+                            </select>
+                        <span class="err text-danger" id="variantLanguageErr0"></span>
+
                         <label>Số Lượng</label>
-                        <input type="number" name="variant_quantity[]" id="variant_quantity[]" class="form-control"
-                            placeholder="Số lượng">
+                        <input type="number" name="variant_quantity[]" class="form-control variant_quantity"
+                            placeholder="Số lượng" min="0">
                         <span class="err text-danger" id="variantQuantityErr0"></span>
+
+                        <label>Giá</label>
+                        <input type="number" min="0" name="product_price[]" class="form-control product_price"
+                            placeholder="Giá">
+                        <span class="err text-danger" id="productPriceErr0"></span>
+
+                        <label>Giá khuyến mãi</label>
+                        <input type="number" min="0" name="product_sale_price[]"
+                            class="form-control product_sale_price" placeholder="Giá khuyến mãi">
+
+                        <button type="button" class="remove_variant">Xóa</button>
                     </div>
                 </div>
                 <button type="button" id="add_variant" class="btn btn-primary mt-3">Thêm Biến Thể</button>
@@ -189,129 +292,214 @@
 
 </section>
 <script>
+    const productForm = document.querySelector('form'); // Get the form element
+
     function validateForm() {
         // Reset errors
         resetErrors();
+        let isValid = true;
 
         // Validate category
         var category = document.getElementById('category_id');
-        if (category.value.trim() === '0') {
+        if (category.value === '0') {
             displayError('categoryErr', 'Vui lòng chọn danh mục');
-            category.focus();
-            return false;
+            isValid = false;
         }
 
         // Validate name
         var name = document.getElementById('name');
         if (name.value.trim() === '') {
             displayError('nameErr', 'Vui lòng nhập tên sản phẩm');
-            name.focus();
-            return false;
+            isValid = false;
         }
+
         // Validate image
         var img = document.getElementById('img');
         if (img.files.length === 0) {
-            displayError('imgErr', 'Vui lòng chọn hình ảnh');
-            img.focus();
-            return false;
+            displayError('imgErr', 'Vui lòng chọn hình ảnh bìa');
+            isValid = false;
         }
+
+        // Validate gallery (at least one image)
         var gallery = document.getElementById('gallery');
-        if (gallery.value.trim() === '') {
-            displayError('galleryErr', 'Vui lòng chọn 4 ảnh chi tiết');
-            gallery.focus();
-            return false;
+        if (gallery.files.length === 0) {
+            displayError('galleryErr', 'Vui lòng chọn ít nhất một ảnh cho bộ sưu tập');
+            isValid = false;
         }
+
+        // Validate description
         var product_description = document.getElementById('product_description');
         if (product_description.value.trim() === '') {
             displayError('infoErr', 'Vui lòng nhập mô tả');
-            product_description.focus();
-            return false;
+            isValid = false;
         }
-        // Validate price
-        var price = document.getElementById('price');
-        if (price.value.trim() === '' || isNaN(price.value.trim()) || parseFloat(price.value.trim()) <= 0) {
-            displayError('priceErr', 'Vui lòng nhập giá tiền hợp lệ');
-            price.focus();
-            return false;
+
+        // Validate variants
+        const variantItems = document.querySelectorAll('.variant_item');
+        if (variantItems.length === 0) {
+            alert('Vui lòng thêm ít nhất một biến thể cho sản phẩm.');
+            isValid = false;
         }
-        // Validate variant quantity
-        var quantities = document.getElementsByName('variant_quantity[]');
-        var validQuantity = true; // Biến kiểm tra số lượng hợp lệ
-        quantities.forEach(function (quantity, index) {
-            if (quantity.value.trim() === '' || isNaN(quantity.value.trim()) || parseFloat(quantity.value.trim()) <= 0) {
-                // Hiển thị thông báo lỗi cho từng variant quantity
-                displayError('variantQuantityErr' + index, 'Vui lòng nhập số lượng hợp lệ cho biến thể ' + (index + 1));
-                validQuantity = false;
+
+        variantItems.forEach((variant, index) => {
+            const formatSelect = variant.querySelector('select[name="variant_format[]"]');
+            const languageSelect = variant.querySelector('select[name="variant_language[]"]');
+            const quantityInput = variant.querySelector('input[name="variant_quantity[]"]');
+            const priceInput = variant.querySelector('input[name="product_price[]"]');
+
+            const variantIndex = index; // Use the loop index
+
+            if (formatSelect.value === '') {
+                displayError(`variantFormatErr${variantIndex}`, 'Vui lòng chọn định dạng', variant);
+                isValid = false;
+            }
+            if (languageSelect.value === '') {
+                displayError(`variantLanguageErr${variantIndex}`, 'Vui lòng chọn ngôn ngữ', variant);
+                isValid = false;
+            }
+            if (quantityInput.value.trim() === '' || isNaN(quantityInput.value) || parseInt(quantityInput.value) <= 0) {
+                displayError(`variantQuantityErr${variantIndex}`, 'Vui lòng nhập số lượng hợp lệ', variant);
+                isValid = false;
+            }
+            if (priceInput.value.trim() === '' || isNaN(priceInput.value) || parseFloat(priceInput.value) < 0) {
+                displayError(`productPriceErr${variantIndex}`, 'Vui lòng nhập giá hợp lệ', variant);
+                isValid = false;
             }
         });
 
-        if (!validQuantity) {
-            return false; // Nếu có lỗi ở bất kỳ variant nào, không cho phép gửi form
-        }
-        // var price = document.getElementById('sale');
-        // if (sale.value.trim() === '' || isNaN(sale.value.trim()) || parseFloat(sale.value.trim()) <= 0) {
-        //     displayError('saleErr', 'Vui lòng nhập giá tiền hợp lệ');
-        //     price.focus();
-        //     return false;
-        // }
+        return isValid;
+    }
 
-        // Validate variant size
-        var sizes = document.getElementsByName('variant_size[]');
-        var validSize = true; // Biến kiểm tra size hợp lệ
-        sizes.forEach(function (size, index) {
-            if (size.value.trim() === '') {
-                // Hiển thị thông báo lỗi cho từng variant size
-                displayError('variantSizeErr' + index, 'Vui lòng nhập kích cỡ hợp lệ cho biến thể ' + (index + 1));
-                validSize = false;
+    // Function to reset error messages within a specific element or globally
+    function resetErrors(container = document) {
+        const errorElements = container.getElementsByClassName('err');
+        for (const element of errorElements) {
+            element.innerText = '';
+        }
+    }
+
+    // Function to display error message within a specific element
+    function displayError(elementId, message, container = document) {
+        const errorElement = container.getElementById(elementId);
+        if (errorElement) {
+            errorElement.innerText = message;
+        }
+    }
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function () {
+            if (this.value < 0) {
+                this.value = 0;
             }
         });
-
-        if (!validSize) {
-            return false; // Nếu có lỗi ở bất kỳ variant size nào, không cho phép gửi form
-        }
-
-        // Validate variant color
-        var colors = document.getElementsByName('variant_color[]');
-        var validColor = true; // Biến kiểm tra color hợp lệ
-        colors.forEach(function (color, index) {
-            if (color.value.trim() === '') {
-                // Hiển thị thông báo lỗi cho từng variant color
-                displayError('variantColorErr' + index, 'Vui lòng nhập màu sắc hợp lệ cho biến thể ' + (index + 1));
-                validColor = false;
-            }
-        });
-
-        if (!validColor) {
-            return false; // Nếu có lỗi ở bất kỳ variant color nào, không cho phép gửi form
-        }
-
-        return true;
-    }
-
-    // Function to reset error messages
-    function resetErrors() {
-        var errorElements = document.getElementsByClassName('err');
-        for (var i = 0; i < errorElements.length; i++) {
-            errorElements[i].innerText = '';
-        }
-    }
-
-    // Function to display error message
-    function displayError(elementId, message) {
-        var errorElement = document.getElementById(elementId);
-        errorElement.innerText = message;
-    }
+    });
 
     document.getElementById('add_variant').addEventListener('click', function () {
         const variantList = document.getElementById('variant_list');
-        const newVariant = document.querySelector('.variant_item').cloneNode(true);
-        newVariant.querySelectorAll('input').forEach(input => input.value = '');
-        variantList.appendChild(newVariant);
+        const originalVariant = document.querySelector('.variant_item');
+        if (originalVariant) {
+            const newVariant = originalVariant.cloneNode(true);
+
+            // Reset values in the new variant
+            newVariant.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+            newVariant.querySelectorAll('select').forEach(select => select.value = '');
+
+            // Update error span IDs to be unique
+            const index = variantList.children.length;
+            newVariant.querySelectorAll('.err').forEach(span => {
+                const originalId = span.id;
+                if (originalId) {
+                    const newId = originalId.replace(/\d+$/, index); // Replace any number at the end with the new index
+                    span.id = newId;
+                }
+                span.innerText = ''; // Clear any previous error messages
+            });
+
+            variantList.appendChild(newVariant);
+            updateRemoveButtons(); // Update the state of remove buttons
+        } else {
+            const variantList = document.getElementById('variant_list');
+            const newVariantDiv = document.createElement('div');
+            newVariantDiv.classList.add('variant_item', 'mb-3');
+            newVariantDiv.innerHTML = `
+                <label>Định dạng</label>
+                <select class="form-select" name="variant_format[]">
+                    <option value="">Chọn định dạng</option>
+                    <option value="Bìa cứng">Bìa cứng</option>
+                    <option value="Bìa mềm">Bìa mềm</option>
+                    <option value="Ebook">Ebook</option>
+                </select>
+                <span class="err text-danger" id="variantFormatErr${variantList.children.length}"></span>
+
+                <label>Ngôn ngữ</label>
+                <select class="form-select" name="variant_language[]">
+                    <option value="">Chọn ngôn ngữ</option>
+                    <option value="Tiếng Việt">Tiếng Việt</option>
+                    <option value="Tiếng Anh">Tiếng Anh</option>
+                    <option value="Tiếng Pháp">Tiếng Pháp</option>
+                    <option value="Tiếng Ý">Tiếng Ý</option>
+                    <option value="Tiếng Trung">Tiếng Trung</option>
+                    </select>
+                <span class="err text-danger" id="variantLanguageErr${variantList.children.length}"></span>
+
+                <label>Số Lượng</label>
+                <input type="number" name="variant_quantity[]" class="form-control variant_quantity"
+                    placeholder="Số lượng" min="0">
+                <span class="err text-danger" id="variantQuantityErr${variantList.children.length}"></span>
+
+                <label>Giá</label>
+                <input type="number" min="0" name="product_price[]" class="form-control product_price"
+                    placeholder="Giá">
+                <span class="err text-danger" id="productPriceErr${variantList.children.length}"></span>
+
+                <label>Giá khuyến mãi</label>
+                <input type="number" min="0" name="product_sale_price[]"
+                    class="form-control product_sale_price" placeholder="Giá khuyến mãi">
+
+                <button type="button" class="remove_variant">Xóa</button>
+            `;
+            variantList.appendChild(newVariantDiv);
+            updateRemoveButtons(); // Update the state of remove buttons
+        }
     });
 
     document.getElementById('variant_list').addEventListener('click', function (e) {
         if (e.target.classList.contains('remove_variant')) {
-            e.target.parentElement.remove();
+            const variantList = document.getElementById('variant_list');
+            if (variantList.children.length > 1) {
+                e.target.parentElement.remove();
+                updateRemoveButtons(); // Update the state of remove buttons after removal
+            } else {
+                alert('Bạn phải giữ lại ít nhất một biến thể.');
+            }
+        }
+    });
+
+    function updateRemoveButtons() {
+        const variantList = document.getElementById('variant_list');
+        const removeButtons = variantList.querySelectorAll('.remove_variant');
+        if (variantList.children.length === 1) {
+            removeButtons.forEach(button => {
+                button.disabled = true;
+                button.style.backgroundColor = '#6c757d'; // Grey out the button
+                button.style.cursor = 'not-allowed';
+            });
+        } else {
+            removeButtons.forEach(button => {
+                button.disabled = false;
+                button.style.backgroundColor = '#dc3545'; // Restore original color
+                button.style.cursor = 'pointer';
+            });
+        }
+    }
+
+    // Call updateRemoveButtons initially to disable if only one variant exists
+    updateRemoveButtons();
+
+    // Prevent form submission if validation fails
+    productForm.addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent the default form submission
         }
     });
 </script>

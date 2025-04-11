@@ -233,26 +233,33 @@
                                                 <!-- Ảnh người dùng -->
                                                 <!-- Nội dung đánh giá -->
                                                 <div class="comment_text">
+                                                <?php foreach ($allComment as $item) { ?>
                                                     <div class="reviews_meta">
                                                         <!-- Xếp hạng sao -->
                                                         <div class="star_rating mb-2">
                                                             <ul class="d-flex list-unstyled mb-0">
-                                                                <li><i class="fas fa-star text-warning"></i></li>
-                                                                <li><i class="fas fa-star text-warning"></i></li>
-                                                                <li><i class="fas fa-star text-warning"></i></li>
-                                                                <li><i class="fas fa-star text-warning"></i></li>
-                                                                <li><i class="fas fa-star text-warning"></i></li>
+                                                                <?php 
+                                                                    $rating = (int)$item['rating']; // Ép kiểu sang integer
+                                                                    for ($i = 1; $i <= 5; $i++) {
+                                                                        if ($i <= $rating) {
+                                                                            echo '<li><i class="fas fa-star text-warning"></i></li>'; // Sao đặc - vàng
+                                                                        } else {
+                                                                            echo '<li><i class="far fa-star text-secondary"></i></li>'; // Sao rỗng - xám
+                                                                        }
+                                                                    }
+                                                                ?>
                                                             </ul>
                                                         </div>
+
                                                         <!-- Hiển thị các đánh giá -->
-                                                        <?php foreach ($allComment as $item) { ?>
                                                             <p class="mb-1">
                                                                 <strong><?= $item['name'] ?></strong>
                                                                 <span class="text-muted small"> - Ngày: <?= $item['create_at'] ?></span>
                                                             </p>
                                                             <p><?= $item['comment'] ?></p>
-                                                        <?php } ?>
+                                                       
                                                     </div>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                             <!-- Form gửi đánh giá -->
@@ -261,6 +268,16 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title mb-3">Gửi đánh giá của bạn</h5>
                                                         <form action="?action=createComment&product_id=<?= $product['product_id'] ?>" method="POST">
+                                                        <div class="form-group">
+                                                            <!-- <label>Đánh giá của bạn:</label> -->
+                                                            <select name="rating" class="form-control" required>
+                                                                <option value="5">5 sao</option>
+                                                                <option value="4">4 sao</option>
+                                                                <option value="3">3 sao</option>
+                                                                <option value="2">2 sao</option>
+                                                                <option value="1">1 sao</option>
+                                                            </select>
+                                                        </div>
                                                             <div class="mb-3">
                                                                 <label for="review_comment" class="form-label">Đánh giá của bạn</label>
                                                                 <textarea name="comment" id="review_comment" class="form-control" rows="4" required></textarea>
