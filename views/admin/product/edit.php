@@ -312,7 +312,7 @@
                     <textarea id="product_description" name="product_description" class="form-control"
                         rows="5"><?= htmlspecialchars($one[0]['description']) ?></textarea>
                 </div>
-
+                <!-- <?php var_dump($variant) ?> -->
                 <div class="form-group mb-3">
                     <h4>Biến Thể Hiện Tại</h4>
                     <div id="variant_list">
@@ -335,9 +335,9 @@
                                         value="<?= htmlspecialchars($variants['sale_price']) ?>" placeholder="Giá khuyến mãi">
 
                                     <input type="hidden" name="variant_id[]"
-                                        value="<?= htmlspecialchars($variants['product_variant_id']) ?>">
+                                        value="<?= htmlspecialchars($variants['variant_id']) ?>">
 
-                                    <a href="?action=product-form-edit&id=<?= $id ?>&delete_variant=<?= $variants['product_variant_id'] ?>"
+                                    <a href="?action=product-form-edit&id=<?= $id ?>&delete_variant=<?= $variants['variant_id'] ?>"
                                         class="btn btn-danger btn-sm mt-2"
                                         onclick="return confirm('Bạn có chắc chắn muốn xóa biến thể này?')">
                                         <i class="fas fa-trash-alt"></i> Xóa

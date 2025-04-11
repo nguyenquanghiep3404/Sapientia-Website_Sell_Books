@@ -300,7 +300,7 @@
         <tbody>
             <?php foreach($recentOrders as $order): ?>
             <tr>
-                <td>#<?= $order['id'] ?></td>
+                <td>#<?= $order['order_detail_id'] ?></td>
                 <td><?= htmlspecialchars($order['customer_name']) ?></td>
                 <td><?= number_format($order['total'], 0, ',', '.') ?>₫</td>
                 <td>
