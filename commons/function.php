@@ -1,4 +1,6 @@
+
 <?php
+// require_once './commons/env.php';
 function connect_db() {
     try {
         $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8';
@@ -15,3 +17,130 @@ function connect_db() {
         die('Lỗi kết nối CSDL: ' . $e->getMessage());
     }
 }
+/**
+ * Thực thi câu lệnh sql thao tác dữ liệu (INSERT, UPDATE, DELETE)
+ * @param string $sql câu lệnh sql
+ * @param array $args mảng giá trị cung cấp cho các tham số của $sql
+ * @throws PDOException lỗi thực thi câu lệnh
+ */
+function pdo_execute($sql)
+{
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = connect_db();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
+/**
+ * Thực thi câu lệnh sql truy vấn dữ liệu (SELECT)
+ * @param string $sql câu lệnh sql
+ * @param array $args mảng giá trị cung cấp cho các tham số của $sql
+ * @return array mảng các bản ghi
+ * @throws PDOException lỗi thực thi câu lệnh
+ */
+function pdo_query($sql)
+{
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = connect_db();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+        $rows = $stmt->fetchAll();
+        return $rows;
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
+/**
+ * Thực thi câu lệnh sql truy vấn một bản ghi
+ * @param string $sql câu lệnh sql
+ * @param array $args mảng giá trị cung cấp cho các tham số của $sql
+ * @return array mảng chứa bản ghi
+ * @throws PDOException lỗi thực thi câu lệnh
+ */
+function pdo_query_one($sql)
+{
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = connect_db();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
+/**
+ * Thực thi câu lệnh sql truy vấn một giá trị
+ * @param string $sql câu lệnh sql
+ * @param array $args mảng giá trị cung cấp cho các tham số của $sql
+ * @return giá trị
+ * @throws PDOException lỗi thực thi câu lệnh
+ */
+function pdo_query_value($sql)
+{
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = connect_db();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return array_values($row)[0];
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
+
+function pdo_last_insert_id($sql)
+{
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = connect_db();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+        $last_id = $conn->lastInsertId();
+        return $last_id;
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
+function convertToObjectProduct ($row){
+    $product = new Product();
+    $product->product_id = $row['product_id'];
+    $product->name = $row['name'];
+    $product->image = $row['image'];
+    $product->format = $row['format'];
+    $product->quantity = $row['quantity'];
+    $product->category_id = $row['category_id'];
+    $product->created_at = $row['created_at'];
+    $product->updated_at = $row['updated_at'];
+    $product->description = $row['description'];
+    $product->gallery = $row['gallery'];
+    $product->status= $row['status'];
+    return $product;
+}
+
+function convertToObjectVariant($data) {
+    $variant = new stdClass(); // Hoặc new YourVariantClass();
+    foreach ($data as $key => $value) {
+        $variant->$key = $value;
+    }
+    return $variant;
+}
+
+
+?>
