@@ -123,11 +123,8 @@ function convertToObjectProduct ($row){
     $product->product_id = $row['product_id'];
     $product->name = $row['name'];
     $product->image = $row['image'];
-    $product->price = $row['price'];
-    $product->color = $row['color'];
-    $product->size = $row['size'];
+    $product->format = $row['format'];
     $product->quantity = $row['quantity'];
-    $product->sale_price = $row['sale_price'];
     $product->category_id = $row['category_id'];
     $product->created_at = $row['created_at'];
     $product->updated_at = $row['updated_at'];
@@ -137,19 +134,13 @@ function convertToObjectProduct ($row){
     return $product;
 }
 
-// format date 
-// function formatDate($date){
-//     return date("d-m-Y", strtotime($date));
-// }
+function convertToObjectVariant($data) {
+    $variant = new stdClass(); // Hoặc new YourVariantClass();
+    foreach ($data as $key => $value) {
+        $variant->$key = $value;
+    }
+    return $variant;
+}
 
-// function checkLoginAdmin(){
-//     if (!isset($_SESSION['user_admin'])) {
-//         header("Location: " . BASE_URL_ADMIN . '?act=login-admin');
-//         exit();
-//     }
-// }
 
-// function formatPrice($price){
-//     return number_format($price, 0, ',', '.');
-// }
 ?>

@@ -23,8 +23,9 @@ class Product
     public $description;
 
     public $gallery;
-    public $color;
-    public $size;
+    public $format;
+    public $language;
+    public $min_price;
 
 }
 

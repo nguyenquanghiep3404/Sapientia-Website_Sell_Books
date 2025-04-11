@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Codex. Mendoza - Website bán áo nam </title>
+    <title>Sapientia | Website bán sách </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
@@ -78,7 +78,7 @@
                                 <a href="shop.html">Shop</a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="product-details.html"> Product Details</a>
+                                <a href="product-details.html"> Book Details</a>
                             </li>
                             <li><a href="#">sale</a></li>
                             <li class="menu-item-has-children">
@@ -149,7 +149,7 @@
                             <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
                         </div>
                         <div class="header_logo">
-                            <a class="sticky_none" href="?action=client"><img src="public/client/assets/img/logo/logo.png" alt=""></a>
+                            <a class="sticky_none" href="?action=client"><img src="public/client/assets/img/logo/logo.png" width="150px" ></a>
                         </div>
                         <!--main menu start-->
                         <div class="main_menu d-none d-lg-block">
@@ -157,10 +157,10 @@
                                 <ul class="d-flex">
                                     <li><a href="?action=client">Trang chủ</a> </li>
                                     <li><a href="###">Giới thiệu</a></li>
-                                    <li><a href="?action=CategoryProductClient">Sản phẩm</a>
+                                    <li><a href="?action=CategoryProductClient">Sách</a>
                                         <ul class="sub_menu">
                                             <li>
-                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">Áo Nam</a>
+                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">DANH MỤC SÁCH</a>
                                             <ul class="category-menu">
                                                     <ul class="widget_dropdown_categories collapse show" id="men">
                                                         <?php foreach ($listCategories as $category): ?>
@@ -239,7 +239,7 @@
             <i class="ion-close-round"></i>
         </div>
         <form class="border-bottom" action="?action=timkiemsanpham" method="POST">
-            <input class="border-0" name="kyw" placeholder="Tìm kiếm sản phẩm..." type="text">
+            <input class="border-0" name="kyw" placeholder="Tìm kiếm sách..." type="text">
             <button type="submit"><span class="icon-magnifier icons"></span></button>
         </form>
     </div>

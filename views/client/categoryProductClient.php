@@ -13,7 +13,7 @@ $filteredProducts = $category_id
     <div class="shop_section shop_reverse">
         <div class="container">
             <div class="row">
-            <div class="shop_banner d-flex align-items-center"  data-bgimg="public/client/assets/img/bg/Sale_1366x532_061124_1.webp">
+            <div class="shop_banner d-flex align-items-center"  data-bgimg="public/client/assets/img/bg/nbg3.jpg">
                     </div>
                 <div class="col-lg-3 col-md-12">
                    <!--sidebar widget start-->
@@ -22,7 +22,7 @@ $filteredProducts = $category_id
                             <div class="widget_list widget_categories">
                                 <h2>Danh mục</h2>
                                 <ul>
-                                    <li class="widget_sub_categories"><a href="javascript:void(0)" data-toggle="collapse" data-target="#men">Áo Nam</a>
+                                    <li class="widget_sub_categories"><a href="javascript:void(0)" data-toggle="collapse" data-target="#men">Sách</a>
                                         <ul class="widget_dropdown_categories collapse show" id="men">
                                             <?php foreach ($listCategories as $category): ?>
                                                 <li><a href="<?= '?action=CategoryProductClient&id='.$category['category_id'] ?>"><?php echo $category['name']; ?></a></li>
@@ -43,7 +43,7 @@ $filteredProducts = $category_id
                     <div class="breadcrumb_content">
                         <ul>
                             <li><a href="?action=client">Trang chủ</a></li>
-                            <li><a href="?action=CategoryProductClient">Áo Nam</a></li>
+                            <li><a href="?action=CategoryProductClient">SÁCH</a></li>
                         </ul>
                     </div>
                     <!--breadcrumbs area end-->
@@ -88,14 +88,11 @@ $filteredProducts = $category_id
                                             </h4>
                                             <div class="price_box">
                                                 <span class="current_price"><?= number_format($product['price'], 0, ',', '.') ?>đ</span>
-                                                <span class="old_price"><?= number_format($product['sale_price'], 0, ',', '.') ?>đ</span>
+                                                <?= number_format($product->sale_price ?? 0, 0, ',', '.') ?>đ
+
                                             </div>
                                             <div class="add_to_cart">
-                                                <form action="?action=addToCart" method="POST">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['product_id'] ?>">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button class="btn btn-primary" href="#" name="add_to_cart"  data-tippy="Mua ngay"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top" >Mua ngay</button>
-                                                </form>
+                                            <a class="btn btn-primary" href="<?='?action=product-details&product_id='.$product['product_id']?>" >Mua ngay</a>
                                             </div>
                                         </div>
                                         <div class="product_list_content">
@@ -110,11 +107,9 @@ $filteredProducts = $category_id
                                             </div>
 
                                             <div class="add_to_cart">
-                                                <form action="?action=addToCart" method="POST">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['product_id'] ?>">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button class="btn btn-primary" href="#" name="add_to_cart"  data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top" >Mua ngay</button>
-                                                </form>
+            
+                                                <a class="btn btn-primary" href="<?='?action=product-details&product_id='.$product['product_id']?>" >Mua ngay</a>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +117,7 @@ $filteredProducts = $category_id
                         <?php endif; ?>
                         <?php endforeach; ?>
                         <?php if (empty($filteredProducts)): ?>
-                            <p>Không có sản phẩm nào trong danh mục này.</p>
+                            <p>Không có sách nào trong danh mục này.</p>
                         <?php endif; ?>
                         <!-- end -->
                       

@@ -50,7 +50,7 @@
             }, 3000);
         }
     </script>
-  <title>Trang Đăng Nhập Codex. Mendoza</title>
+  <title>Trang Đăng Nhập </title>
 </head>
 
 <body>
@@ -76,7 +76,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-xl-5">
-                <h2 class="mb-6 fs-8 fw-bolder">Chào mừng bạn đã tới Codex. Mendoza</h2>
+                <h2 class="mb-6 fs-8 fw-bolder">Chào mừng bạn đã tới Sapientia</h2>
                 <div class="position-relative text-center my-7">
 
                 </div>

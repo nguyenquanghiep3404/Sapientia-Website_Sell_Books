@@ -53,6 +53,7 @@ if (!isset($_SESSION['myCart']) || !is_array($_SESSION['myCart'])) {
 
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'client';
+
 $productAdmin = new ProductAdminController();
 $categoryAdmin = new categoryControllers();
 $loginAdmin = new loginController();

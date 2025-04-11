@@ -14,6 +14,7 @@ class checkoutController{
 
     public function showOrderDetails()
     {   
+        
         if(isset($_SESSION['name'])){
         $showCheckout = $this->checkModel->getUserName($_SESSION['name']['name']);
         
@@ -33,6 +34,7 @@ class checkoutController{
             header('location:?action=login'); // Chuyển hướng đến trang đăng nhập
             exit();
         }
+        
         $name = $_POST['name'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
@@ -58,6 +60,7 @@ class checkoutController{
                         $product_id = $item['product_id'];
                         $quantity = $item['quantity'];
                         $price = $item['price'];
+                        $variant_id = $item['variant_id'];
                         // $total =$item['total'] ;
                         // Tính tổng tiền cho từng sản phẩm
                         $total = $price * $quantity;
@@ -65,7 +68,7 @@ class checkoutController{
                         $order_total += $total;
 
                     // Gọi hàm thêm sản phẩm vào đơn hàng
-                    $this->checkModel->insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total);
+                    $this->checkModel->insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total, $variant_id);
                     
                     }
                     
@@ -83,6 +86,7 @@ class checkoutController{
                 foreach ($_SESSION['myCart'] as $item) {
                     $product_id = $item['product_id'];
                     $quantity = $item['quantity'];
+                    $variant_id = $item['variant_id'];
                     // $price = $item['total'];
                     // $price = $item['price'];
                     // $cartTotal += $price * $quantity;
@@ -92,7 +96,7 @@ class checkoutController{
                         $total =$item['total'] ;
 
                     // Gọi hàm thêm sản phẩm vào đơn hàng
-                    $this->checkModel->insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total);
+                    $this->checkModel->insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total, $variant_id);
                 }
                 unset($_SESSION['myCart']);
                 header("location:?action=Vnpay");
@@ -105,10 +109,10 @@ class checkoutController{
     
     // Hàm redirect đến VNPAY
     public function redirectToVnpay($amount, $order_id, $user_id) {
-        $vnp_TmnCode = "SF6QFXPR"; // Thay bằng mã TMN của bạn
-        $vnp_HashSecret = "MU4F4UXIGGBAQUICD514Z684865TBBVD"; // Thay bằng chuỗi bí mật
+        $vnp_TmnCode = "3B615Q01"; // Thay bằng mã TMN của bạn
+        $vnp_HashSecret = "ILBNS1DSTNVKECLDQDUUD447B1IIZ8DG"; // Thay bằng chuỗi bí mật
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost/Du-an-1_Nhom5/?action=Vnpay"; // URL xử lý sau khi thanh toán
+        $vnp_Returnurl = "http://localhost/Sapientia-Website_Sell_Books/?action=Vnpay"; // URL xử lý sau khi thanh toán
        
         $vnp_TxnRef = $order_id; // Mã đơn hàng
         $vnp_OrderInfo = "Thanh toán đơn hàng $order_id";

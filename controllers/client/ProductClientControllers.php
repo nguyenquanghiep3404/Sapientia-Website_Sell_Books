@@ -31,11 +31,6 @@ class HomeClientControllers {
         $product = $this->productQuery->getDetailSan($product_id);
         $variant = $this->productQuery->getProductByVariant($product_id);
         $allComment = $this->commentModel->allComment($product_id);
-        // if (isset($_GET['product_id'])) {
-        //     $product_id = $_GET['product_id'];
-        //     $product = $this->productQuery->get_product_by_id($product_id);
-        //     $variant = $this->productQuery->get_product_by_variant($product_id);
-        // }
         include "./views/client/product-details.php";
         
     }
@@ -85,76 +80,91 @@ class HomeClientControllers {
         
         // Xử lý khi người dùng thêm sản phẩm vào giỏ hàng
         if (isset($_POST['add_to_cart']) && $_POST['product_id'] > 0 ) {
-            $product_id = $_POST['product_id'];
-            
-            $quantity = isset($_POST['quantity']) && $_POST['quantity'] > 0 ? (int)$_POST['quantity'] : 1;
+            $variant_id = (int)$_POST['variant_id'];
+            $product_id = (int)$_POST['product_id']; // Lấy cả product_id gốc
+            $quantity = isset($_POST['quantity']) && (int)$_POST['quantity'] > 0 ? (int)$_POST['quantity'] : 1;
 
-            $size = $_POST['size'] ?? null;
-            $color = $_POST['color'] ?? null;
-            // Tìm thông tin sản phẩm từ database
+            // Tìm thông tin biến thể chi tiết từ database bằng hàm findvariant
+            $variant = $this->productQuery->findvariant($variant_id);
+            // Tìm thông tin sản phẩm gốc bằng hàm find
             $product = $this->productQuery->find($product_id);
-            if (!$product) {
-                // Nếu không tìm thấy sản phẩm, dừng xử lý
-                header('Location: ?action=addToCart&error=notfound');
-                exit();
-            }
-            // Kiểm tra trạng thái sản phẩm
-            if ($product->status == 0) {
-                // Nếu sản phẩm bị ẩn, không cho thêm vào giỏ hàng
-                
-                header('Location: ?action=cart');
-                exit();
-            }
-        
-            // Kiểm tra biến thể có tồn tại không
-            // $variant = $this->productQuery->checkVariant($product_id, $size, $color);
-            // if (!$variant) {
-            //     echo "Biến thể không tồn tại.";
-            //     exit();
-            // }
-            
 
-    
+            if (!$variant || !$product) {
+                // Nếu không tìm thấy biến thể hoặc sản phẩm gốc
+                 echo "<script>alert('Lỗi: Sản phẩm hoặc biến thể không tồn tại.'); </script>";
+                 die();
+                
+            }
+
+             // Kiểm tra trạng thái sản phẩm gốc (Giả định đối tượng $product có thuộc tính 'status')
+             if (!isset($product->status) || $product->status == 0) {
+                // Nếu sản phẩm gốc bị ẩn
+                 echo "<script>alert('Xin lỗi, sản phẩm này hiện không còn kinh doanh.'); window.history.back();</script>";
+                exit();
+            }
+
+             // Kiểm tra số lượng tồn kho của biến thể (Giả định đối tượng $variant có thuộc tính 'quantity')
+             if (!isset($variant->quantity) || $variant->quantity < $quantity) {
+                 $available_qty = $variant->quantity ?? 0; // Lấy số lượng hiện có hoặc 0 nếu không có
+                 echo "<script>alert('Số lượng tồn kho không đủ cho biến thể \"".htmlspecialchars($variant->format ?? 'N/A')."\". Chỉ còn ". $available_qty ." sản phẩm.'); window.history.back();</script>";
+                 exit();
+             }
+
+
             // Khởi tạo giỏ hàng nếu chưa tồn tại
             if (!isset($_SESSION['myCart']) || !is_array($_SESSION['myCart'])) {
                 $_SESSION['myCart'] = [];
             }
-            
-            // Kiểm tra sản phẩm có tồn tại trong giỏ hàng không
-            $product_exists = false;
-            foreach ($_SESSION['myCart'] as $key => $value) {
-                if ($value['product_id'] == $product_id && $value['color'] == $color && $value['size'] == $size) {
-                    $product_exists = true;
-    
-                    // Không thay đổi số lượng nếu người dùng chỉ tải lại trang
-                // Chỉ tăng số lượng nếu `quantity` được cập nhật từ form
-                $_SESSION['myCart'][$key]['quantity'] = max($_SESSION['myCart'][$key]['quantity'], $quantity);
-    
-                    // Cập nhật lại tổng giá trị sản phẩm
-                    $_SESSION['myCart'][$key]['total'] = $_SESSION['myCart'][$key]['quantity'] * $_SESSION['myCart'][$key]['price'];
+
+            // Xác định giá cuối cùng (ưu tiên giá khuyến mãi)
+            // Giả định đối tượng $variant có thuộc tính 'sale_price' và 'price'
+            $final_price = $variant->sale_price ?? $variant->price ?? 0; // Thêm ?? 0 phòng trường hợp cả 2 đều null
+
+            // Kiểm tra biến thể đã tồn tại trong giỏ hàng chưa
+            $item_exists_key = false;
+            foreach ($_SESSION['myCart'] as $key => $item) {
+                // Kiểm tra dựa trên variant_id
+                if ($item['variant_id'] == $variant_id) {
+                    $item_exists_key = $key;
                     break;
                 }
             }
-    
-            // Nếu sản phẩm chưa tồn tại, thêm mới vào giỏ hàng
-            if (!$product_exists) {
-                $array_pro = [
-                    "product_id" => $product->product_id,
-                    "image" => $product->image,
-                    "name" => $product->name,
-                    "price" => $product->price,
-                    "total" => $product->price * $quantity,
-                   "color" => $_POST['color'],
-                    "size" => $_POST['size'],
-                "quantity" => $_POST['quantity']
-                ];
-                
-                array_push($_SESSION['myCart'], $array_pro);
+
+            // Nếu biến thể đã tồn tại, cập nhật số lượng
+            if ($item_exists_key !== false) {
+                 // Kiểm tra tổng số lượng mới có vượt quá tồn kho không
+                 $new_quantity = $_SESSION['myCart'][$item_exists_key]['quantity'] + $quantity;
+                 if ($new_quantity > $variant->quantity) {
+                      echo "<script>alert('Không thể thêm số lượng này. Tổng số lượng trong giỏ (". $new_quantity .") vượt quá số lượng tồn kho (". $variant->quantity .") cho biến thể \"".htmlspecialchars($variant->format ?? 'N/A')."\".'); window.history.back();</script>";
+                      exit();
+                 }
+
+                $_SESSION['myCart'][$item_exists_key]['quantity'] = $new_quantity;
             }
+            // Nếu biến thể chưa tồn tại, thêm mới vào giỏ hàng
+            else {
+                // Giả định $product có 'image', 'name' và $variant có 'variant_id', 'format'
+                $cart_item = [
+                    "variant_id" => $variant->variant_id ?? $variant_id, // Lấy từ object hoặc fallback về id post lên
+                    "product_id" => $product->product_id ?? $product_id, // Lấy từ object hoặc fallback về id post lên
+                    "image" => $product->image ?? '',         // Ảnh đại diện sản phẩm gốc
+                    "name" => $product->name ?? 'Sản phẩm không tên', // Tên sản phẩm gốc
+                    "format" => $variant->format ?? 'Mặc định',  
+                        // Tên định dạng/biến thể
+                    "price" => $final_price,   
+                    "total" => $final_price * $quantity,           // Giá cuối cùng của biến thể
+                    "quantity" => $quantity,
+                ];
+                $_SESSION['myCart'][] = $cart_item; // Thêm vào cuối mảng
+            }
+
+             // Sau khi thêm/cập nhật thành công, chuyển hướng đến trang giỏ hàng
+             header('Location: ?action=addToCart');
+             exit();
         }
-       
-    
-        // Hiển thị trang giỏ hàng
+
+        // --- Phần hiển thị trang giỏ hàng ---
+        // Đảm bảo view 'cart.php' được include sau khi session đã được cập nhật
         include './views/client/cart.php';
     }
     public function updateCartQuantity()

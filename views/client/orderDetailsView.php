@@ -1,94 +1,71 @@
-<?php include('./views/client/layout/header.php'); ?>
+<?php include('./views/client/layout/header.php') ?>
 
-<style>
-    .order-details-container {
-        width: 95%;
-        margin: 40px auto;
-    }
+<div class="container-fluid py-5" style="background-color: #fff5f5;">
+    <div class="container">
+        <h2 class="text-center mb-5">
+            <span class="pb-2 border-bottom border-3 border-danger text-danger fw-bold">CHI TIẾT ĐƠN HÀNG</span>
+        </h2>
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        <?php if (empty($orderDetails)): ?>
+            <div class="alert alert-warning text-center">Không tìm thấy chi tiết đơn hàng!</div>
+        <?php else: ?>
+            <div class="card shadow-lg border-danger">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mb-0">
+                            <thead class="bg-danger text-white">
+                                <tr>
+                                    <th scope="col" class="ps-4">Sách</th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col" class="text-end pe-4">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($orderDetails as $detail): ?>
+                                    <tr class="align-middle">
+                                        <td class="ps-4 fw-medium"><?= htmlspecialchars($detail['product_name']) ?></td>
+                                        <td>
+                                            <img src="<?= htmlspecialchars($detail['product_image']) ?>"
+                                                class="img-thumbnail border-danger"
+                                                style="width: 70px; height: 70px; object-fit: cover;"
+                                                alt="<?= htmlspecialchars($detail['product_name']) ?>">
+                                        </td>
+                                        <td><?= number_format($detail['product_price'] ?? 0, 0, ',', '.') ?>₫</td>
 
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-        vertical-align: middle;
-    }
+                                        <td>
+                                            <span class="badge bg-danger rounded-pill"><?= $detail['quantity'] ?></span>
+                                        </td>
+                                        <td class="text-end pe-4 fw-medium text-danger">
+                                            <?= number_format($detail['order_total'], 0, ',', '.') ?>₫
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-    th {
-        background-color: #f8f9fa;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .product-img {
-        width: 60px;
-        height: auto;
-        object-fit: cover;
-        border-radius: 4px;
-    }
-
-    .total-row {
-        text-align: right;
-        font-size: 20px;
-        margin-top: 20px;
-        font-weight: bold;
-    }
-
-    .back-link {
-        margin-top: 20px;
-        font-size: 16px;
-    }
-</style>
-
-<div class="order-details-container">
-    <h2 class="text-center mb-4">Chi tiết đơn hàng</h2>
-
-    <?php if (empty($orderDetails)): ?>
-        <p class="text-center">Không tìm thấy chi tiết đơn hàng.</p>
-    <?php else: ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tên sản phẩm</th>
-                    <th>Ảnh</th>
-                    <th>Giá sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Thành tiền</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $totalAmount = 0;
-                foreach ($orderDetails as $detail):
-                    $itemTotal = $detail['product_price'] * $detail['quantity'];
-                    $totalAmount += $itemTotal;
-                ?>
-                    <tr>
-                        <td><?= htmlspecialchars($detail['product_name']) ?></td>
-                        <td><img src="<?= htmlspecialchars($detail['product_image']) ?>" alt="Ảnh sản phẩm" class="product-img"></td>
-                        <td><?= number_format($detail['product_price'], 0, ',', '.') ?> VND</td>
-                        <td><?= $detail['quantity'] ?></td>
-                        <td><?= number_format($itemTotal, 0, ',', '.') ?> VND</td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <div class="total-row text-end mt-4">
-            Tổng cộng: <span class="text-danger"><?= number_format($totalAmount, 0, ',', '.') ?> VND</span>
-        </div>
-    <?php endif; ?>
-
-    <div class="back-link text-start mt-3">
-        <a href="?action=historic" class="btn btn-secondary">← Quay lại lịch sử đơn hàng</a>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <a href="?action=historic" class="btn btn-outline-danger rounded-pill px-4">
+                        <i class="bi bi-arrow-left me-2"></i>Quay lại lịch sử
+                    </a>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="h4 fw-bold text-danger">
+                        Tổng cộng:
+                        <span class="ms-2">
+                            <?= number_format(array_sum(array_column($orderDetails, 'order_total')), 0, ',', '.') ?>₫
+                        </span>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
-<?php include './views/client/layout/miniCart.php'; ?>
+<?php include './views/client/layout/miniCart.php' ?>
 <?php include('./views/client/layout/footer.php'); ?>
