@@ -1,5 +1,6 @@
 <?php
-class OrderControllers{
+class OrderControllers
+{
     public $orderModel;
     public function __construct()
     {
@@ -21,10 +22,11 @@ class OrderControllers{
         // Tham chiếu giá trị status
         $statusShow = [
             0 => 'Chờ xác nhận',
-            1 => 'Đã xác nhận',
-            2 => 'Đang vận chuyển',
-            3 => 'Hoàn thành',
-         ];
+            1 => 'Đã huỷ',
+            2 => 'Đã xác nhận',
+            3 => 'Đang vận chuyển',
+            4 => 'Hoàn thành',
+        ];
         require_once './views/admin/Order/showOrder.php';
     }
     public function updateOrder()
@@ -43,21 +45,21 @@ class OrderControllers{
         require_once './views/admin/Order/Order.php';
     }
     public function updateOrder_POST()
-    {   
-        
+    {
+
         // var_dump( $id =  $_POST['order_detail_id']);
         $id = $_GET['id'];
         $status = $_POST['status'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $updated_at = date('Y-m-d H:i:s');
-        $this->orderModel->updateOrder($id,$status,$updated_at);
+        $this->orderModel->updateOrder($id, $status, $updated_at);
         // require_once './views/admin/Order/Order.php';
         header('location:?action=listOrders');
-    }    
-    
+    }
+
     // Chi tiết đơn hàng 
     public function showOrder()
-    {   
+    {
         if (!isset($_SESSION['name'])) {
             header('location:?action=login'); // Chuyển hướng đến trang đăng nhập
             exit();
@@ -72,6 +74,5 @@ class OrderControllers{
         require_once './views/admin/Order/showOrderDetails.php';
         // var_dump($showOrder);
     }
-    } 
-    
-?>
+
+}

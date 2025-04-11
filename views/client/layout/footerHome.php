@@ -25,8 +25,8 @@
                         <div class="footer_menu">
                             <ul class="d-flex justify-content-end">
                                 <li><a href="index.html">Trang chủ</a></li>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="product-details.html">Product</a></li>
+                                <li><a href="shop.html">Category</a></li>
+                                <li><a href="product-details.html">Book</a></li>
                                 <li><a href="#">pages</a></li>
                                 <li><a href="blog.html">Blog</a></li>
                             </ul>

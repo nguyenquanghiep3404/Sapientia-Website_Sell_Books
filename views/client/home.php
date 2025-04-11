@@ -287,11 +287,11 @@
                                         <li><a class="active" href="?action=client">Trang chủ</a> </li>
                                         <li><a href="shop.html">Giới thiệu</a></li>
                                         <li>
-                                            <a href="?action=CategoryProductClient">Sản phẩm</a>
+                                            <a href="?action=CategoryProductClient">SÁCH</a
                                             <ul class="sub_menu">
                                                 <li>
                                                     <a class="category-title" href="?action=CategoryProductClient"
-                                                        style="font-size: 20px; text-decoration: underline;">Áo Nam</a>
+                                                        style="font-size: 20px; text-decoration: underline;">Sách</a>
                                                     <ul class="category-menu">
                                                         <ul class="widget_dropdown_categories collapse show" id="men">
                                                             <?php foreach ($listCategories as $category): ?>
@@ -374,7 +374,7 @@
                 <i class="ion-close-round"></i>
             </div>
             <form class="border-bottom" action="?action=timkiemsanpham" method="POST">
-                <input class="border-0" name="kyw" placeholder="Tìm kiếm sản phẩm..." type="text">
+                <input class="border-0" name="kyw" placeholder="Tìm kiếm sách..." type="text">
                 <button type="submit"><span class="icon-magnifier icons"></span></button>
             </form>
         </div>
@@ -395,13 +395,12 @@
             "infinite": true
         }'>
             <div class="single_slider d-flex align-items-center"
-                data-bgimg="public/client/assets/img/slider/slider1.jpg">
+                data-bgimg="public/client/assets/img/bg/nbg3.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="slider_text">
-                                <span style="color: #bab8b6; font-weight: normal; size: 35px;" class="text-white">Sản
-                                    phẩm mới</span>
+                                <span style="color: #bab8b6; font-weight: normal; size: 35px;" class="text-white">SÁCH MỚI</span>
                                 <h1 class="text-white fw-bold">FALL WINTER COLLECTION</h1>
                                 <p class="text-white">Nhập mã “WINTER100" - Giảm thêm 100K cho đơn từ 950K </p>
                                 <a class="btn btn-primary" href="shop.html">KHÁM PHÁ NGAY</a>
@@ -411,7 +410,7 @@
                 </div>
             </div>
             <div class="single_slider d-flex align-items-center"
-                data-bgimg="public/client/assets/img/slider/slider2.jpg">
+                data-bgimg="public/client/assets/img/bg/nbg4.png">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
@@ -426,7 +425,7 @@
                 </div>
             </div>
             <div class="single_slider d-flex align-items-center"
-                data-bgimg="public/client/assets/img/slider/slider3.jpg">
+                data-bgimg="public/client/assets/img/bg/nbg5.png">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
@@ -498,7 +497,7 @@
         <div class="container">
             <div class="product_header d-flex justify-content-between  mb-50">
                 <div class="section_title">
-                    <h2>Sản phẩm mới</h2>
+                    <h2>Sách mới</h2>
                 </div>
 
                 
@@ -524,10 +523,10 @@
                                 <!-- <?php echo "<pre>";
                                                                     print_r($listProductLastes);  
                                                                     ?> -->
-                                <!-- sản phẩm -->
+                                <!-- Sách -->
                                 
                                 <?php foreach ($listProductLastes as $product) : ?> 
-                                    <?php if ($product->status == 1):   // Chỉ hiển thị sản phẩm có status == 1 ?>
+                                    <?php if ($product->status == 1):   // Chỉ hiển thị Sách có status == 1 ?>
                                     <article class="col single_product">
                                         <figure>
                                             <div class="product_thumb">
@@ -568,7 +567,7 @@
                                     </article>
                                     <?php endif; ?>
                                 <?php endforeach; ?> 
-                                <!-- kết thúc sản phẩm -->
+                                <!-- kết thúc sách -->
 
                         </div>
                     </div>
@@ -586,7 +585,7 @@
             
             <div class="banner_container d-flex">
                 <figure class="single_banner position-relative">
-                    <img src="public/client/assets/img/bg/m40pezoh9j22rf0z4lf1800x833.webp" alt="">
+                    <img src="public/client/assets/img/bg/nbg1.png" alt="">
                     <figcaption class="banner_text position-absolute">
                     </figcaption>
                 </figure>
@@ -600,7 +599,7 @@
         <div class="container">
             <div class="product_header d-flex justify-content-between  mb-50">
                 <div class="section_title">
-                    <h2>Áo phao nam</h2>
+                    <h2>Sách</h2>
                 </div>
                 <div class="all_product">
                         <a href="?action=CategoryProductClient&id=14">Xem thêm</a>
@@ -626,11 +625,11 @@
                              ]
                         }'>
                             
-                            <!-- sản phẩm -->
+                            <!-- Sách -->
                                 
                             <?php foreach ($aophao as $product) : ?> 
                                     
-                                    <?php if ($product->status == 1):   // Chỉ hiển thị sản phẩm có status == 1 ?>
+                                    <?php if ($product->status == 1):   // Chỉ hiển thị Sách có status == 1 ?>
                                     <article class="col single_product">
                                         <figure>
                                             <div class="product_thumb">
@@ -671,7 +670,7 @@
                                     </article>
                                     <?php endif; ?>
                                 <?php endforeach; ?> 
-                                <!-- kết thúc sản phẩm -->
+                                <!-- kết thúc sách -->
                             
                         </div>
                     </div>
@@ -700,7 +699,7 @@
         <div class="container">
             <div class="product_header d-flex justify-content-between  mb-50">
                 <div class="section_title">
-                    <h2>Sản phẩm áo len</h2>
+                    <h2>Sách</h2>
                 </div>
                 <div class="all_product">
                         <a href="?action=CategoryProductClient&id=17">Xem thêm</a>
@@ -726,10 +725,10 @@
                               {"breakpoint":300, "settings": { "slidesToShow": 1 } }
                              ]
                         }'>
-                            <!-- sản phẩm -->
+                            <!-- Sách -->
                                 
                             <?php foreach ($aolen as $product) : ?> 
-                                    <?php if ($product->status == 1):   // Chỉ hiển thị sản phẩm có status == 1 ?>
+                                    <?php if ($product->status == 1):   // Chỉ hiển thị Sách có status == 1 ?>
                                     <article class="col single_product">
                                         <figure>
                                             <div class="product_thumb">
@@ -770,7 +769,7 @@
                                     </article>
                                     <?php endif; ?>
                                 <?php endforeach; ?> 
-                                <!-- kết thúc sản phẩm -->
+                                <!-- kết thúc sách -->
                         </div>
                     </div>
                     

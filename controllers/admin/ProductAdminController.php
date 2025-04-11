@@ -8,7 +8,7 @@ class ProductAdminController
 {
 
     public $productQuery;
-
+    public $historicModel;
     // Khai báo phương thức 
     public function __construct()
     {

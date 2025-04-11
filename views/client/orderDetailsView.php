@@ -1,4 +1,4 @@
-<?php include ('./views/client/layout/header.php') ?>
+<?php include('./views/client/layout/header.php') ?>
 
 <div class="container-fluid py-5" style="background-color: #fff5f5;">
     <div class="container">
@@ -15,7 +15,7 @@
                         <table class="table table-hover table-striped mb-0">
                             <thead class="bg-danger text-white">
                                 <tr>
-                                    <th scope="col" class="ps-4">Sản phẩm</th>
+                                    <th scope="col" class="ps-4">Sách</th>
                                     <th scope="col">Ảnh</th>
                                     <th scope="col">Giá</th>
                                     <th scope="col">Số lượng</th>
@@ -27,12 +27,13 @@
                                     <tr class="align-middle">
                                         <td class="ps-4 fw-medium"><?= htmlspecialchars($detail['product_name']) ?></td>
                                         <td>
-                                            <img src="<?= htmlspecialchars($detail['product_image']) ?>" 
-                                                 class="img-thumbnail border-danger" 
-                                                 style="width: 70px; height: 70px; object-fit: cover;" 
-                                                 alt="<?= htmlspecialchars($detail['product_name']) ?>">
+                                            <img src="<?= htmlspecialchars($detail['product_image']) ?>"
+                                                class="img-thumbnail border-danger"
+                                                style="width: 70px; height: 70px; object-fit: cover;"
+                                                alt="<?= htmlspecialchars($detail['product_name']) ?>">
                                         </td>
-                                        <td><?= number_format($detail['product_price'], 0, ',', '.') ?>₫</td>
+                                        <td><?= number_format($detail['product_price'] ?? 0, 0, ',', '.') ?>₫</td>
+
                                         <td>
                                             <span class="badge bg-danger rounded-pill"><?= $detail['quantity'] ?></span>
                                         </td>
@@ -55,7 +56,7 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <div class="h4 fw-bold text-danger">
-                        Tổng cộng: 
+                        Tổng cộng:
                         <span class="ms-2">
                             <?= number_format(array_sum(array_column($orderDetails, 'order_total')), 0, ',', '.') ?>₫
                         </span>
@@ -67,4 +68,4 @@
 </div>
 
 <?php include './views/client/layout/miniCart.php' ?>
-<?php include ('./views/client/layout/footer.php'); ?>
+<?php include('./views/client/layout/footer.php'); ?>

@@ -787,7 +787,7 @@ footer {
                                 <a href="shop.html">Shop</a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="product-details.html"> Product Details</a>
+                                <a href="product-details.html"> Book Details</a>
                             </li>
                             <li><a href="#">sale</a></li>
                             <li class="menu-item-has-children">
@@ -866,10 +866,10 @@ footer {
                                 <ul class="d-flex">
                                     <li><a href="?action=client">Trang chủ</a> </li>
                                     <li><a href="###">Giới thiệu</a></li>
-                                    <li><a href="?action=CategoryProductClient">Sản phẩm</a>
+                                    <li><a href="?action=CategoryProductClient">Sách</a>
                                         <ul class="sub_menu">
                                             <li>
-                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">Áo Nam</a>
+                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">DANH MỤC SÁCH</a>
                                             <ul class="category-menu">
                                                     <ul class="widget_dropdown_categories collapse show" id="men">
                                                         <?php foreach ($listCategories as $category): ?>
@@ -948,7 +948,7 @@ footer {
             <i class="ion-close-round"></i>
         </div>
         <form class="border-bottom" action="?action=timkiemsanpham" method="POST">
-            <input class="border-0" name="kyw" placeholder="Tìm kiếm sản phẩm..." type="text">
+            <input class="border-0" name="kyw" placeholder="Tìm kiếm sách..." type="text">
             <button type="submit"><span class="icon-magnifier icons"></span></button>
         </form>
     </div>
