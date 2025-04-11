@@ -1,5 +1,5 @@
 <?php include ('./views/client/layout/header.php'); ?>
-<?php var_dump($variant) ?>
+<!-- <?php var_dump($variant) ?> -->
     <div class="breadcrumbs_area breadcrumbs_product">
         <div class="container">
             <div class="row">
@@ -84,7 +84,7 @@
                                     if (!empty($variant) && is_array($variant)) : // Kiểm tra $variant có tồn tại và là mảng không
                                         foreach ($variant as $index => $va) :
                                             // Đảm bảo các key cần thiết tồn tại
-                                            $variantId = htmlspecialchars($va['variant_id'] ?? 'default_'.$index); // ID biến thể, có fallback
+                                            $variant_id = htmlspecialchars($va['variant_id'] ?? 'default_'.$index); // ID biến thể, có fallback
                                             $format = htmlspecialchars($va['format'] ?? 'N/A'); // Tên định dạng
                                             $price = htmlspecialchars($va['price'] ?? 0); // Giá
                                             $salePrice = htmlspecialchars($va['sale_price'] ?? $price); // Giá KM, dùng giá gốc nếu không có
@@ -94,15 +94,15 @@
                                     ?>
                                             <div class="format-item">
                                                 <input type="radio" name="variant_id"
-                                                       id="format_<?= $variantId ?>"
-                                                       value="<?= $variantId ?>"
+                                                       id="format_<?= $variant_id ?>"
+                                                       value="<?= $variant_id ?>"
                                                        class="format-selector"
                                                        data-price="<?= $price ?>"
                                                        data-sale-price="<?= $salePrice ?>"
                                                        data-quantity="<?= $quantity ?>"
                                                        data-format-name="<?= $format ?>"
                                                        <?= $checked ?>
-                                                       required> <label for="format_<?= $variantId ?>" class="format-label btn btn-outline-primary btn-sm"> <?= $format ?>
+                                                       required> <label for="format_<?= $variant_id ?>" class="format-label btn btn-outline-primary btn-sm"> <?= $format ?>
                                                 </label>
                                             </div>
                                     <?php

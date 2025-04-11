@@ -26,12 +26,13 @@ class checkoutModel{
         $this->conn->exec($sql);
     }
     
-    public function insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total)
+    public function insetOrder($id, $product_id, $order_details_id, $quantity, $price, $total, $variant_id)
 {
-    $sql = "INSERT INTO `orders` (`user_id`, `product_id`, `order_detail_id`, `quantity`, `price`, `total`) 
-            VALUES ('$id', '$product_id', '$order_details_id', '$quantity', '$price', '$total')";
+    $sql = "INSERT INTO `orders` (`user_id`, `product_id`, `order_detail_id`, `quantity`, `price`, `total`, `variant_id`) 
+            VALUES ('$id', '$product_id', '$order_details_id', '$quantity', '$price', '$total', '$variant_id')";
     $this->conn->exec($sql);
 }
+
     
 
     public function __destruct()

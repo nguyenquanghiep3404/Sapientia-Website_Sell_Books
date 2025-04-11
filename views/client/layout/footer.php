@@ -50,7 +50,7 @@
                             </ul>
                         </div>
                         <div class="copyright_right">
-                            <p>©2024 <span>Codex. Mendoza</span>. made with by Nhóm 5 - FPT POLYTECHNIC</a></p>
+                        <p>©2025 <span>Sapientia</span></a></p>
                         </div>
                     </div>
                 </div>

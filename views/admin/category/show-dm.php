@@ -1,5 +1,64 @@
 
 <?php include ('./views/admin/layout/header.php'); ?>
+<style>
+    /* Custom Red Theme */
+    :root {
+        --primary-color: #dc3545;
+        --primary-hover: #bb2d3b;
+        --light-red: #fff5f5;
+    }
+    .table-hover tbody tr:hover {
+        background-color: var(--light-red);
+    }
+    .btn-primary {
+        background: var(--primary-color);
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-primary:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+    }
+    .table thead {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+    }
+    .btn-danger {
+        background: #dc3545;
+        border: none;
+    }
+    .btn-warning {
+        background: #ffc107;
+        border: none;
+    }
+    .btn-success {
+        background: #28a745;
+        border: none;
+    }
+    .status-active {
+        color: #28a745;
+        font-weight: bold;
+    }
+    .status-inactive {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    .table-bordered {
+        border: 2px solid var(--primary-color);
+    }
+    .switch-mode::before {
+        background: var(--primary-color);
+    }
+    .notification i {
+        color: var(--primary-color);
+    }
+    .side-menu li.active a {
+        background: var(--light-red);
+        color: var(--primary-color) !important;
+        border-left: 4px solid var(--primary-color);
+    }
+</style>
+
 <section id="sidebar">
     <a href="index.php" class="brand">
         <img src="../uploads/logo_owenstore.svg" alt="">
@@ -96,41 +155,66 @@
                             </div>
     </nav>
     <!-- NAVBAR -->
+    <div class="container-fluid px-4">
+        <h1 class="text-center text-danger mb-4 fw-bold">QUẢN LÝ DANH MỤC</h1>
+        
+        <div class="card border-danger shadow">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Danh sách danh mục</h5>
+                <a href="?action=create-dm" class="btn btn-light">
+                    <i class='bx bx-plus'></i> Thêm mới
+                </a>
+            </div>
+            
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+                        <thead class="bg-danger text-white">
+                            <tr>
+                                <th width="100">ID</th>
+                                <th>Tên Danh Mục</th>
+                                <th>Mô Tả</th>
+                                <th width="120">Trạng Thái</th>
+                                <th width="200">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($cate as $cates) { ?>
+                            <tr>
+                                <td class="fw-bold">#<?= $cates['category_id'] ?></td>
+                                <td><?= $cates['name'] ?></td>
+                                <td class="text-muted"><?= $cates['description'] ?></td>
+                                <td>
+                                    <span class="<?= $cates['status'] == 1 ? 'status-active' : 'status-inactive' ?>">
+                                        <?= $cates['status'] == 1 ? 'Hiển thị' : 'Ẩn' ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="?action=update-dm&id=<?= $cates['category_id'] ?>" 
+                                           class="btn btn-sm btn-warning text-white">
+                                            <i class='bx bx-edit'></i>
+                                        </a>
+                                        <a href="?action=hide-dm&id=<?= $cates['category_id'] ?>" 
+                                           onclick="return confirm('Bạn chắc chắn muốn ẩn?')" 
+                                           class="btn btn-sm btn-danger">
+                                            <i class='bx bx-hide'></i>
+                                        </a>
+                                        <a href="?action=show-dm&id=<?= $cates['category_id'] ?>" 
+                                           onclick="return confirm('Bạn muốn hiển thị lại?')" 
+                                           class="btn btn-sm btn-success">
+                                            <i class='bx bx-show'></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h1 class="text-center text-primary mb-4">Quản Lý Danh Mục</h1>
-    <div class="d-flex justify-content-end mb-3">
-<a href="?action=create-dm"><input type="button" value="Nhập thêm" class="btn btn-primary"></a>
-</div>
-<table class="table table-hover table-bordered text-center align-middle">
-    <thead class="table-dark">
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Description</td>
-            <td>Status</td>
-
-            <td>Operation</td>
-
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($cate as $cates) {?>
-        <tr>
-
-            <td><?= $cates['category_id'] ?></td>
-            <td><?= $cates['name'] ?></td>
-            <td><?= $cates['description'] ?></td>
-            <td><?= $cates['status'] ?></td>
-            <td>
-
-              
-               <!-- <a href="?act=delete-dm&id=<?= $cates['category_id'] ?>" onclick="return confirm('Ban có muốn xoá không?')"><input type="button" value="Xoá"></a> -->
-               <a href="?action=update-dm&id=<?= $cates['category_id'] ?>" ><input type="button" class="btn btn-warning btn-sm" value="Sửa"></a>
-               <a href="?action=hide-dm&id=<?= $cates['category_id'] ?>" onclick="return confirm('Ban có muốn xoá không?')" class="btn btn-danger btn-sm">Xoá</a>
-               <a href="?action=show-dm&id=<?= $cates['category_id'] ?>" onclick="return confirm('Ban có muốn bỏ xoá không?')" class="btn btn-success btn-sm">Bỏ Xoá</a>
-            </td>
-        </tr>
-        <?php }?>
-    </tbody>
-</table>
 <?php include ('./views/admin/layout/footer.php'); ?>
