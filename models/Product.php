@@ -25,6 +25,7 @@ class Product
     public $gallery;
     public $format;
     public $language;
+    public $min_price;
 
 }
 

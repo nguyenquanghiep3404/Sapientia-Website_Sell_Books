@@ -1,4 +1,4 @@
-<?php include ('./views/admin/layout/header.php'); ?>
+<?php include('./views/admin/layout/header.php'); ?>
 <section id="sidebar">
     <a href="index.php" class="brand">
         <img src="../uploads/logo_owenstore.svg" alt="">
@@ -16,7 +16,7 @@
                 <span class="text">Danh Mục</span>
             </a>
         </li>
-        <li >
+        <li>
             <a href="index.php?action=product">
                 <i class='bx bxs-window-alt'></i>
                 <span class="text">Sản Phẩm</span>
@@ -40,7 +40,7 @@
                 <span class="text">Tài Khoản</span>
             </a>
         </li>
-       
+
 
     </ul>
     <ul class="side-menu">
@@ -54,7 +54,7 @@
 </section>
 
 <section id="content">
-<nav>
+    <nav>
         <i class='bx bx-menu'></i>
         <a href="?action=admin" class="nav-link">Trang Chủ</a>
         <form action="#">
@@ -70,49 +70,50 @@
             <span class="num">8</span>
         </a>
         <div class="header_account">
-                                <ul class="d-flex">
-                                    <li class="header_search"><a href="#"><i class="icon-magnifier icons"></i></a></li>
-                                    <li class="account_link">
-                                        <a href="#"><i class="icon-user icons"></i> Tài Khoản</a>
-                                        <ul class="dropdown_account_link">
-                                            <?php if (isset($_SESSION['name'])) { ?>
-                                                <li><a href="?action=profile"><i class="fas fa-user-circle"></i> Xin Chào <?= ($_SESSION['name']['name']) ?>!</a></li>
-                                                <li><a href="?action=profile"><i class="fas fa-user-cog"></i> Quản Lý Tài Khoản</a></li>
-                                                <?php if ($_SESSION['role_id'] == 0) { // Quản trị viên ?>
-                                                    <li><a href="?action=admin"><i class="fas fa-tools"></i> Truy Cập Trang Admin</a></li>
-                                                <?php } ?>
-                                                <li><a href="?action=logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a></li>
-                                            <?php } else { ?>
-                                                <li><a href="?action=login"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</a></li>
-                                                <li><a href="?action=register"><i class="fas fa-user-plus"></i> Đăng Kí</a></li>
-                                            <?php } ?>
-                                        </ul>
-                                    </li>
-                                    
+            <ul class="d-flex">
+                <li class="header_search"><a href="#"><i class="icon-magnifier icons"></i></a></li>
+                <li class="account_link">
+                    <a href="#"><i class="icon-user icons"></i> Tài Khoản</a>
+                    <ul class="dropdown_account_link">
+                        <?php if (isset($_SESSION['name'])) { ?>
+                            <li><a href="?action=profile"><i class="fas fa-user-circle"></i> Xin Chào <?= ($_SESSION['name']['name']) ?>!</a></li>
+                            <li><a href="?action=profile"><i class="fas fa-user-cog"></i> Quản Lý Tài Khoản</a></li>
+                            <?php if ($_SESSION['role_id'] == 0) { // Quản trị viên 
+                            ?>
+                                <li><a href="?action=admin"><i class="fas fa-tools"></i> Truy Cập Trang Admin</a></li>
+                            <?php } ?>
+                            <li><a href="?action=logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a></li>
+                        <?php } else { ?>
+                            <li><a href="?action=login"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</a></li>
+                            <li><a href="?action=register"><i class="fas fa-user-plus"></i> Đăng Kí</a></li>
+                        <?php } ?>
+                    </ul>
+                </li>
 
 
-                                </ul>
-                            </div>
+
+            </ul>
+        </div>
     </nav>
     <!-- NAVBAR -->
 
-<h1 class="text-center text-primary mb-4">Danh sách đơn hàng</h1>
+    <h1 class="text-center text-primary mb-4">Danh sách đơn hàng</h1>
 
-<table class="table table-hover table-bordered text-center align-middle">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Khách hàng</th>
-            <th>Email</th>
-            <th>Điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- <input type="hidden" name="order_detail_id" value="<?= $order['order_detail_id'] ?>"> -->
-        
+    <table class="table table-hover table-bordered text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Khách hàng</th>
+                <th>Email</th>
+                <th>Điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <input type="hidden" name="order_detail_id" value="<?= $order['order_detail_id'] ?>"> -->
+
             <tr>
                 <form action="?action=updateOrderPost&id=<?= $orderEdit['order_detail_id'] ?>" method="POST">
                     <td><?= $orderEdit['order_detail_id'] ?></td>
@@ -123,16 +124,23 @@
                     <td>
                         <select name="status" id="status" class="form-select">
                             <option value="0" <?= $orderEdit['status'] == 0 ? 'selected' : '' ?>>Chờ xác nhận</option>
-                            <option value="1" <?= $orderEdit['status'] == 1 ? 'selected' : '' ?>>Đã xác nhận</option>
-                            <option value="2" <?= $orderEdit['status'] == 2 ? 'selected' : '' ?>>Đang vận chuyển</option>
-                            <option value="3" <?= $orderEdit['status'] == 3 ? 'selected' : '' ?>>Hoàn thành</option>
+                            <option value="2" <?= $orderEdit['status'] == 2 ? 'selected' : '' ?>>Đã xác nhận</option>
+                            <option value="3" <?= $orderEdit['status'] == 3 ? 'selected' : '' ?>>Đang vận chuyển</option>
+                            <option value="4" <?= $orderEdit['status'] == 4 ? 'selected' : '' ?>>Hoàn thành</option>
+                            <option value="1" <?= $orderEdit['status'] == 1 ? 'selected' : '' ?>>Đã huỷ</option> 
                         </select>
+
                     </td>
                     <td>
-                        <button class="btn btn-success btn-sm">Cập nhật</button>
+                        <?php if ($orderEdit['status'] != 4): ?>
+                            <button class="btn btn-success btn-sm">Cập nhật</button>
+                        <?php else: ?>
+                            <span class="text-danger">Không thể cập nhật</span>
+                        <?php endif; ?>
                     </td>
                 </form>
             </tr>
-    </tbody>
-</table>
-<?php include ('./views/admin/layout/footer.php'); ?>
+
+        </tbody>
+    </table>
+    <?php include('./views/admin/layout/footer.php'); ?>

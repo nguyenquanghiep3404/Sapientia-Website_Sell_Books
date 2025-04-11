@@ -90,32 +90,42 @@ class ProductQuery
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getProductsByCategory($category_id)
-    {
+{
+    try {
         $sql = "
-    SELECT 
-        p.product_id, 
-        p.name AS product_name, 
-        p.image, 
-        p.price, 
-        p.sale_price, 
-        p.description, 
-        p.category_id, 
-        p.created_at, 
-        p.updated_at, 
-        p.status, 
-        c.name AS category_name 
-    FROM 
-        products AS p
-    INNER JOIN 
-        categories AS c ON p.category_id = c.category_id
-    WHERE 
-        p.status = 1 AND c.status = 1 AND p.category_id = :category_id
-    ";
+            SELECT 
+                p.product_id, 
+                p.name AS product_name, 
+                p.image, 
+                p.description, 
+                p.category_id, 
+                p.created_at, 
+                p.updated_at, 
+                p.status, 
+                c.name AS category_name,
+                pv.product_variant_id,
+                pv.price AS price,
+                pv.sale_price AS sale_price
+            FROM 
+                products AS p
+            INNER JOIN 
+                categories AS c ON p.category_id = c.category_id
+            LEFT JOIN 
+                product_variant AS pv ON p.product_id = pv.product_id
+            WHERE 
+                p.status = 1 
+                AND c.status = 1 
+                AND p.category_id = :category_id
+        ";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $error) {
+        echo "<h1>Lỗi hàm getProductsByCategory: " . $error->getMessage() . "</h1>";
+        return [];
     }
+}
 
     // thêm sản phẩm vào bảng product
     public function addProduct($name, $image, $category_id, $description, $gallery)
@@ -139,7 +149,6 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     c.name AS category_name, 
-                    pv.language, 
                     pv.format, 
                     pv.quantity
                 FROM products AS p
@@ -157,13 +166,13 @@ class ProductQuery
         }
     }
     // thêm các màu số lượng vào bảng biến thể
-    public function addProductVariants($product_id, $price, $sale_price, $format, $language, $quantity)
+    public function addProductVariants($product_id, $price, $sale_price, $format, $quantity)
     {
         //khai bao try catch
 
-        $sql = "INSERT INTO product_variant( product_id,price,sale_price,	format,	language,	quantity) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO product_variant( product_id,price,sale_price,format,	quantity) VALUES (?,?,?,?,?)";
         // 3. Return kết quả
-        pdo_execute($sql, $product_id, $price, $sale_price, $format, $language, $quantity);
+        pdo_execute($sql, $product_id, $price, $sale_price, $format, $quantity);
         echo "Thêm thành công variant!";
     }
     // Truy xuất tất cả sản phẩm từ bảng product
@@ -183,8 +192,9 @@ class ProductQuery
         $sql = "
             SELECT 
                 p.*, 
-                pv.language, 
-                pv.format, 
+                pv.format,
+                pv.price,
+                pv.sale_price, 
                 pv.quantity 
             FROM products AS p
             LEFT JOIN product_variant AS pv ON p.product_id = pv.product_id
@@ -199,18 +209,38 @@ class ProductQuery
             return null; // Không tìm thấy sản phẩm
         }
     }
-    public function updateProductVariant($variant_id, $price, $sale_price, $format, $language, $quantity)
+    public function findvariant($variant_id) {
+        // Sử dụng prepared statement để bảo mật và đúng cú pháp
+        $sql = "SELECT * FROM product_variant WHERE product_variant_id= ?";
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$variant_id]); // Truyền $variant_id vào
+            $data = $stmt->fetch(PDO::FETCH_ASSOC); // Lấy dữ liệu dạng mảng kết hợp
+    
+            if ($data) {
+                $variant = convertToObjectVariant($data);
+                return $variant;
+            } else {
+                return null; // Không tìm thấy biến thể
+            }
+        } catch (PDOException $e) {
+            // Xử lý lỗi nếu có (ví dụ: ghi log)
+            error_log("Database error in findvariant: " . $e->getMessage());
+            return null;
+        }
+    }
+    
+    public function updateProductVariant($variant_id, $price, $sale_price, $format, $quantity)
 {
     $sql = "UPDATE product_variant 
             SET format = ?, 
-                language = ?, 
                 price = ?, 
                 sale_price = ?, 
                 quantity = ? 
             WHERE product_variant_id = ?";
     
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute([$format, $language, $price, $sale_price, $quantity, $variant_id]);
+    $stmt->execute([$format, $price, $sale_price, $quantity, $variant_id]);
 }
 
     // Truy xuất tất cả sản phẩm từ bảng product biến thể
@@ -264,7 +294,7 @@ class ProductQuery
             SELECT 
                 p.*, 
                 vp.format, 
-                vp.language,
+              
                 vp.quantity,
                 vp.price,
                 vp.sale_price,
@@ -299,7 +329,7 @@ class ProductQuery
             $product = convertToObjectProduct($row);
 
             $product->format = $row['format'];
-            $product->language = $row['language'];
+           
             $product->quantity = $row['quantity'];
 
             $product->price = $row['price'];
@@ -324,7 +354,7 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     vp.format, 
-                    vp.language,
+                 
                     vp.quantity
                 FROM 
                     products AS p
@@ -360,7 +390,7 @@ class ProductQuery
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
                 $product->format = $row['format']; // Thêm thông tin size
-                $product->language = $row['language']; // Thêm thông tin color
+               // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -379,7 +409,7 @@ class ProductQuery
                 SELECT 
                     p.*, 
                     vp.format, 
-                    vp.language,
+                   
                     vp.quantity
                 FROM 
                     products AS p
@@ -415,7 +445,7 @@ class ProductQuery
             foreach ($data as $row) {
                 $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
                 $product->format = $row['format']; // Thêm thông tin size
-                $product->language = $row['language']; // Thêm thông tin color
+                // Thêm thông tin color
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -429,12 +459,12 @@ class ProductQuery
     {
 
         $sql = "SELECT 
-                    pv.product_variant_id, 
+                    product_variant_id AS variant_id, 
                     pv.product_id, 
                     pv.format, 
                     pv.price,
                     pv.sale_price,
-                    pv.language, 
+                  
                     pv.quantity 
                 FROM product_variant pv
                 WHERE pv.product_id = :product_id";
@@ -491,18 +521,42 @@ class ProductQuery
 
     // Hàm tìm kiếm sản phẩm theo từ khóa
     public function searchProducts($keyword)
-    {
+{
+    try {
         $query = "
-            SELECT p.* 
-            FROM products AS p
-            INNER JOIN categories AS c ON p.category_id = c.category_id
-            WHERE p.name LIKE :keyword AND p.status = 1 AND c.status = 1
+            SELECT 
+                p.product_id,
+                p.name AS name,
+                p.image,
+                p.description,
+                p.category_id,
+                p.created_at,
+                p.updated_at,
+                p.status,
+                c.name AS category_name,
+                pv.product_variant_id,
+                pv.price AS price,
+                pv.sale_price AS sale_price
+            FROM 
+                products AS p
+            INNER JOIN 
+                categories AS c ON p.category_id = c.category_id
+            LEFT JOIN 
+                product_variant AS pv ON p.product_id = pv.product_id
+            WHERE 
+                p.name LIKE :keyword 
+                AND p.status = 1 
+                AND c.status = 1
         ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $error) {
+        echo "<h1>Lỗi hàm searchProducts: " . $error->getMessage() . "</h1>";
+        return [];
     }
+}
     public function deleteProductVariant($variant_id)
     {
         $query = "DELETE FROM product_variant WHERE product_variant_id = :product_variant_id";
@@ -515,37 +569,40 @@ class ProductQuery
         }
     }
     public function getAllProductCate()
-    {
-        try {
-            $sql = "
-                SELECT 
-                    products.product_id,
-                    products.name AS product_name, 
-                    products.image, 
-                    products.price, 
-                    products.sale_price, 
-                    products.description, 
-                    products.category_id, 
-                    products.created_at, 
-                    products.updated_at, 
-                    products.status, 
-                    categories.name AS category_name
-                FROM 
-                    products 
-                INNER JOIN 
-                    categories 
-                ON 
-                    products.category_id = categories.category_id
-            ";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Exception $error) {
-            echo "<h1>";
-            echo "Lỗi hàm getAllProductCate trong model: " . $error->getMessage();
-            echo "</h1>";
-        }
+{
+    try {
+        $sql = "
+            SELECT 
+                products.product_id,
+                products.name AS product_name, 
+                products.image, 
+                products.description, 
+                products.category_id, 
+                products.created_at, 
+                products.updated_at, 
+                products.status, 
+                categories.name AS category_name,
+                product_variant.product_variant_id, 
+                product_variant.price AS price,
+                product_variant.sale_price AS sale_price 
+            FROM 
+                products 
+            INNER JOIN 
+                categories 
+            ON 
+                products.category_id = categories.category_id
+            LEFT JOIN 
+                product_variant 
+            ON 
+                products.product_id = product_variant.product_id
+        ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $error) {
+        echo "<h1>Lỗi hàm getAllProductCate trong model: " . $error->getMessage() . "</h1>";
     }
+}
 
 
 

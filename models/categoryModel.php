@@ -54,5 +54,6 @@ class categoryModel{
     {
         $this->conn = null;
     }
+    
 }   
 ?>

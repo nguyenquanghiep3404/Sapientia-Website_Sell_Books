@@ -8,12 +8,13 @@ class ProductAdminController
 {
 
     public $productQuery;
-
+    public $historicModel;
     // Khai báo phương thức 
     public function __construct()
     {
         // 1. Khởi tạo giá trị cho thuộc tính productQuery
         $this->productQuery = new ProductQuery();
+        $this->historicModel = new historicModel();
         // Mở trình duyệt lên để kiểm tra kết quả
 
     }
@@ -34,6 +35,8 @@ class ProductAdminController
         $totalCart = $this->productQuery->getTotalCart();
         $totalComment = $this->productQuery->getTotalComment();
         $totalCategories = $this->productQuery->getTotalCategories();
+        $recentOrders = $this->historicModel->getRecentOrders(10);
+        $chartData = $this->historicModel->getRevenueChartData(7);
 
 
         require_once './views/admin/dashboard.php';
@@ -134,13 +137,12 @@ class ProductAdminController
 
                 // Lưu biến thể sản phẩm vào bảng `product_variants`
                 foreach ($_POST['variant_format'] as $key => $format) {
-                    $language = $_POST['variant_language'][$key] ;
                     $quantity = $_POST['variant_quantity'][$key] ;
                     $price = $_POST['product_price'][$key] ;
                     $sale_price = !empty($_POST['product_sale_price'][$key])
                         ? $_POST['product_sale_price'][$key]
                         : null;
-                    $this->productQuery->addProductVariants($product_id,$price,$sale_price, $format, $language, $quantity);
+                    $this->productQuery->addProductVariants($product_id,$price,$sale_price, $format, $quantity);
                 }
 
                 header('Location: index.php?action=product');
@@ -234,12 +236,12 @@ class ProductAdminController
             if (isset($_POST['variant_id'])) {
                 foreach ($_POST['variant_id'] as $key => $variant_id) {
                     $format = $_POST['variant_format'][$key];
-                    $language = $_POST['variant_language'][$key];
+                    
                     $quantity = $_POST['variant_quantity'][$key];
                     $price = $_POST['product_price'][$key] ;
                     $sale_price = $_POST['product_sale_price'][$key] ?? 0;
 
-                    $this->productQuery->updateProductVariant($variant_id,$price,$sale_price, $format, $language, $quantity);
+                    $this->productQuery->updateProductVariant($variant_id,$price,$sale_price, $format, $quantity);
                 }
             }
             // Thêm các biến thể mới nếu có
@@ -247,11 +249,10 @@ class ProductAdminController
                 foreach ($_POST['new_variant_format'] as $key => $format) {
                     $price = $_POST['new_product_price'][$key];
                     $sale_price = $_POST['new_product_sale_price'][$key];
-                    $language = $_POST['new_variant_language'][$key];
                     // Kiểm tra và gán giá trị mặc định nếu quantity trống hoặc không hợp lệ
                     $quantity = isset($_POST['new_variant_quantity'][$key]) && is_numeric($_POST['new_variant_quantity'][$key]) ? $_POST['new_variant_quantity'][$key] : 0;
                     // Sửa thứ tự các tham số tại đây
-                    $this->productQuery->addProductVariants($id, $price, $sale_price, $format, $language, $quantity);
+                    $this->productQuery->addProductVariants($id, $price, $sale_price, $format, $quantity);
                 }
             }
 

@@ -1,19 +1,21 @@
-<?php 
+<?php
 require_once './models/historicModel.php';
 
-class historicController {
+class historicController
+{
 
     public $historicModel;
     public $checkModel;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->historicModel = new historicModel();
         $this->checkModel = new checkoutModel();
-        
     }
-    public function orderHistory(){
-        
+    public function orderHistory()
+    {
+
         // if (isset($_SESSION['user_id'])) {
         //     $user_id = $_SESSION['user_id'];
         //     echo "User ID của người dùng đang đăng nhập là: $user_id";
@@ -27,14 +29,15 @@ class historicController {
             header('location:?action=login'); // Chuyển hướng đến trang đăng nhập
             exit();
         }
-         // Lấy user_id từ session
-         $user_id = $_SESSION['user_id'];
+        // Lấy user_id từ session
+        $user_id = $_SESSION['user_id'];
         //  echo $user_id;
         // Lấy dữ liệu lịch sử đơn hàng từ Model
         $orderHistory = $this->historicModel->getOrderHistoryByUserId($user_id);
         require_once './views/client/orderHistory.php';
     }
-    public function viewOrderDetails() {
+    public function viewOrderDetails()
+    {
         // Kiểm tra nếu người dùng chưa đăng nhập
         if (!isset($_SESSION['name'])) {
             echo "<script>alert('Vui lòng đăng nhập để xem lịch sử đơn hàng.');</script>";
@@ -57,8 +60,29 @@ class historicController {
         require_once './views/client/orderDetailsView.php';
     }
 
+
+    //  Hủy đơn hàng
+    public function cancelOrder()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ?action=login');
+            exit;
+        }
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_detail_id'])) {
+            $orderId = $_POST['order_detail_id'];
+    
+            $order = $this->historicModel->find($orderId);
+    
+            // Kiểm tra quyền và trạng thái đơn
+            if ($order && $order['status'] == 0 && $order['user_id'] == $_SESSION['user_id']) {
+                $updated_at = date('Y-m-d H:i:s');
+                $this->historicModel->updateOrder($orderId, 1, $updated_at); // 1: Đã hủy
+            }
+        }
+    
+        header('Location: ?action=historic&cancel=success');
+        exit;
+    }
+    
 }
-
-
-
-?>
