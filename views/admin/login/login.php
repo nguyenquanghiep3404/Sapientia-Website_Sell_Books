@@ -1,298 +1,501 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Red_Theme" data-layout="vertical">
-
+<html lang="vi">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - Hệ Thống</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #dc3545;
+            --primary-dark: #bb2d3b;
+            --primary-light: #f8d7da;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+        }
+        
+        .login-container {
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .login-image {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #fd7e14 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+            height: 100%;
+        }
+        
+        .login-image img {
+            max-width: 80%;
+            height: auto;
+        }
+        
+        .login-form {
+            padding: 3rem 2rem;
+            background: white;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .login-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        
+        .login-subtitle {
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .alert {
+            border-radius: 10px;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .google {
+            background-color: #db4437;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .divider-line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #dee2e6;
+        }
+        
+        .divider-text {
+            padding: 0 1rem;
+            color: #6c757d;
+        }
+        
+        .forgot-password {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .register-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .register-link:hover {
+            text-decoration: underline;
+        }
+        
+        .popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px 25px;
+            border-left: 5px solid #dc3545;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .login-image {
+                display: none;
+            }
+        }
 
-  <!-- Favicon icon-->
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        /* Thay đổi CSS cho input-group và các thành phần liên quan */
 
-  <!-- Core Css -->
-  <link rel="stylesheet" href="https://bootstrapdemos.wrappixel.com/spike/dist/assets/css/styles.css" />
-  <style>
-    :root {
-      --bs-primary: #dc3545;
-      --bs-primary-rgb: 220, 53, 69;
-      --bs-primary-dark: #bb2d3b;
-      --bs-primary-light: #f8d7da;
-    }
-    
-    .btn-primary {
-      background-color: var(--bs-primary);
-      border-color: var(--bs-primary);
-    }
-    
-    .btn-primary:hover {
-      background-color: var(--bs-primary-dark);
-      border-color: var(--bs-primary-dark);
-    }
-    
-    .text-primary {
-      color: var(--bs-primary) !important;
-    }
-    
-    .bg-primary {
-      background-color: var(--bs-primary) !important;
-    }
-    
-    .border-primary {
-      border-color: var(--bs-primary) !important;
-    }
-    
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #f8d7da;
-      color: #721c24;
-      padding: 20px;
-      border: 1px solid #f5c6cb;
-      border-radius: 5px;
-      display: none;
-      z-index: 1000;
-    }
-    
-    .auth-login {
-      background: linear-gradient(135deg, #f8d7da 0%, #ffffff 100%);
-    }
-    
-    .btn-outline-primary {
-      color: var(--bs-primary);
-      border-color: var(--bs-primary);
-    }
-    
-    .btn-outline-primary:hover {
-      background-color: var(--bs-primary);
-      border-color: var(--bs-primary);
-    }
-  </style>
-  <script>
-    function showPopup(message) {
-      const popup = document.getElementById('popup');
-      popup.innerText = message;
-      popup.style.display = 'block';
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+        }
 
-      // Tự động ẩn sau 3 giây
-      setTimeout(() => {
-        popup.style.display = 'none';
-      }, 3000);
-    }
-  </script>
-  <title>Trang Đăng Nhập</title>
+        .input-group-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-right: none;
+            height: 100%;
+            padding: 0.75rem;
+        }
+
+        .input-group .form-control {
+            border-left: none;
+            height: 58px; /* Đảm bảo chiều cao cố định */
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group .input-group-text {
+            height: 58px; /* Đảm bảo chiều cao cố định và bằng với form-control */
+            width: 58px; /* Đảm bảo chiều rộng cố định */
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        /* CSS cho thông báo lỗi */
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #dc3545;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .error-message i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .error-shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% {
+                transform: translate3d(-1px, 0, 0);
+            }
+            20%, 80% {
+                transform: translate3d(2px, 0, 0);
+            }
+            30%, 50%, 70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+            40%, 60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-error {
+            border-color: #dc3545 !important;
+        }
+
+        .input-group-text-error {
+            border-color: #dc3545 !important;
+            background-color: #f8d7da !important;
+        }
+    </style>
+    <script>
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            popup.innerText = message;
+            popup.style.display = 'block';
+
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+
+        // Thêm hàm để hiển thị lỗi trên form
+        function showFormError(message) {
+            const errorDiv = document.getElementById('login-error');
+            if (errorDiv) {
+                errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+                errorDiv.style.display = 'flex';
+                errorDiv.classList.add('error-shake');
+                
+                // Thêm class lỗi cho input
+                document.getElementById('name').classList.add('input-error');
+                document.getElementById('password').classList.add('input-error');
+                
+                // Thêm class lỗi cho input-group-text
+                const inputGroupTexts = document.querySelectorAll('.input-group-text');
+                inputGroupTexts.forEach(element => {
+                    element.classList.add('input-group-text-error');
+                });
+
+                // Xóa hiệu ứng shake sau khi hoàn thành
+                setTimeout(() => {
+                    errorDiv.classList.remove('error-shake');
+                }, 500);
+            }
+        }
+
+        // Xóa thông báo lỗi khi người dùng bắt đầu nhập lại
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const errorDiv = document.getElementById('login-error');
+                    if (errorDiv) {
+                        errorDiv.style.display = 'none';
+                    }
+                    
+                    // Xóa class lỗi
+                    document.getElementById('name').classList.remove('input-error');
+                    document.getElementById('password').classList.remove('input-error');
+                    
+                    // Xóa class lỗi cho input-group-text
+                    const inputGroupTexts = document.querySelectorAll('.input-group-text');
+                    inputGroupTexts.forEach(element => {
+                        element.classList.remove('input-group-text-error');
+                    });
+                });
+            });
+        });
+    </script>
 </head>
-
 <body>
-  <div class="popup" id="popup"></div>
-  <!-- Preloader -->
-  <div class="preloader">
-    <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
-  </div>
-  <div id="main-wrapper" class="p-0 bg-white auth-customizer-none">
-    <div class="auth-login position-relative overflow-hidden d-flex align-items-center justify-content-center px-7 px-xxl-0 rounded-3 h-n20">
-      <div class="auth-login-shape position-relative w-100">
-        <div class="auth-login-wrapper card mb-0 container position-relative z-1 h-100 mh-n100" data-simplebar>
-          <div class="card-body">
-            <a href="https://bootstrapdemos.wrappixel.com/spike/dist/main/index.html" class="">
-              <img src="public/client/assets/img/logo/logo.png" class="light-logo" alt="Logo-Dark" />
-              <img src="public/client/assets/img/logo/logo.png" class="dark-logo" alt="Logo-light" />
-            </a>
-            <div class="row align-items-center justify-content-around pt-6 pb-5">
-              <div class="col-lg-6 col-xl-5 d-none d-lg-block">
-                <div class="text-center text-lg-start">
-                  <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/backgrounds/login-security.png" alt="spike-img" class="img-fluid">
+    <div class="popup" id="popup"></div>
+    
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="login-container row">
+            <!-- Left Side - Image -->
+            <div class="col-md-6 p-0">
+                <div class="login-image fire-effect">
+                    <div class="text-center">
+                        <h2 class="fw-bold mb-4">Chào mừng bạn đã tới Sapientia</h2>
+                        <p class="mb-4">Đăng nhập để truy cập vào hệ thống quản lý của bạn</p>
+                        <img src="favicon.ico" width="150px" alt="Login Illustration" class="img-fluid">
+                    </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-xl-5">
-                <h2 class="mb-6 fs-8 fw-bolder">Chào mừng bạn đã tới Sapientia</h2>
-                <div class="position-relative text-center my-7"></div>
-                <form action="?action=loginPost" method="POST">
-                  <div class="mb-7">
-                    <label for="email" class="form-label fw-bold">Tên Đăng Nhập</label>
-                    <input type="text" class="form-control py-6" name="name" id="name" aria-describedby="emailHelp" placeholder="Nhập tên của bạn">
-                  </div>
-                  <div class="mb-9">
-                    <label for="password" name="password" class="form-label fw-bold">Mật Khẩu</label>
-                    <input type="password" class="form-control py-6" id="password" name="password" placeholder="Nhập mật khẩu của bạn">
-                  </div>
-                  <div class="d-md-flex align-items-center justify-content-between mb-7 pb-1"></div>
-                  <button type="submit" name="btn-login" class="btn btn-primary w-100 mb-7 rounded-pill">Đăng Nhập</button>
-                  <div class="d-flex align-items-center">
-                    <p class="fs-3 mb-0 fw-medium">Bạn chưa có tài khoản?</p>
-                    <a class="text-primary fw-bold ms-2 fs-3" href="?action=register">Tạo Tài khoản</a>
-                  </div>
-                  <a href="?action=client" class="text-primary">Quay về Trang chủ</a>
-                </form>
-                <?php if (!empty($error_message)): ?>
-                <script>
-                  // Hiển thị popup nếu có thông báo lỗi
-                  showPopup("<?= htmlspecialchars($error_message) ?>");
-                </script>
-                <?php endif; ?>
-              </div>
             </div>
-          </div>
+            
+            <!-- Right Side - Form -->
+            <div class="col-md-6 p-0">
+                <div class="login-form">
+                    <h2 class="login-title">Đăng Nhập</h2>
+                    <p class="login-subtitle">Vui lòng nhập thông tin đăng nhập của bạn</p>
+                    
+                    <!-- Thêm phần hiển thị lỗi -->
+                    <div id="login-error" class="error-message" style="display: none;"></div>
+                    
+                    <?php
+                    // Kiểm tra nếu có lỗi đăng nhập
+                    if (!empty($error_message)): 
+                    ?>
+                    <script>
+                        // Hiển thị lỗi trong form
+                        document.addEventListener('DOMContentLoaded', function() {
+                            showFormError("<?= htmlspecialchars($error_message) ?>");
+                        });
+                    </script>
+                    <?php endif; ?>
+                    
+                    <form action="?action=loginPost" method="POST">
+                        <!-- Thay đổi HTML cho phần input username -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Tên Đăng Nhập</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user text-muted"></i>
+                                </div>
+                                <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Nhập tên của bạn">
+                            </div>
+                        </div>
+
+                        <!-- Thay đổi HTML cho phần input password -->
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Mật Khẩu</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-lock text-muted"></i>
+                                </div>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" name="btn-login" class="btn btn-primary w-100 mb-4">
+                            <i class="fas fa-sign-in-alt me-2"></i> Đăng Nhập
+                        </button>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <p class="mb-0">Bạn chưa có tài khoản? <a href="?action=register" class="register-link">Tạo Tài khoản</a></p>
+                            </div>
+                            <div>
+                                <a href="?action=client" class="text-primary">Quay về Trang chủ</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <script>
-          function handleColorTheme(e) {
-            document.documentElement.setAttribute("data-color-theme", e);
-          }
-        </script>
-        <button class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-          <i class="icon ti ti-settings fs-7"></i>
-        </button>
-
-        <div class="offcanvas customizer offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-          <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
-            <h4 class="offcanvas-title fw-semibold" id="offcanvasExampleLabel">
-              Settings
-            </h4>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body h-n80" data-simplebar>
-            <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
-
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check light-layout" name="theme-layout" id="light-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="light-layout">
-                <i class="icon ti ti-brightness-up fs-7 me-2"></i>Light
-              </label>
-
-              <input type="radio" class="btn-check dark-layout" name="theme-layout" id="dark-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="dark-layout">
-                <i class="icon ti ti-moon fs-7 me-2"></i>Dark
-              </label>
-            </div>
-
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Direction</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check" name="direction-l" id="ltr-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="ltr-layout">
-                <i class="icon ti ti-text-direction-ltr fs-7 me-2"></i>LTR
-              </label>
-
-              <input type="radio" class="btn-check" name="direction-l" id="rtl-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="rtl-layout">
-                <i class="icon ti ti-text-direction-rtl fs-7 me-2"></i>RTL
-              </label>
-            </div>
-
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Colors</h6>
-
-            <div class="d-flex flex-row flex-wrap gap-3 customizer-box color-pallete" role="group">
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Red_Theme" autocomplete="off" checked />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Red_Theme')" for="Red_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="RED_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #dc3545;">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Blue_Theme" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Blue_Theme')" for="Blue_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="BLUE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #0d6efd;">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Aqua_Theme" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Aqua_Theme')" for="Aqua_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="AQUA_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #00cccc;">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Purple_Theme" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Purple_Theme')" for="Purple_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PURPLE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #6f42c1;">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-
-              <input type="radio" class="btn-check" name="color-theme-layout" id="green-theme-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Green_Theme')" for="green-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="GREEN_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #198754;">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-            </div>
-
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Layout Type</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <div>
-                <input type="radio" class="btn-check" name="page-layout" id="vertical-layout" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="vertical-layout">
-                  <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Vertical
-                </label>
-              </div>
-              <div>
-                <input type="radio" class="btn-check" name="page-layout" id="horizontal-layout" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="horizontal-layout">
-                  <i class="icon ti ti-layout-navbar fs-7 me-2"></i>Horizontal
-                </label>
-              </div>
-            </div>
-
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Container Option</h6>
-
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check" name="layout" id="boxed-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="boxed-layout">
-                <i class="icon ti ti-layout-distribute-vertical fs-7 me-2"></i>Boxed
-              </label>
-
-              <input type="radio" class="btn-check" name="layout" id="full-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="full-layout">
-                <i class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full
-              </label>
-            </div>
-
-            <h6 class="fw-semibold fs-4 mb-2 mt-5">Sidebar Type</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <a href="javascript:void(0)" class="fullsidebar">
-                <input type="radio" class="btn-check" name="sidebar-type" id="full-sidebar" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="full-sidebar">
-                  <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Full
-                </label>
-              </a>
-              <div>
-                <input type="radio" class="btn-check " name="sidebar-type" id="mini-sidebar" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="mini-sidebar">
-                  <i class="icon ti ti-layout-sidebar fs-7 me-2"></i>Collapse
-                </label>
-              </div>
-            </div>
-
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Card With</h6>
-
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check" name="card-layout" id="card-with-border" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="card-with-border">
-                <i class="icon ti ti-border-outer fs-7 me-2"></i>Border
-              </label>
-
-              <input type="radio" class="btn-check" name="card-layout" id="card-without-border" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="card-without-border">
-                <i class="icon ti ti-border-none fs-7 me-2"></i>Shadow
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="dark-transparent sidebartoggler"></div>
-  </div>
-  <!-- Import Js Files -->
-  <script src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/libs/simplebar/dist/simplebar.min.js"></script>
-  <script src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/js/theme/app.init.js"></script>
-  <script src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/js/theme/theme.js"></script>
-  <script src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/js/theme/app.min.js"></script>
-  <script src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/js/theme/feather.min.js"></script>
-
-  <!-- solar icons -->
-  <script src="public/client/assets/cdn.jsdelivr.net/npm/iconify-icon%401.0.8/dist/iconify-icon.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<style>
+  /* Hiệu ứng lửa cháy */
+.fire-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.fire-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 100, 0, 0.8) 0%,
+        rgba(255, 200, 0, 0.8) 15%,
+        rgba(255, 100, 0, 0.8) 30%,
+        rgba(255, 200, 0, 0.8) 45%,
+        rgba(255, 100, 0, 0.8) 60%,
+        rgba(255, 200, 0, 0.8) 75%,
+        rgba(255, 100, 0, 0.8) 90%
+    );
+    background-size: 200% 200%;
+    animation: fireAnimation 3s linear infinite;
+    opacity: 0.5;
+    z-index: 1;
+    border-radius: 50%;
+    transform: rotate(45deg);
+}
+
+@keyframes fireAnimation {
+    0% {
+        background-position: 0% 50%;
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        background-position: 50% 100%;
+    }
+    50% {
+        background-position: 100% 50%;
+        transform: rotate(180deg) scale(1.2);
+    }
+    75% {
+        background-position: 50% 0%;
+    }
+    100% {
+        background-position: 0% 50%;
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.register-image-content {
+    position: relative;
+    z-index: 2;
+}
+</style>
