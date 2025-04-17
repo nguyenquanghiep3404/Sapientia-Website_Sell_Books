@@ -31,19 +31,6 @@ require_once './controllers/client/checkout.php';
 require_once './controllers/client/profileController.php';
 require_once './controllers/client/ProductClientControllers.php';
 require_once './controllers/client/commentController.php';
-// require_once './controllers/client/historic.php';
-
-// require_once './controllers/client/CartsControllers.php';
-// Lấy giá trị "id" từ đường dẫn url
-// $product_id = "";
-// if (isset($_GET["id"])) {
-
-//     $product_id = $_GET["id"];}
-
-//     $product_id = $_GET["id"];
-// }    
-
-
 require_once './controllers/client/historic.php';
 
 
@@ -53,7 +40,6 @@ if (!isset($_SESSION['myCart']) || !is_array($_SESSION['myCart'])) {
 
 
 $action = isset($_GET["action"]) ? $_GET["action"] : 'client';
-
 $productAdmin = new ProductAdminController();
 $categoryAdmin = new categoryControllers();
 $loginAdmin = new loginController();
@@ -79,7 +65,7 @@ switch ($action) {
         break;
     case "update-product-status":
         $productAdmin->updateProductStatus($product_id, $status);
-        // Danh muc
+
     case "home-dm";
         $categoryAdmin->all_dm();
         break;
@@ -155,10 +141,6 @@ switch ($action) {
         $HomeClient->productDetails();
         break;
     case "CategoryProductClient":
-        // $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : null;
-        // if ($category_id === null) {
-        //     die("Danh mục không hợp lệ. Vui lòng chọn một danh mục!");
-        // }
         $HomeClient->categoryProductClient();
         break;
     case 'show_checkout';

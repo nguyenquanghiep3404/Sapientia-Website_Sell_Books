@@ -1,4 +1,53 @@
 <style>
+    :root {
+        --primary-color: #dc3545;
+        --primary-hover: #bb2d3b;
+        --sidebar-width: 280px;
+    }
+    
+    body {
+        background-color: #f8f9fa;
+    }
+    
+    #sidebar {
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .brand {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .brand-text {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    .brand img {
+        height: 40px;
+    }
+    
+    .side-menu li.active a {
+        color: var(--primary-color);
+        border-left: 4px solid var(--primary-color);
+        background-color: rgba(220, 53, 69, 0.1);
+    }
+    
+    .side-menu li.active a {
+        color: var(--primary-color);
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .side-menu li a:hover {
+        color: var(--primary-color);
+    }
+    
+    .nav-link {
+        transition: all 0.3s ease;
+    }
     #file-info {
         display: none;
     }
@@ -109,56 +158,123 @@
     .err {
         font-size: 0.9em;
     }
+    #sidebar {
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .brand {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .brand img {
+        height: 40px;
+    }
+    
+    .side-menu li.active a {
+        color: var(--primary-color);
+        border-left: 4px solid var(--primary-color);
+        background-color: rgba(220, 53, 69, 0.1);
+    }
+    
+    .side-menu li a:hover {
+        color: var(--primary-color);
+    }
+    
+    .side-menu.top {
+        border-bottom: 1px solid #eee;
+    }
+    
+    .logout:hover {
+        color: var(--primary-color) !important;
+    }
+    
+    nav {
+        background-color: var(--primary-color);
+    }
+    
+    .nav-link, .search-btn, .switch-mode, .notification {
+        color: white !important;
+    }
+    
+    .form-input input {
+        border: 1px solid rgba(255,255,255,0.3);
+        background-color: rgba(255,255,255,0.2);
+        color: white;
+    }
+    
+    .form-input input::placeholder {
+        color: rgba(255,255,255,0.7);
+    }
+    
+    .header_account a {
+        color: white !important;
+    }
+    
+    .dropdown_account_link {
+        background-color: white;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .dropdown_account_link li a:hover {
+        color: var(--primary-color) !important;
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <?php include('./views/admin/layout/header.php'); ?>
+<!-- Phần sidebar mới với theme đỏ -->
 <section id="sidebar">
     <a href="index.php" class="brand">
-        <img src="../uploads/logo_owenstore.svg" alt="">
+        <img src="../uploads/logo_owenstore.svg" alt="" class="brand-logo">
+        <span class="brand-text">OwenStore Admin</span>
     </a>
     <ul class="side-menu top">
         <li>
-            <a href="index.php?action=admin">
+            <a href="index.php?action=admin" class="nav-link">
                 <i class='bx bxs-home'></i>
                 <span class="text">Trang Chủ</span>
             </a>
         </li>
         <li>
-            <a href="index.php?action=home-dm">
+            <a href="index.php?action=home-dm" class="nav-link">
                 <i class='bx bxs-category-alt'></i>
                 <span class="text">Danh Mục</span>
             </a>
         </li>
         <li class="active">
-            <a href="index.php?action=product">
+            <a href="index.php?action=product" class="nav-link">
                 <i class='bx bxs-window-alt'></i>
                 <span class="text">Sản Phẩm</span>
             </a>
         </li>
         <li>
-            <a href="index.php?action=listOrders">
+            <a href="index.php?action=listOrders" class="nav-link">
                 <i class='bx bxs-calendar-check'></i>
                 <span class="text">Đơn Hàng</span>
             </a>
         </li>
         <li>
-            <a href="index.php?action=showComment">
+            <a href="index.php?action=showComment" class="nav-link">
                 <i class='bx bxs-chat'></i>
                 <span class="text">Phản Hồi</span>
             </a>
         </li>
         <li>
-            <a href="index.php?action=all_register">
+            <a href="index.php?action=all_register" class="nav-link">
                 <i class='bx bxs-group'></i>
                 <span class="text">Tài Khoản</span>
             </a>
         </li>
-
-
     </ul>
     <ul class="side-menu">
         <li>
-            <a href="index.php?action=logout" class="logout">
+            <a href="index.php?action=logout" class="logout nav-link">
                 <i class='bx bxs-log-out-circle'></i>
                 <span class="text">Đăng Xuất</span>
             </a>
@@ -166,6 +282,7 @@
     </ul>
 </section>
 
+<!-- Giữ nguyên phần content và form thêm sản phẩm -->
 <section id="content">
     <nav>
         <i class='bx bx-menu'></i>

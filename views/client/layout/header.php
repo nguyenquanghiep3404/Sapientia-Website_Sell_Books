@@ -750,71 +750,15 @@ footer {
 </head>
 
 <body>
-<!--offcanvas menu area start-->
-<div class="body_overlay">
 
-</div>
-<div class="offcanvas_menu">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="offcanvas_menu_wrapper">
-                    <div class="canvas_close">
-                        <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
-                    </div>
-                    <div class="header_contact_info">
-                        <ul class="d-flex">
-                            <li class="text-white"> <i class="icons icon-phone"></i> <a href="tel:+05483716566">+054 8371 65 66</a></li>
-                            <li class="text-white"> <i class="icon-envelope-letter icons"></i> <a href="#">uthrstore@domain.com</a></li>
-                        </ul>
-                    </div>
-                    <div class="header_social d-flex">
-                        <span>Follow us</span>
-                        <ul class="d-flex">
-                            <li><a href="#"><i class="icon-social-twitter icons"></i></a></li>
-                            <li><a href="#"><i class="icon-social-facebook icons"></i></a></li>
-                            <li><a href="#"><i class="icon-social-instagram icons"></i></a></li>
-                            <li><a href="#"><i class="icon-social-youtube icons"></i></a></li>
-                            <li><a href="#"><i class="icon-social-pinterest icons"></i></a></li>
-                        </ul>
-                    </div>
-                    
-                    <div id="menu" class="text-left ">
-                        <ul class="offcanvas_main_menu">
-                            <li class="menu-item-has-children active">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="shop.html">Shop</a>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="product-details.html"> Book Details</a>
-                            </li>
-                            <li><a href="#">sale</a></li>
-                            <li class="menu-item-has-children">
-                                <a href="#">pages </a>
-                                <ul class="sub-menu">
-                                    <li><a href="cart.html">cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="#">blog</a>
-                                <ul class="sub-menu">
-                                    <li><a href="blog.html">blog</a></li>
-                                    <li><a href="blog-details.html">blog details</a></li>
-                                </ul>
-
-                            </li>
-                            <li><a href="#">buy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+<div id="page-loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: white; z-index: 9999; display: flex; justify-content: center; align-items: center;">
+        <div class="loading-animation">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
-</div>
-<!--offcanvas menu area end-->
 
 <!--header area start-->
 <header class="header_section border-bottom">
@@ -838,9 +782,9 @@ footer {
                                     <li><a href="?action=client">Trang chủ</a> </li>
                                     <li><a href="###">Giới thiệu</a></li>
                                     <li><a href="?action=CategoryProductClient">Sách</a>
-                                        <ul class="sub_menu">
+                                        <ul class="sub_menu" >
                                             <li>
-                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">DANH MỤC SÁCH</a>
+                                            <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">Tất cả sách</a>
                                             <ul class="category-menu">
                                                     <ul class="widget_dropdown_categories collapse show" id="men">
                                                         <?php foreach ($listCategories as $category): ?>

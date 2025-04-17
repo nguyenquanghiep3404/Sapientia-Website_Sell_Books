@@ -19,8 +19,8 @@ class HomeClientControllers {
     public function home(){
         $listCategories = $this->productQuery->getAllCategories();
         $listProductLastes = $this->productQuery->getTop4ProductLastes();
-        $aophao = $this->productQuery->get_products_by_category_aophao(14);
-        $aolen = $this->productQuery->get_products_by_category_aolen(17);
+        $kinhte = $this->productQuery->get_products_by_category_kinhte(25);
+        $aolen = $this->productQuery->get_products_by_category_thieunhi(28);
         // var_dump($aophao) ;
         require_once './views/client/dashboardClient.php';
     }
