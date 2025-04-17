@@ -87,9 +87,8 @@ $filteredProducts = $category_id
                                                 </a>
                                             </h4>
                                             <div class="price_box">
-                                                <span class="current_price"><?= number_format($product['price'], 0, ',', '.') ?>đ</span>
-                                                <?= number_format($product->sale_price ?? 0, 0, ',', '.') ?>đ
-
+                                                <span class="current_price"><?= number_format($product['sale_price'], 0, ',', '.') ?>đ</span>
+                                                <span class="old_price"><?= number_format($product['price'], 0, ',', '.') ?>đ</span>
                                             </div>
                                             <div class="add_to_cart">
                                             <a class="btn btn-primary" href="<?='?action=product-details&product_id='.$product['product_id']?>" >Mua ngay</a>
@@ -142,6 +141,83 @@ $filteredProducts = $category_id
         </div>
     </div>
     <!--shop  area end-->
+    <style>
+        /* Đảm bảo container ảnh có tỷ lệ cố định */
+.product_thumb {
+    height: 300px; /* Chiều cao cố định */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Xử lý ảnh hiển thị đồng nhất */
+.product_thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ảnh sẽ cover toàn bộ container */
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Hiệu ứng phóng to ảnh khi hover */
+.product_thumb:hover img {
+    transform: scale(1.05);
+}
+* Sử dụng flexbox để cân bằng chiều cao */
+.shop_wrapper .col-lg-4 {
+    display: flex;
+}
+
+.single_product {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px; /* Khoảng cách giữa các hàng */
+}
+
+.product_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.product_name {
+    min-height: 48px; /* Chiều cao tối thiểu cho tên sản phẩm */
+    margin-bottom: 8px;
+}
+
+.price_box {
+    margin-top: auto; /* Đẩy giá xuống dưới cùng */
+}
+.shop_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px; /* Bù trừ padding */
+}
+
+.shop_wrapper > [class*="col-"] {
+    padding: 15px; /* Khoảng cách giữa các sản phẩm */
+    display: flex;
+}@media (max-width: 767px) {
+    .product_thumb {
+        height: 200px; /* Giảm chiều cao ảnh trên mobile */
+    }
+    
+    .product_name {
+        font-size: 14px;
+        min-height: 40px;
+    }
+    
+    .price_box {
+        font-size: 14px;
+    }
+    
+    .add_to_cart .btn {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+}
+    </style>
     <?php include './views/client/layout/miniCart.php' ?>
     <?php include ('./views/client/layout/footer.php'); ?>
 

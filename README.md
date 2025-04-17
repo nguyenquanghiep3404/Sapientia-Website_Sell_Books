@@ -1,5 +1,9 @@
 # Sapientia Website - Sell Books
 
+<p align="center">
+  <img src="public/client/assets/img/logo/logo.png" alt="Sapientia Logo" width="200"/>
+</p>
+
 Đây là dự án website bán sách được xây dựng bằng PHP thuần, sử dụng mô hình MVC (Model-View-Controller). --github.com/nguyenquanghiep3404
 
 ## Cấu trúc dự án

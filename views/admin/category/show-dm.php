@@ -1,5 +1,5 @@
 
-<?php include ('./views/admin/layout/header.php'); ?>
+<?php include('./views/admin/layout/header.php'); ?>
 <style>
     /* Custom Red Theme */
     :root {
@@ -57,11 +57,45 @@
         color: var(--primary-color) !important;
         border-left: 4px solid var(--primary-color);
     }
+    .brand {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .brand-logo {
+        height: 40px;
+    }
+    
+    .brand-text {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .side-menu li.active a {
+        background: var(--light-red);
+        color: var(--primary-color) !important;
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .side-menu li a:hover {
+        color: var(--primary-color);
+    }
+    
+    .nav-link {
+        transition: all 0.3s ease;
+    }
+    nav{
+        background-color: var(--primary-color);
+    }
 </style>
 
 <section id="sidebar">
-    <a href="index.php" class="brand">
-        <img src="../uploads/logo_owenstore.svg" alt="">
+<a href="index.php" class="brand">
+        <img src="../uploads/logo_owenstore.svg" alt="" class="brand-logo">
+        <span class="brand-text">Sapientia Admin</span>
     </a>
     <ul class="side-menu top">
         <li>
@@ -136,15 +170,15 @@
                                         <a href="#"><i class="icon-user icons"></i> Tài Khoản</a>
                                         <ul class="dropdown_account_link">
                                             <?php if (isset($_SESSION['name'])) { ?>
-                                                <li><a href="?action=profile"><i class="fas fa-user-circle"></i> Xin Chào <?= ($_SESSION['name']['name']) ?>!</a></li>
-                                                <li><a href="?action=profile"><i class="fas fa-user-cog"></i> Quản Lý Tài Khoản</a></li>
-                                                <?php if ($_SESSION['role_id'] == 0) { // Quản trị viên ?>
-                                                    <li><a href="?action=admin"><i class="fas fa-tools"></i> Truy Cập Trang Admin</a></li>
-                                                <?php } ?>
-                                                <li><a href="?action=logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a></li>
+                                                    <li><a href="?action=profile"><i class="fas fa-user-circle"></i> Xin Chào <?= ($_SESSION['name']['name']) ?>!</a></li>
+                                                    <li><a href="?action=profile"><i class="fas fa-user-cog"></i> Quản Lý Tài Khoản</a></li>
+                                                    <?php if ($_SESSION['role_id'] == 0) { // Quản trị viên ?>
+                                                            <li><a href="?action=admin"><i class="fas fa-tools"></i> Truy Cập Trang Admin</a></li>
+                                                    <?php } ?>
+                                                    <li><a href="?action=logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a></li>
                                             <?php } else { ?>
-                                                <li><a href="?action=login"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</a></li>
-                                                <li><a href="?action=register"><i class="fas fa-user-plus"></i> Đăng Kí</a></li>
+                                                    <li><a href="?action=login"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</a></li>
+                                                    <li><a href="?action=register"><i class="fas fa-user-plus"></i> Đăng Kí</a></li>
                                             <?php } ?>
                                         </ul>
                                     </li>
@@ -179,35 +213,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($cate as $cates) { ?>
-                            <tr>
-                                <td class="fw-bold">#<?= $cates['category_id'] ?></td>
-                                <td><?= $cates['name'] ?></td>
-                                <td class="text-muted"><?= $cates['description'] ?></td>
-                                <td>
-                                    <span class="<?= $cates['status'] == 1 ? 'status-active' : 'status-inactive' ?>">
-                                        <?= $cates['status'] == 1 ? 'Hiển thị' : 'Ẩn' ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="?action=update-dm&id=<?= $cates['category_id'] ?>" 
-                                           class="btn btn-sm btn-warning text-white">
-                                            <i class='bx bx-edit'></i>
-                                        </a>
-                                        <a href="?action=hide-dm&id=<?= $cates['category_id'] ?>" 
-                                           onclick="return confirm('Bạn chắc chắn muốn ẩn?')" 
-                                           class="btn btn-sm btn-danger">
-                                            <i class='bx bx-hide'></i>
-                                        </a>
-                                        <a href="?action=show-dm&id=<?= $cates['category_id'] ?>" 
-                                           onclick="return confirm('Bạn muốn hiển thị lại?')" 
-                                           class="btn btn-sm btn-success">
-                                            <i class='bx bx-show'></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?php foreach ($cate as $cates) { ?>
+                                <tr>
+                                    <td class="fw-bold">#<?= $cates['category_id'] ?></td>
+                                    <td><?= $cates['name'] ?></td>
+                                    <td class="text-muted"><?= $cates['description'] ?></td>
+                                    <td>
+                                        <span class="<?= $cates['status'] == 1 ? 'status-active' : 'status-inactive' ?>">
+                                            <?= $cates['status'] == 1 ? 'Hiển thị' : 'Ẩn' ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="?action=update-dm&id=<?= $cates['category_id'] ?>" 
+                                               class="btn btn-sm btn-warning text-white">
+                                                <i class='bx bx-edit'></i>
+                                            </a>
+                                            <a href="?action=hide-dm&id=<?= $cates['category_id'] ?>" 
+                                               onclick="return confirm('Bạn chắc chắn muốn ẩn?')" 
+                                               class="btn btn-sm btn-danger">
+                                                <i class='bx bx-hide'></i>
+                                            </a>
+                                            <a href="?action=show-dm&id=<?= $cates['category_id'] ?>" 
+                                               onclick="return confirm('Bạn muốn hiển thị lại?')" 
+                                               class="btn btn-sm btn-success">
+                                                <i class='bx bx-show'></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -217,4 +251,4 @@
     </div>
 </section>
 
-<?php include ('./views/admin/layout/footer.php'); ?>
+<?php include('./views/admin/layout/footer.php'); ?>
