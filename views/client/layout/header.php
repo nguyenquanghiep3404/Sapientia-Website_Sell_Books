@@ -249,6 +249,7 @@ body {
 .single_slider {
   position: relative;
   overflow: hidden;
+  min-height: 60vh !important;
 }
 
 .single_slider::before {
@@ -258,7 +259,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+ 
   z-index: 1;
 }
 
@@ -817,37 +818,7 @@ footer {
 
 <!--header area start-->
 <header class="header_section border-bottom">
-    <div class="header_top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="header_top_inner d-flex justify-content-between align-items-center">
-                        <div class="header_contact_info">
-                            <ul class="d-flex">
-                                <li class="text-white"> <i class="icons icon-phone"></i> <a href="tel:+05483716566">18001888</a></li>
-                                <li class="text-white"> <i class="icon-envelope-letter icons"></i> <a href="#">codex.mendoza@cm.com</a></li>
-                            </ul>
-                        </div>
-                        <div class="free_shipping_text">
-                            <p class="text-white">Miễn phí vận chuyển trên toàn quốc cho đơn hàng trên 1 triệu đồng <a href="#">Learn More</a></p>
-                        </div>
-                        <div class="header_top_sidebar d-flex align-items-center">
-                            <div class="header_social d-flex">
-                                <span>Follow us</span>
-                                <ul class="d-flex">
-                                    <li><a href="#"><i class="icon-social-twitter icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-facebook icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-instagram icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-youtube icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-pinterest icons"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <div class="main_header">
         <div class="container-fluid">
