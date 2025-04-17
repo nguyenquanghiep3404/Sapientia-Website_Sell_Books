@@ -237,7 +237,8 @@
                             <li><a href="?action=profile"><i class="fas fa-user-circle"></i> Xin Chào
                                     <?= ($_SESSION['name']['name']) ?>!</a></li>
                             <li><a href="?action=profile"><i class="fas fa-user-cog"></i> Quản Lý Tài Khoản</a></li>
-                            <?php if ($_SESSION['role_id'] == 0) { // Quản trị viên ?>
+                            <?php if ($_SESSION['role_id'] == 0) { // Quản trị viên 
+                            ?>
                                 <li><a href="?action=admin"><i class="fas fa-tools"></i> Truy Cập Trang Admin</a></li>
                             <?php } ?>
                             <li><a href="?action=logout"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a></li>
@@ -312,7 +313,7 @@
                     <textarea id="product_description" name="product_description" class="form-control"
                         rows="5"><?= htmlspecialchars($one[0]['description']) ?></textarea>
                 </div>
-
+                <!-- <?php var_dump($variant) ?> -->
                 <div class="form-group mb-3">
                     <h4>Biến Thể Hiện Tại</h4>
                     <div id="variant_list">
@@ -321,27 +322,29 @@
                                 <div class="variant_item mb-3">
                                     <label>Định dạng</label>
                                     <input type="text" name="variant_format[]" class="form-control"
-                                        value="<?= htmlspecialchars($variants['format']) ?>"> 
-                                    <label>Số Lượng</label>
+                                        value="<?= htmlspecialchars($variants['format'] ?? '') ?>">
+
                                     <input type="number" name="variant_quantity[]" class="form-control"
-                                        value="<?= htmlspecialchars($variants['quantity']) ?>">
+                                        value="<?= htmlspecialchars($variants['quantity'] ?? '') ?>">
 
-                                    <label>Giá</label>
                                     <input type="number" min="0" name="product_price[]" class="form-control"
-                                        value="<?= htmlspecialchars($variants['price']) ?>" placeholder="Giá">
+                                        value="<?= htmlspecialchars($variants['price'] ?? '') ?>" placeholder="Giá">
 
-                                    <label>Giá khuyến mãi</label>
                                     <input type="number" min="0" name="product_sale_price[]" class="form-control"
-                                        value="<?= htmlspecialchars($variants['sale_price']) ?>" placeholder="Giá khuyến mãi">
+                                        value="<?= htmlspecialchars($variants['sale_price'] ?? '') ?>" placeholder="Giá khuyến mãi">
 
                                     <input type="hidden" name="variant_id[]"
-                                        value="<?= htmlspecialchars($variants['product_variant_id']) ?>">
 
-                                    <a href="?action=product-form-edit&id=<?= $id ?>&delete_variant=<?= $variants['product_variant_id'] ?>"
+                                        value="<?= htmlspecialchars($variants['variant_id']) ?>">
+
+                                    <a href="?action=product-form-edit&id=<?= $id ?>&delete_variant=<?= $variants['variant_id'] ?>"
+
                                         class="btn btn-danger btn-sm mt-2"
                                         onclick="return confirm('Bạn có chắc chắn muốn xóa biến thể này?')">
                                         <i class="fas fa-trash-alt"></i> Xóa
                                     </a>
+
+
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -371,11 +374,11 @@
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const addVariantButton = document.getElementById('add_variant');
         const newVariantsContainer = document.getElementById('new-variants-container');
 
-        addVariantButton.addEventListener('click', function () {
+        addVariantButton.addEventListener('click', function() {
             const newVariantItem = document.createElement('div');
             newVariantItem.classList.add('variant_item', 'mb-3');
 
@@ -398,7 +401,7 @@
             newVariantsContainer.appendChild(newVariantItem);
         });
 
-        newVariantsContainer.addEventListener('click', function (e) {
+        newVariantsContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove_new_variant')) {
                 e.target.parentElement.remove();
             }
@@ -406,7 +409,7 @@
 
         // Ensure quantity and price inputs are not negative
         document.querySelectorAll('input[type="number"]').forEach(input => {
-            input.addEventListener('input', function () {
+            input.addEventListener('input', function() {
                 if (this.value < 0) {
                     this.value = 0;
                 }

@@ -258,6 +258,7 @@ body {
 .single_slider {
   position: relative;
   overflow: hidden;
+  min-height: 60vh !important;
 }
 
 .single_slider::before {
@@ -267,7 +268,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+ 
   z-index: 1;
 }
 
@@ -804,10 +805,10 @@ footer {
                                     <a href="#">Giới thiệu</a>
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a href="?action=CategoryProductClient">Sản phẩm</a>
+                                    <a href="?action=CategoryProductClient">Sách</a>
                                     <ul class="sub-menu">
                                         <li>
-                                            <a class="category-title" href="?action=CategoryProductClient">Áo Nam</a>
+                                            <a class="category-title" href="?action=CategoryProductClient">SÁCH</a>
                                             <ul class="category-menu">
                                                 <ul class="widget_dropdown_categories collapse show" id="men">
                                                     <?php foreach ($listCategories as $category): ?>
@@ -838,39 +839,7 @@ footer {
 
     <!--header area start-->
     <header class="header_section header_transparent">
-        <div class="header_top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="header_top_inner d-flex justify-content-between align-items-center">
-                            <div class="header_contact_info">
-                                <ul class="d-flex">
-                                    <li class="text-white"> <i class="icons icon-phone"></i> <a href="tel:+05483716566">18001888</a></li>
-                                    <li class="text-white"> <i class="icon-envelope-letter icons"></i> <a href="#">codex.mendoza@cm.com</a></li>
-                                </ul>
-                            </div>
-                            <div class="free_shipping_text">
-                                <p class="text-white">Miễn phí vận chuyển trên toàn quốc cho đơn hàng trên 1 triệu đồng
-                                    <a href="#">Tìm hiểu thêm</a>
-                                </p>
-                            </div>
-                            <div class="header_top_sidebar d-flex align-items-center">
-                                <div class="header_social d-flex">
-                                    <span>Follow us</span>
-                                    <ul class="d-flex">
-                                        <li><a href="#"><i class="icon-social-twitter icons"></i></a></li>
-                                        <li><a href="#"><i class="icon-social-facebook icons"></i></a></li>
-                                        <li><a href="#"><i class="icon-social-instagram icons"></i></a></li>
-                                        <li><a href="#"><i class="icon-social-youtube icons"></i></a></li>
-                                        <li><a href="#"><i class="icon-social-pinterest icons"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="main_header">
             <div class="container-fluid">
@@ -892,10 +861,10 @@ footer {
                                         <li><a class="active" href="?action=client">Trang chủ</a></li>
                                         <li><a href="#">Giới thiệu</a></li>
                                         <li>
-                                            <a href="?action=CategoryProductClient">Sản phẩm</a>
+                                            <a href="?action=CategoryProductClient">Sách</a>
                                             <ul class="sub_menu">
                                                 <li>
-                                                    <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">Áo Nam</a>
+                                                    <a class="category-title" href="?action=CategoryProductClient" style="font-size: 20px; text-decoration: underline;">DANH MỤC SÁCH :</a>
                                                     <ul class="category-menu">
                                                         <ul class="widget_dropdown_categories collapse show" id="men">
                                                             <?php foreach ($listCategories as $category): ?>
@@ -961,7 +930,7 @@ footer {
                 <i class="ion-close-round"></i>
             </div>
             <form class="border-bottom" action="?action=timkiemsanpham" method="POST">
-                <input class="border-0" name="kyw" placeholder="Tìm kiếm sản phẩm..." type="text">
+                <input class="border-0" name="kyw" placeholder="Tìm kiếm sách..." type="text">
                 <button type="submit"><span class="icon-magnifier icons"></span></button>
             </form>
         </div>
@@ -969,7 +938,7 @@ footer {
     <!--header area end-->
 
     <!--slider area start-->
-    <section class="slider_section mb-63">
+    <section class="slider_section mb-63" >
         <div class="slider_area slick_slider_activation" data-slick='{
             "slidesToShow": 1,
             "slidesToScroll": 1,
@@ -979,45 +948,11 @@ footer {
             "speed": 800,
             "infinite": true
         }'>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slider1.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="slider_text">
-                                <span class="animate__animated animate__fadeInDown">Sản phẩm mới</span>
-                                <h1 class="text-white fw-bold animate__animated animate__fadeInUp">FALL WINTER COLLECTION</h1>
-                                <p class="text-white animate__animated animate__fadeInUp">Nhập mã "WINTER100" - Giảm thêm 100K cho đơn từ 950K</p>
-                                <a class="btn btn-primary btn-hover-effect animate__animated animate__fadeInUp" href="shop.html">KHÁM PHÁ NGAY</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/z6496613755618_108adfef4817a49e87c1dfe38743b4ab.jpg">
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slider2.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="slider_text">
-                                <h1 class="text-white fw-bold animate__animated animate__fadeInUp">PANTS COLLECTION</h1>
-                                <p class="text-white animate__animated animate__fadeInUp">Nhập mã "WINTER100" - Giảm thêm 100K cho đơn từ 950K</p>
-                                <a class="btn btn-primary btn-hover-effect animate__animated animate__fadeInUp" href="shop.html">KHÁM PHÁ NGAY</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/bg/nbg5.png">
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slider3.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="slider_text">
-                                <h1 class="text-white fw-bold animate__animated animate__fadeInUp">KEEP WARM FOR WINTER</h1>
-                                <p class="text-white animate__animated animate__fadeInUp">Nhập mã "WINTER50" - Giảm thêm 50K cho đơn từ 550K</p>
-                                <a class="btn btn-primary btn-hover-effect animate__animated animate__fadeInUp" href="shop.html">KHÁM PHÁ NGAY</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slide-4.jpg">
             </div>
         </div>
     </section>
@@ -1035,7 +970,7 @@ footer {
                             </div>
                             <div class="shipping_text">
                                 <h3>Miễn phí vẫn chuyển</h3>
-                                <p>Cho đơn tổng 1 triệu đồng</p>
+                                <p>Cho đơn tổng 300 nghìn đồng</p>
                             </div>
                         </div>
                         <div class="single_shipping d-flex align-items-center wow fadeInUp" data-wow-delay="0.2s">
@@ -1043,8 +978,8 @@ footer {
                                 <i class="icon-reload icons"></i>
                             </div>
                             <div class="shipping_text">
-                                <h3>Đổi trả</h3>
-                                <p>Trong 3 ngày nguyên tem mác</p>
+                                <h3>Đổi mới sản phẩm</h3>
+                                <p>Trong 3 ngày do lỗi nhà sản xuất</p>
                             </div>
                         </div>
                         <div class="single_shipping d-flex align-items-center wow fadeInUp" data-wow-delay="0.3s">

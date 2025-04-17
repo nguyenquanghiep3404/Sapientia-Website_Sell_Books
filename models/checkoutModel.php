@@ -33,6 +33,7 @@ class checkoutModel{
     $this->conn->exec($sql);
 }
 
+
     
 
     public function __destruct()

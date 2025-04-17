@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ob_start();
 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -52,7 +52,8 @@ if (!isset($_SESSION['myCart']) || !is_array($_SESSION['myCart'])) {
 }
 
 
-$action = isset($_GET["action"]) ? $_GET["action"] :'client';
+$action = isset($_GET["action"]) ? $_GET["action"] : 'client';
+
 $productAdmin = new ProductAdminController();
 $categoryAdmin = new categoryControllers();
 $loginAdmin = new loginController();
@@ -78,7 +79,7 @@ switch ($action) {
         break;
     case "update-product-status":
         $productAdmin->updateProductStatus($product_id, $status);
-    // Danh muc
+        // Danh muc
     case "home-dm";
         $categoryAdmin->all_dm();
         break;
@@ -121,6 +122,15 @@ switch ($action) {
     case "all_register":
         $registerAdmin->all_register();
         break;
+    case "update_role":
+        $registerAdmin->update_role();
+        break;
+    case "editUser":
+        $registerAdmin->edit_user();
+        break;
+    case "edit_user_post":
+        $registerAdmin->edit_user_post();
+        break;
     case "delete":
         $registerAdmin->delete();
         break;
@@ -132,12 +142,12 @@ switch ($action) {
         $HomeClient->addToCart();
         break;
     case "update_cart_quantity":
-            $HomeClient->updateCartQuantity();
-            break;
+        $HomeClient->updateCartQuantity();
+        break;
     // Xóa sản phẩm khỏi giỏ hàng
     case "remove_cart_item":
-            $HomeClient->removeCartItem();
-            break;
+        $HomeClient->removeCartItem();
+        break;
     case "product-details":
         $HomeClient->productDetails();
         break;
@@ -203,11 +213,11 @@ switch ($action) {
         http_response_code(404);
         require_once "./views/404page.php";
         break;
-    case 'mb':
+    case 'qr':
         include '.\views\client\Mbbank.php';
         break;
-
-    }
-    
-    
-?>
+    // hủy đơn hàng 
+    case 'cancelOrder':
+        $historicClient->cancelOrder();
+        break;
+}

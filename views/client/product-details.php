@@ -1,5 +1,79 @@
 <?php include ('./views/client/layout/header.php'); ?>
 <!-- <?php var_dump($variant) ?> -->
+<?php
+// Hiển thị thông báo lỗi nếu có
+if (isset($_SESSION['error'])) {
+    $error_message = $_SESSION['error'];
+    unset($_SESSION['error']); // Xóa session error sau khi đã lấy
+}
+?>
+<!-- Popup thông báo lỗi -->
+<?php if (!empty($error_message)): ?>
+<div class="error-popup" id="errorPopup">
+    <div class="error-content">
+        <span class="close-btn" onclick="closeErrorPopup()">&times;</span>
+        <p><?php echo htmlspecialchars($error_message); ?></p>
+    </div>
+</div>
+<?php endif; ?>
+
+<style>
+.error-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 300px;
+    background: #ffebee;
+    border: 1px solid #ffcdd2;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    animation: slideIn 0.3s ease-out;
+}
+
+.error-content {
+    position: relative;
+    color: #d32f2f;
+}
+
+.close-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #d32f2f;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+</style>
+<script>
+// Tự động đóng thông báo sau 5 giây
+setTimeout(function() {
+    const errorPopup = document.getElementById('errorPopup');
+    if (errorPopup) {
+        errorPopup.style.display = 'none';
+    }
+}, 5000);
+
+// Hàm đóng thông báo khi click nút ×
+function closeErrorPopup() {
+    const errorPopup = document.getElementById('errorPopup');
+    if (errorPopup) {
+        errorPopup.style.display = 'none';
+    }
+}
+</script>
     <div class="breadcrumbs_area breadcrumbs_product">
         <div class="container">
             <div class="row">
@@ -153,61 +227,202 @@
                         </div>
 
                     </div> </div> </div> </div> </section>
-    <div class="product_d_info mb-118">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="product_d_inner">
-                        <div class="product_info_button border-bottom">
-                            <ul class="nav" role="tablist">
-                                <li>
-                                    <a class="active" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Bình luận</a>
-                                </li>
-                                </ul>
-                        </div>
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="reviews" role="tabpanel" >
-                                <div class="reviews_wrapper">
-                                    <h2>Bình luận về sản phẩm</h2>
-                                    <?php if (!empty($allComment) && is_array($allComment)): // Kiểm tra có bình luận và là mảng không ?>
+                    <div class="product_d_info mb-118">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product_d_inner">
+                    <div class="product_info_button border-bottom">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Đánh giá & Bình luận</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="reviews" role="tabpanel">
+                            <div class="reviews_wrapper">
+                                <!-- Phần Đánh giá -->
+                                <div class="mb-5">
+                                    <h3 class="mb-4 border-bottom pb-2 text-danger"><i class="fas fa-star mr-2"></i>Đánh giá sản phẩm</h3>
+                                    
+                                    <?php if (!empty($allComment) && is_array($allComment)) : ?>
                                         <?php foreach ($allComment as $item) : ?>
-                                        <div class="reviews_comment_box d-flex align-items-start mb-4 p-3 bg-light rounded shadow-sm">
-                                            <div class="comment_text w-100">
-                                                <div class="reviews_meta mb-2">
-                                                    <strong class="mr-2"><?= htmlspecialchars($item['name']) // Tên người bình luận ?></strong>
-                                                    <span class="text-muted small">- Ngày: <?= date("d/m/Y H:i", strtotime($item['create_at'])) ?></span>
+                                            <?php if (!empty($item['rating'])) : ?>
+                                            <div class="card mb-3 border-danger">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-start">
+                                                        <div class="mr-3">
+                                                            <div class="avatar rounded-circle bg-danger text-white d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                                                <?= strtoupper(substr($item['name'], 0, 1)) ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-100">
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <h5 class="mb-0"><?= htmlspecialchars($item['name']) ?></h5>
+                                                                <small class="text-muted"><?= date("d/m/Y H:i", strtotime($item['create_at'])) ?></small>
+                                                            </div>
+                                                            <div class="star_rating mb-2">
+                                                                <?php
+                                                                $rating = (int)$item['rating'];
+                                                                for ($i = 1; $i <= 5; $i++) {
+                                                                    $color = $i <= $rating ? 'text-warning' : 'text-secondary';
+                                                                    echo "<i class='fas fa-star {$color}'></i>";
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <p class="mb-0"><?= nl2br(htmlspecialchars($item['comment'])) ?></p>
+                                                        </div>
                                                     </div>
-                                                <p class="mb-0"><?= nl2br(htmlspecialchars($item['comment'])) ?></p>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <p>Chưa có bình luận nào cho sản phẩm này.</p>
+                                    <?php else : ?>
+                                        <div class="alert alert-info">Chưa có đánh giá nào</div>
                                     <?php endif; ?>
-
-                                    <div class="product_review_form mt-4">
-                                        <div class="card shadow-sm">
-                                            <div class="card-body">
-                                                <h5 class="card-title mb-3">Gửi bình luận của bạn</h5>
-                                                <?php // Kiểm tra xem người dùng đã đăng nhập chưa trước khi hiển thị form
-                                                  // Ví dụ: if (isset($_SESSION['user_id'])) :
-                                                ?>
-                                                <form action="?action=createComment&product_id=<?= $product['product_id'] ?>" method="POST">
-                                                    <div class="mb-3">
-                                                        <label for="review_comment" class="form-label">Bình luận</label>
-                                                        <textarea name="comment" id="review_comment" class="form-control" rows="4" required></textarea>
+                                    
+                                    <!-- Form Đánh giá -->
+                                    <div class="card border-danger">
+                                        <div class="card-header bg-danger text-white">
+                                            <h5 class="mb-0"><i class="fas fa-edit mr-2"></i>Viết đánh giá</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="?action=createComment&product_id=<?= $product['product_id'] ?>" method="POST">
+                                                <div class="form-group">
+                                                    <label>Xếp hạng:</label>
+                                                    <div class="rating-stars">
+                                                        <?php for ($i = 5; $i >= 1; $i--) : ?>
+                                                            <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" required>
+                                                            <label for="star<?= $i ?>"><i class="fas fa-star"></i></label>
+                                                        <?php endfor; ?>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Gửi bình luận</button>
-                                                </form>
-                                                <?php // else: ?>
-                                                     <?php // endif; ?>
-                                            </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="review_comment">Nội dung đánh giá</label>
+                                                    <textarea name="comment" class="form-control" rows="4" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-paper-plane mr-2"></i>Gửi đánh giá</button>
+                                            </form>
                                         </div>
                                     </div>
-                                </div> </div> </div> </div> </div> </div> </div> </div>
+                                </div>
+
+                                <!-- Phần Bình luận -->
+                                <!-- <div class="mt-5">
+                                    <h3 class="mb-4 border-bottom pb-2 text-danger"><i class="fas fa-comments mr-2"></i>Bình luận</h3>
+                                    
+                                    <?php if (!empty($allComment) && is_array($allComment)) : ?>
+                                        <?php foreach ($allComment as $item) : ?>
+                                            <?php if (empty($item['rating'])) : ?>
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-start">
+                                                        <div class="mr-3">
+                                                            <div class="avatar rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                                                <?= strtoupper(substr($item['name'], 0, 1)) ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-100">
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <h5 class="mb-0"><?= htmlspecialchars($item['name']) ?></h5>
+                                                                <small class="text-muted"><?= date("d/m/Y H:i", strtotime($item['create_at'])) ?></small>
+                                                            </div>
+                                                            <p class="mb-0"><?= nl2br(htmlspecialchars($item['comment'])) ?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <div class="alert alert-info">Chưa có bình luận nào</div>
+                                    <?php endif; ?>
+                                    
+                                   
+                                    <div class="card">
+                                        <div class="card-header bg-danger text-white">
+                                            <h5 class="mb-0"><i class="fas fa-comment mr-2"></i>Viết bình luận</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="?action=createComment&product_id=<?= $product['product_id'] ?>" method="POST">
+                                                <div class="form-group">
+                                                    <label for="comment_text">Nội dung bình luận</label>
+                                                    <textarea name="comment" class="form-control" rows="3" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-paper-plane mr-2"></i>Gửi bình luận</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <?php include './views/client/layout/miniCart.php' ?>
     <?php include ('./views/client/layout/footer.php'); ?>
+    <style>
+.avatar {
+    font-weight: 600;
+    font-size: 1.2em;
+}
 
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-stars input[type="radio"] {
+    display: none;
+}
+
+.rating-stars label {
+    font-size: 1.5em;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-right: 5px;
+}
+
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: #ffc107;
+}
+
+.rating-stars input[type="radio"]:checked ~ label {
+    color: #ffc107;
+}
+
+.card-header {
+    border-radius: 0.25rem 0.25rem 0 0 !important;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.border-danger {
+    border-color: #dc3545 !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy các phần tử DOM cần thiết
