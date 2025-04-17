@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Red_Theme" data-layout="vertical">
 
-
-<!-- Mirrored from bootstrapdemos.wrappixel.com/spike/dist/main/authentication-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Dec 2024 17:33:54 GMT -->
 <head>
   <!-- Required meta tags -->
   <meta charset="UTF-8" />
@@ -14,47 +12,81 @@
 
   <!-- Core Css -->
   <link rel="stylesheet" href="https://bootstrapdemos.wrappixel.com/spike/dist/assets/css/styles.css" />
-  <?php
-  // Kiểm tra nếu có thông báo lỗi
-  if (isset($_SESSION['login_error'])) {
-      $error_message = $_SESSION['login_error'];
-      unset($_SESSION['login_error']); // Xóa thông báo lỗi sau khi hiển thị
-  } else {
-      $error_message = '';
-  }
-  ?>
   <style>
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-            display: none;
-            z-index: 1000;
-        }
-    </style>
-    <script>
-        function showPopup(message) {
-            const popup = document.getElementById('popup');
-            popup.innerText = message;
-            popup.style.display = 'block';
+    :root {
+      --bs-primary: #dc3545;
+      --bs-primary-rgb: 220, 53, 69;
+      --bs-primary-dark: #bb2d3b;
+      --bs-primary-light: #f8d7da;
+    }
+    
+    .btn-primary {
+      background-color: var(--bs-primary);
+      border-color: var(--bs-primary);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--bs-primary-dark);
+      border-color: var(--bs-primary-dark);
+    }
+    
+    .text-primary {
+      color: var(--bs-primary) !important;
+    }
+    
+    .bg-primary {
+      background-color: var(--bs-primary) !important;
+    }
+    
+    .border-primary {
+      border-color: var(--bs-primary) !important;
+    }
+    
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 20px;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+      display: none;
+      z-index: 1000;
+    }
+    
+    .auth-login {
+      background: linear-gradient(135deg, #f8d7da 0%, #ffffff 100%);
+    }
+    
+    .btn-outline-primary {
+      color: var(--bs-primary);
+      border-color: var(--bs-primary);
+    }
+    
+    .btn-outline-primary:hover {
+      background-color: var(--bs-primary);
+      border-color: var(--bs-primary);
+    }
+  </style>
+  <script>
+    function showPopup(message) {
+      const popup = document.getElementById('popup');
+      popup.innerText = message;
+      popup.style.display = 'block';
 
-            // Tự động ẩn sau 3 giây
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 3000);
-        }
-    </script>
-  <title>Trang Đăng Nhập </title>
+      // Tự động ẩn sau 3 giây
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+  <title>Trang Đăng Nhập</title>
 </head>
 
 <body>
-<div class="popup" id="popup"></div>
+  <div class="popup" id="popup"></div>
   <!-- Preloader -->
   <div class="preloader">
     <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
@@ -67,7 +99,6 @@
             <a href="https://bootstrapdemos.wrappixel.com/spike/dist/main/index.html" class="">
               <img src="public/client/assets/img/logo/logo.png" class="light-logo" alt="Logo-Dark" />
               <img src="public/client/assets/img/logo/logo.png" class="dark-logo" alt="Logo-light" />
-
             </a>
             <div class="row align-items-center justify-content-around pt-6 pb-5">
               <div class="col-lg-6 col-xl-5 d-none d-lg-block">
@@ -77,47 +108,39 @@
               </div>
               <div class="col-lg-6 col-xl-5">
                 <h2 class="mb-6 fs-8 fw-bolder">Chào mừng bạn đã tới Sapientia</h2>
-                <div class="position-relative text-center my-7">
-
-                </div>
+                <div class="position-relative text-center my-7"></div>
                 <form action="?action=loginPost" method="POST">
                   <div class="mb-7">
                     <label for="email" class="form-label fw-bold">Tên Đăng Nhập</label>
                     <input type="text" class="form-control py-6" name="name" id="name" aria-describedby="emailHelp" placeholder="Nhập tên của bạn">
-                    
                   </div>
                   <div class="mb-9">
                     <label for="password" name="password" class="form-label fw-bold">Mật Khẩu</label>
                     <input type="password" class="form-control py-6" id="password" name="password" placeholder="Nhập mật khẩu của bạn">
-
                   </div>
-                  <div class="d-md-flex align-items-center justify-content-between mb-7 pb-1">
-                    
-                    
-                  </div>
-                  <button type="submit"  name="btn-login" class="btn btn-primary w-100 mb-7 rounded-pill">Đăng Nhập</button>
+                  <div class="d-md-flex align-items-center justify-content-between mb-7 pb-1"></div>
+                  <button type="submit" name="btn-login" class="btn btn-primary w-100 mb-7 rounded-pill">Đăng Nhập</button>
                   <div class="d-flex align-items-center">
                     <p class="fs-3 mb-0 fw-medium">Bạn chưa có tài khoản?</p>
                     <a class="text-primary fw-bold ms-2 fs-3" href="?action=register">Tạo Tài khoản</a>
                   </div>
                   <a href="?action=client" class="text-primary">Quay về Trang chủ</a>
                 </form>
-                <!-- phan hien thong bao -->
                 <?php if (!empty($error_message)): ?>
-                    <script>
-                        // Hiển thị popup nếu có thông báo lỗi
-                        showPopup("<?= htmlspecialchars($error_message) ?>");
-                    </script>
+                <script>
+                  // Hiển thị popup nếu có thông báo lỗi
+                  showPopup("<?= htmlspecialchars($error_message) ?>");
+                </script>
                 <?php endif; ?>
               </div>
             </div>
           </div>
         </div>
         <script>
-  function handleColorTheme(e) {
-    document.documentElement.setAttribute("data-color-theme", e);
-  }
-</script>
+          function handleColorTheme(e) {
+            document.documentElement.setAttribute("data-color-theme", e);
+          }
+        </script>
         <button class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
           <i class="icon ti ti-settings fs-7"></i>
         </button>
@@ -160,44 +183,37 @@
             <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Colors</h6>
 
             <div class="d-flex flex-row flex-wrap gap-3 customizer-box color-pallete" role="group">
+              <input type="radio" class="btn-check" name="color-theme-layout" id="Red_Theme" autocomplete="off" checked />
+              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Red_Theme')" for="Red_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="RED_THEME">
+                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #dc3545;">
+                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
+                </div>
+              </label>
+
               <input type="radio" class="btn-check" name="color-theme-layout" id="Blue_Theme" autocomplete="off" />
               <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Blue_Theme')" for="Blue_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="BLUE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-1">
+                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #0d6efd;">
                   <i class="ti ti-check text-white d-flex icon fs-5"></i>
                 </div>
               </label>
 
               <input type="radio" class="btn-check" name="color-theme-layout" id="Aqua_Theme" autocomplete="off" />
               <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Aqua_Theme')" for="Aqua_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="AQUA_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-2">
+                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #00cccc;">
                   <i class="ti ti-check text-white d-flex icon fs-5"></i>
                 </div>
               </label>
 
               <input type="radio" class="btn-check" name="color-theme-layout" id="Purple_Theme" autocomplete="off" />
               <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Purple_Theme')" for="Purple_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PURPLE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-3">
+                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #6f42c1;">
                   <i class="ti ti-check text-white d-flex icon fs-5"></i>
                 </div>
               </label>
 
               <input type="radio" class="btn-check" name="color-theme-layout" id="green-theme-layout" autocomplete="off" />
               <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Green_Theme')" for="green-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="GREEN_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-4">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-
-              <input type="radio" class="btn-check" name="color-theme-layout" id="cyan-theme-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Cyan_Theme')" for="cyan-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CYAN_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-5">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-
-              <input type="radio" class="btn-check" name="color-theme-layout" id="orange-theme-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Orange_Theme')" for="orange-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="ORANGE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-6">
+                <div class="color-box rounded-circle d-flex align-items-center justify-content-center" style="background-color: #198754;">
                   <i class="ti ti-check text-white d-flex icon fs-5"></i>
                 </div>
               </label>
@@ -279,7 +295,4 @@
   <!-- solar icons -->
   <script src="public/client/assets/cdn.jsdelivr.net/npm/iconify-icon%401.0.8/dist/iconify-icon.min.js"></script>
 </body>
-
-
-<!-- Mirrored from bootstrapdemos.wrappixel.com/spike/dist/main/authentication-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Dec 2024 17:33:55 GMT -->
 </html>

@@ -425,11 +425,11 @@
                                         <span class="checkmark"></span>
                                     </div>
                                     <label for="payment5" data-toggle="collapse" data-target="#method5">
-                                        <strong>Thanh toán qua Qr CODE</strong>
+                                        <strong>Thanh toán qua Qr CODE </strong>
                                     </label>
                                     <div id="method5" class="collapse five" data-parent="#accordion">
                                         <div class="card-body1 mt-2">
-                                            <p class="text-muted">Thanh toán trực tuyến an toàn qua VNPAY.</p>
+                                            <p class="text-muted">Quét mã trực tuyến an toàn qua VietQR.</p>
                                         </div>
                                     </div>
                                 </div>
