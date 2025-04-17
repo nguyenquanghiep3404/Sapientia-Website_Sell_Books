@@ -46,16 +46,37 @@ class OrderControllers
     }
     public function updateOrder_POST()
     {
-
-        // var_dump( $id =  $_POST['order_detail_id']);
         $id = $_GET['id'];
-        $status = $_POST['status'];
+        $newStatus = $_POST['status'];
+
+        $order = $this->orderModel->find($id);
+        $currentStatus = $order['status'];
+
+        if ($newStatus <= $currentStatus) {
+            // $_SESSION['error'] = "Không thể cập nhật lùi trạng thái!";
+            header('location:?action=listOrders');
+            return;
+        }
+
+        if ($currentStatus == 1) {
+            $_SESSION['error'] = "Đơn hàng đã bị huỷ, không thể cập nhật!";
+            header('location:?action=listOrders');
+            return;
+        }
+
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $updated_at = date('Y-m-d H:i:s');
-        $this->orderModel->updateOrder($id, $status, $updated_at);
-        // require_once './views/admin/Order/Order.php';
+        $success = $this->orderModel->updateOrder($id, $newStatus, $updated_at);
+
+        if ($success) {
+            $_SESSION['success'] = "Cập nhật trạng thái thành công.";
+        } else {
+            $_SESSION['error'] = "Có lỗi xảy ra khi cập nhật.";
+        }
+
         header('location:?action=listOrders');
     }
+
 
     // Chi tiết đơn hàng 
     public function showOrder()
@@ -74,5 +95,4 @@ class OrderControllers
         require_once './views/admin/Order/showOrderDetails.php';
         // var_dump($showOrder);
     }
-
 }

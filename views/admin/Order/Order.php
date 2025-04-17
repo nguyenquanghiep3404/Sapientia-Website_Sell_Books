@@ -112,8 +112,6 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <input type="hidden" name="order_detail_id" value="<?= $order['order_detail_id'] ?>"> -->
-
             <tr>
                 <form action="?action=updateOrderPost&id=<?= $orderEdit['order_detail_id'] ?>" method="POST">
                     <td><?= $orderEdit['order_detail_id'] ?></td>
@@ -123,24 +121,34 @@
                     <td><?= $orderEdit['address'] ?></td>
                     <td>
                         <select name="status" id="status" class="form-select">
-                            <option value="0" <?= $orderEdit['status'] == 0 ? 'selected' : '' ?>>Chờ xác nhận</option>
-                            <option value="2" <?= $orderEdit['status'] == 2 ? 'selected' : '' ?>>Đã xác nhận</option>
-                            <option value="3" <?= $orderEdit['status'] == 3 ? 'selected' : '' ?>>Đang vận chuyển</option>
-                            <option value="4" <?= $orderEdit['status'] == 4 ? 'selected' : '' ?>>Hoàn thành</option>
-                            <option value="1" <?= $orderEdit['status'] == 1 ? 'selected' : '' ?>>Đã huỷ</option> 
-                        </select>
 
+                            <option value="0" <?= $orderEdit['status'] == 0 ? 'selected' : '' ?>
+                                <?= $orderEdit['status'] >= 1 ? 'disabled' : ''; ?>>Chờ xác nhận</option>
+
+                            <option value="1" <?= $orderEdit['status'] == 1 ? 'selected' : '' ?>
+                                <?= $orderEdit['status'] >= 1 ? 'disabled' : ''; ?>>Đã huỷ</option>
+
+                            <option value="2" <?= $orderEdit['status'] == 2 ? 'selected' : '' ?>
+                                <?= $orderEdit['status'] >= 2 ? 'disabled' : ''; ?>>Đã xác nhận</option>
+
+                            <option value="3" <?= $orderEdit['status'] == 3 ? 'selected' : '' ?>
+                                <?= $orderEdit['status'] >= 3 ? 'disabled' : ''; ?>>Đang vận chuyển</option>
+
+                            <option value="4" <?= $orderEdit['status'] == 4 ? 'selected' : '' ?>
+                                <?= $orderEdit['status'] >= 4 ? 'disabled' : ''; ?>>Hoàn thành</option>
+                        </select>
                     </td>
                     <td>
-                        <?php if ($orderEdit['status'] != 4): ?>
+                        <?php if ($orderEdit['status'] != 4 && $orderEdit['status'] != 1): ?>
                             <button class="btn btn-success btn-sm">Cập nhật</button>
                         <?php else: ?>
                             <span class="text-danger">Không thể cập nhật</span>
+                            <a href="index.php?action=listOrders" class="btn btn-secondary btn-sm">Quay lại</a>
                         <?php endif; ?>
                     </td>
+
                 </form>
             </tr>
-
         </tbody>
     </table>
     <?php include('./views/admin/layout/footer.php'); ?>
