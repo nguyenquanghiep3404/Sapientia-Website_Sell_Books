@@ -16,9 +16,14 @@ class OrderModel
 
     public function updateOrder($id, $status, $updated_at)
     {
-        $sql = "UPDATE `order_details` SET `status` = '$status' , `updated_at` = '$updated_at' WHERE `order_detail_id` = '$id' ";
-        $this->conn->exec($sql);
+        $sql = "UPDATE `order_details` SET `status` = :status, `updated_at` = :updated_at WHERE `order_detail_id` = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_INT);
+        $stmt->bindParam(':updated_at', $updated_at);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
+
     public function find($id)
     {
         $sql = "SELECT * FROM `order_details` WHERE `order_details` . `order_detail_id` = '$id'";
