@@ -267,7 +267,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+ 
   z-index: 1;
 }
 
@@ -969,7 +969,7 @@ footer {
     <!--header area end-->
 
     <!--slider area start-->
-    <section class="slider_section mb-63">
+    <section class="slider_section mb-63" >
         <div class="slider_area slick_slider_activation" data-slick='{
             "slidesToShow": 1,
             "slidesToScroll": 1,
@@ -979,8 +979,8 @@ footer {
             "speed": 800,
             "infinite": true
         }'>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/bg/nbg3.jpg">
-                <div class="container">
+            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/z6496613755618_108adfef4817a49e87c1dfe38743b4ab.jpg">
+                <!-- <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="slider_text">
@@ -991,23 +991,23 @@ footer {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/bg/nbg5.png">
-                <div class="container">
+                <!-- <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="slider_text">
-                                <h1 class="text-white fw-bold animate__animated animate__fadeInUp">PANTS COLLECTION</h1>
+                                <h1 class="text-white fw-bold animate__animated animate__fadeInUp">Tủ sách văn học</h1>
                                 <p class="text-white animate__animated animate__fadeInUp">Nhập mã "WINTER100" - Giảm thêm 100K cho đơn từ 950K</p>
                                 <a class="btn btn-primary btn-hover-effect animate__animated animate__fadeInUp" href="shop.html">KHÁM PHÁ NGAY</a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/bg/nbg4.png">
-                <div class="container">
+            <div class="single_slider d-flex align-items-center" data-bgimg="public/client/assets/img/slider/slide-4.jpg">
+                <!-- <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="slider_text">
@@ -1017,7 +1017,7 @@ footer {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>

@@ -270,8 +270,8 @@
         }
     }
 </style>
-<?php var_dump($_SESSION['myCart']);
- var_dump($_SESSION['name'])?>
+<!-- <?php var_dump($_SESSION['myCart']);
+ var_dump($_SESSION['name'])?> -->
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area breadcrumbs_other">
     <div class="container">
@@ -323,24 +323,24 @@
                         <h3>Điền thông tin</h3>
                         <div class="form-group mb-4">
                             <label for="name">Tên <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name" value="<?= $showCheckout['name'] ?>" required>
+                            <input type="text" class="form-control" id="name" name="name" value="<?= $showCheckout['name'] ?>" >
                         </div>
                         <div class="form-group mb-4">
                             <label for="address">Địa chỉ người nhận <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="address" name="address" value="<?= $showCheckout['address'] ?>" required>
+                            <input type="text" class="form-control" id="address" name="address" value="<?= $showCheckout['address'] ?>" >
                         </div>
                         <div class="form-group mb-4">
                             <label for="email">Địa chỉ email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?= $showCheckout['email'] ?>" required>
+                            <input type="email" class="form-control" id="email" name="email" value="<?= $showCheckout['email'] ?>" >
                         </div>
                         <div class="form-group mb-4">
                             <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="<?= $showCheckout['phone'] ?>" required>
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?= $showCheckout['phone'] ?>" >
                         </div>
-                        <div class="form-group mb-4">
+                        <!-- <div class="form-group mb-4">
                             <label for="note">Ghi chú</label>
                             <textarea class="form-control" id="note" name="note" rows="4"></textarea>
-                        </div>
+                        </div> -->
                 </div>
                 <div class="col-lg-5 col-md-6 animate-fade-in delay-3">
                     <div class="order_table_right">
@@ -415,6 +415,21 @@
                                     <div id="method5" class="collapse five" data-parent="#accordion">
                                         <div class="card-body1 mt-2">
                                             <p class="text-muted">Thanh toán trực tuyến an toàn qua VNPAY.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="panel-default">
+                                    <div class="panel_radio">
+                                        <input id="payment5" name="check_method" type="radio" value="qr" />
+                                        <span class="checkmark"></span>
+                                    </div>
+                                    <label for="payment5" data-toggle="collapse" data-target="#method5">
+                                        <strong>Thanh toán qua Qr CODE </strong>
+                                    </label>
+                                    <div id="method5" class="collapse five" data-parent="#accordion">
+                                        <div class="card-body1 mt-2">
+                                            <p class="text-muted">Quét mã trực tuyến an toàn qua VietQR.</p>
                                         </div>
                                     </div>
                                 </div>
