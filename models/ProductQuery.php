@@ -111,12 +111,17 @@ class ProductQuery
             INNER JOIN 
                 categories AS c ON p.category_id = c.category_id
             LEFT JOIN 
-                product_variant AS pv ON p.product_id = pv.product_id
+                product_variant AS pv ON pv.product_variant_id = (
+                    SELECT MIN(pv_min.product_variant_id)
+                    FROM product_variant AS pv_min
+                    WHERE pv_min.product_id = p.product_id
+                )
             WHERE 
                 p.status = 1 
                 AND c.status = 1 
                 AND p.category_id = :category_id
         ";
+        
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -346,15 +351,17 @@ class ProductQuery
 }
 
     // lấy tất cả danh mục áo phao
-    public function get_products_by_category_aophao($category_id)
+    public function get_products_by_category_kinhte($category_id)
     {
         try {
             $sql = "
                 SELECT 
                     p.*, 
                     vp.format, 
-                 
-                    vp.quantity
+                    vp.quantity,
+                    vp.price,
+                    vp.sale_price
+                    
                 FROM 
                     products AS p
                 INNER JOIN 
@@ -391,6 +398,8 @@ class ProductQuery
                 $product->format = $row['format']; // Thêm thông tin size
                // Thêm thông tin color
                 $product->quantity = $row['quantity'];
+                $product->price = $row['price'];
+                $product->sale_price = $row['sale_price'];
                 $ds[] = $product;
             }
 
@@ -401,14 +410,15 @@ class ProductQuery
     }
 
 
-    public function get_products_by_category_aolen($category_id)
+    public function get_products_by_category_thieunhi($category_id)
     {
         try {
             $sql = "
                 SELECT 
                     p.*, 
                     vp.format, 
-                   
+                    vp.price,
+                    vp.sale_price,
                     vp.quantity
                 FROM 
                     products AS p
@@ -442,9 +452,10 @@ class ProductQuery
             $ds = [];
             // Chuyển dữ liệu sang object product
             foreach ($data as $row) {
-                $product = convertToObjectProduct($row); // Cần hàm chuyển đổi sang đối tượng Product
-                $product->format = $row['format']; // Thêm thông tin size
-                // Thêm thông tin color
+                $product = convertToObjectProduct($row); 
+                $product->format = $row['format']; 
+                $product->price = $row['price'];
+                $product->sale_price = $row['sale_price'];
                 $product->quantity = $row['quantity'];
                 $ds[] = $product;
             }
@@ -541,7 +552,11 @@ class ProductQuery
             INNER JOIN 
                 categories AS c ON p.category_id = c.category_id
             LEFT JOIN 
-                product_variant AS pv ON p.product_id = pv.product_id
+                product_variant AS pv ON pv.product_variant_id = (
+                    SELECT MIN(pv_min.product_variant_id)
+                    FROM product_variant AS pv_min
+                    WHERE pv_min.product_id = p.product_id
+                )
             WHERE 
                 p.name LIKE :keyword 
                 AND p.status = 1 
@@ -554,7 +569,7 @@ class ProductQuery
     } catch (Exception $error) {
         echo "<h1>Lỗi hàm searchProducts: " . $error->getMessage() . "</h1>";
         return [];
-    }
+    } 
 }
     public function deleteProductVariant($variant_id)
     {
@@ -572,28 +587,32 @@ class ProductQuery
     try {
         $sql = "
             SELECT 
-                products.product_id,
-                products.name AS product_name, 
-                products.image, 
-                products.description, 
-                products.category_id, 
-                products.created_at, 
-                products.updated_at, 
-                products.status, 
-                categories.name AS category_name,
-                product_variant.product_variant_id, 
-                product_variant.price AS price,
-                product_variant.sale_price AS sale_price 
+                p.product_id,
+                p.name AS product_name, 
+                p.image, 
+                p.description, 
+                p.category_id, 
+                p.created_at, 
+                p.updated_at, 
+                p.status, 
+                c.name AS category_name,
+                pv.product_variant_id, 
+                pv.price AS price,
+                pv.sale_price AS sale_price 
             FROM 
-                products 
+                products AS p
             INNER JOIN 
-                categories 
+                categories AS c 
             ON 
-                products.category_id = categories.category_id
+                p.category_id = c.category_id
             LEFT JOIN 
-                product_variant 
+                product_variant AS pv 
             ON 
-                products.product_id = product_variant.product_id
+                pv.product_variant_id = (
+                    SELECT MIN(pv_min.product_variant_id)
+                    FROM product_variant AS pv_min
+                    WHERE pv_min.product_id = p.product_id
+                )
         ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
